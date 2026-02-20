@@ -1,16 +1,9 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -18,200 +11,134 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <TargetName>WordPad</TargetName>
-    <ProjectName>WordPad</ProjectName>
-    <ProjectGUID>{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}</ProjectGUID>
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{F52A9A93-2B96-112B-316A-10A653AEE5D6}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <RootNamespace>wordpad_next</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>Dynamic</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>Dynamic</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>Dynamic</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>Dynamic</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32' and (exists('$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props'))" />
+  <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props" Condition="'$(Configuration)|$(Platform)'=='Release|Win32' and (exists('$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props'))" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props" Condition="'$(Configuration)|$(Platform)'=='Debug|X64' and (exists('$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props'))" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props" Condition="'$(Configuration)|$(Platform)'=='Release|X64' and (exists('$(LocalAppData)\Microsoft\VisualStudio\10.0\Microsoft.Cpp.$(Platform).user.props'))" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Debug\</OutDir>
-    <IntDir>.\Debug\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\$(Platform)\</OutDir>
+    <IntDir>obj\$(Platform)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Release\</OutDir>
-    <IntDir>.\Release\</IntDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>bin\$(Platform)\</OutDir>
+    <IntDir>obj\$(Platform)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
-    <OutDir>amd64\$(Configuration)\</OutDir>
-    <IntDir>amd64\$(Configuration)\</IntDir>
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
-    <OutDir>amd64\$(Configuration)\</OutDir>
-    <IntDir>amd64\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
     <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_AFXDLL;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <BufferSecurityCheck>true</BufferSecurityCheck>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <BrowseInformation>
-      </BrowseInformation>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>_AFXDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
-    </ResourceCompile>
-    <Link>
-      <AdditionalOptions>/SAFESEH</AdditionalOptions>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Midl>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>Win32</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <OmitFramePointers>true</OmitFramePointers>
-      <PreprocessorDefinitions>_AFXDLL;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <BrowseInformation>
-      </BrowseInformation>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_AFXDLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
-    <Link>
-      <AdditionalOptions>/SAFESEH</AdditionalOptions>
-      <SuppressStartupBanner>false</SuppressStartupBanner>
-      <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
-    <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_AFXDLL;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <BrowseInformation>
-      </BrowseInformation>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_AFXDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
-    <Link>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX64</TargetMachine>
-    </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
-    <Midl>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>false</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <OmitFramePointers>true</OmitFramePointers>
-      <PreprocessorDefinitions>_AFXDLL;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <BrowseInformation>
-      </BrowseInformation>
-      <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>false</TreatWarningAsError>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_AFXDLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
     <Link>
-      <SuppressStartupBanner>false</SuppressStartupBanner>
       <SubSystem>Windows</SubSystem>
-      <TargetMachine>MachineX64</TargetMachine>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="buttondi.h" />
+    <ClInclude Include="chicdial.h" />
+    <ClInclude Include="cntritem.h" />
+    <ClInclude Include="colorlis.h" />
+    <ClInclude Include="datedial.h" />
+    <ClInclude Include="ddxm.h" />
+    <ClInclude Include="docopt.h" />
+    <ClInclude Include="doctype.h" />
+    <ClInclude Include="filenewd.h" />
+    <ClInclude Include="formatba.h" />
+    <ClInclude Include="formatpa.h" />
+    <ClInclude Include="formatta.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="helpids.h" />
+    <ClInclude Include="ipframe.h" />
+    <ClInclude Include="key.h" />
+    <ClInclude Include="listdlg.h" />
+    <ClInclude Include="mainfrm.h" />
+    <ClInclude Include="mswd6_32.h" />
+    <ClInclude Include="multconv.h" />
+    <ClInclude Include="options.h" />
+    <ClInclude Include="optionsh.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="pageset.h" />
+    <ClInclude Include="penwin.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ruler.h" />
+    <ClInclude Include="splash.h" />
+    <ClInclude Include="srvritem.h" />
+    <ClInclude Include="strings.h" />
+    <ClInclude Include="unitspag.h" />
+    <ClInclude Include="wordpad.h" />
+    <ClInclude Include="wordpdoc.h" />
+    <ClInclude Include="wordpvw.h" />
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="buttondi.cpp" />
     <ClCompile Include="chicdial.cpp" />
@@ -236,83 +163,45 @@
     <ClCompile Include="ruler.cpp" />
     <ClCompile Include="splash.cpp" />
     <ClCompile Include="srvritem.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">stdafx.h</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|X64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|X64'">stdafx.h</PrecompiledHeaderFile>
-    </ClCompile>
     <ClCompile Include="strings.cpp" />
     <ClCompile Include="unitspag.cpp" />
     <ClCompile Include="wordpad.cpp" />
     <ClCompile Include="wordpdoc.cpp" />
     <ClCompile Include="wordpvw.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="buttondi.h" />
-    <CustomBuild Include="chicdial.h" />
-    <CustomBuild Include="cntritem.h" />
-    <CustomBuild Include="colorlis.h" />
-    <CustomBuild Include="datedial.h" />
-    <CustomBuild Include="ddxm.h" />
-    <CustomBuild Include="docopt.h" />
-    <CustomBuild Include="doctype.h" />
-    <CustomBuild Include="filenewd.h" />
-    <CustomBuild Include="formatba.h" />
-    <CustomBuild Include="formatpa.h" />
-    <CustomBuild Include="formatta.h" />
-    <CustomBuild Include="helpids.h" />
-    <CustomBuild Include="ipframe.h" />
-    <CustomBuild Include="key.h" />
-    <CustomBuild Include="listdlg.h" />
-    <CustomBuild Include="mainfrm.h" />
-    <CustomBuild Include="mswd6_32.h" />
-    <CustomBuild Include="multconv.h" />
-    <CustomBuild Include="options.h" />
-    <CustomBuild Include="optionsh.h" />
-    <CustomBuild Include="pageset.h" />
-    <CustomBuild Include="res\font.bmp" />
-    <CustomBuild Include="res\formatba.bmp" />
-    <CustomBuild Include="res\formatbg.bmp" />
-    <CustomBuild Include="res\main1.bmp" />
-    <CustomBuild Include="res\main1b.bmp" />
-    <CustomBuild Include="res\rtfdoc.ico" />
-    <CustomBuild Include="res\rulerbl.bmp" />
-    <CustomBuild Include="res\rulerblm.bmp" />
-    <CustomBuild Include="res\rulerdo.bmp" />
-    <CustomBuild Include="res\rulerdom.bmp" />
-    <CustomBuild Include="res\rulerta.bmp" />
-    <CustomBuild Include="res\rulertam.bmp" />
-    <CustomBuild Include="res\rulerup.bmp" />
-    <CustomBuild Include="res\rulerupm.bmp" />
-    <CustomBuild Include="res\srvr.bmp" />
-    <CustomBuild Include="res\srvrbig.bmp" />
-    <CustomBuild Include="res\textdoc.ico" />
-    <CustomBuild Include="res\wordp48.bmp" />
-    <CustomBuild Include="res\wordpad.ico" />
-    <CustomBuild Include="res\wordpad.rc2" />
-    <CustomBuild Include="res\write.ico" />
-    <CustomBuild Include="ruler.h" />
-    <CustomBuild Include="splash.h" />
-    <CustomBuild Include="srvritem.h" />
-    <CustomBuild Include="stdafx.h" />
-    <CustomBuild Include="strings.h" />
-    <CustomBuild Include="unitspag.h" />
-    <CustomBuild Include="wordpad.h" />
-    <CustomBuild Include="wordpdoc.h" />
-    <CustomBuild Include="wordpvw.h" />
+    <None Include="res\wordpad.rc2" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="wordpad.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.htm">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
+    <Image Include="res\font.bmp" />
+    <Image Include="res\formatba.bmp" />
+    <Image Include="res\formatbg.bmp" />
+    <Image Include="res\main1.bmp" />
+    <Image Include="res\main1b.bmp" />
+    <Image Include="res\mainfrm.bmp" />
+    <Image Include="res\mainfrmb.bmp" />
+    <Image Include="res\rtfdoc.ico" />
+    <Image Include="res\rulerbl.bmp" />
+    <Image Include="res\rulerblm.bmp" />
+    <Image Include="res\rulerdo.bmp" />
+    <Image Include="res\rulerdom.bmp" />
+    <Image Include="res\rulerta.bmp" />
+    <Image Include="res\rulertam.bmp" />
+    <Image Include="res\rulerup.bmp" />
+    <Image Include="res\rulerupm.bmp" />
+    <Image Include="res\srvr.bmp" />
+    <Image Include="res\srvrbig.bmp" />
+    <Image Include="res\textdoc.ico" />
+    <Image Include="res\wordp48.bmp" />
+    <Image Include="res\wordpad.ico" />
+    <Image Include="res\write.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,7 +9,9 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#include "stdafx.h"
+#include "pch.h"
+#include "framework.h"
+
 #include "wordpad.h"
 #include "unitspag.h"
 #include "docopt.h"

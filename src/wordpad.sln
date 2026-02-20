@@ -1,25 +1,25 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 10
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WordPad", "wordpad.vcxproj", "{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wordpad", "wordpad.vcxproj", "{F52A9A93-2B96-112B-316A-10A653AEE5D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
-		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Debug|Win32.ActiveCfg = Debug|Win32
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Debug|Win32.Build.0 = Debug|Win32
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Debug|x64.ActiveCfg = Debug|X64
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Debug|x64.Build.0 = Debug|X64
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Release|Win32.ActiveCfg = Release|Win32
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Release|Win32.Build.0 = Release|Win32
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Release|x64.ActiveCfg = Release|X64
-		{736AE1A6-14A7-490D-A8B6-8EB0B6A18993}.Release|x64.Build.0 = Release|X64
+		{F52A9A93-2B96-112B-316A-10A653AEE5D6}.Debug|x64.ActiveCfg = Debug|x64
+		{F52A9A93-2B96-112B-316A-10A653AEE5D6}.Debug|x64.Build.0 = Debug|x64
+		{F52A9A93-2B96-112B-316A-10A653AEE5D6}.Release|x64.ActiveCfg = Release|x64
+		{F52A9A93-2B96-112B-316A-10A653AEE5D6}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEC37C4D-5357-4892-AA3A-0FDE856079F2}
 	EndGlobalSection
 EndGlobal

@@ -9,10 +9,11 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#include "stdafx.h"
+#include "pch.h"
+#include "framework.h"
+
 #include "resource.h"
 #include "strings.h"
-
 #include "multconv.h"
 
 #ifdef _DEBUG

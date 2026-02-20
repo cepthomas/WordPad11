@@ -9,9 +9,10 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#include "stdafx.h"
-#include "wordpad.h"
+#include "pch.h"
+#include "framework.h"
 
+#include "wordpad.h"
 #include "wordpdoc.h"
 #include "wordpvw.h"
 #include "cntritem.h"

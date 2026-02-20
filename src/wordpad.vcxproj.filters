@@ -1,20 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{aa570413-2155-455e-b8a5-95cb2cc75bb4}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;inl;fi;fd</Extensions>
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{43d29fb7-a2b5-4299-b623-1c4f8b0d2dd3}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{982a2bcf-72c9-4011-bd10-68da7d32deeb}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;def;r;odl;hpj;bat;for;f90</Extensions>
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="about.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bigicon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="buttondi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,8 +108,20 @@
     <ClCompile Include="wordpvw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <!-- <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile> -->
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="about.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bigicon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="buttondi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -170,6 +188,12 @@
     <ClInclude Include="pageset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="penwin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ruler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -199,73 +223,76 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\font.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\formatba.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\formatbg.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\main1.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\main1b.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rtfdoc.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerbl.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerblm.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerdo.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerdom.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerta.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulertam.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerup.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\rulerupm.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\srvr.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\srvrbig.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\textdoc.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\wordp48.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\wordpad.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\wordpad.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\write.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="wordpad.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\font.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\formatba.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\formatbg.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\main1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\main1b.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainfrm.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainfrmb.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rtfdoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerbl.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerblm.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerdo.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerdom.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerta.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulertam.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerup.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\rulerupm.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\srvr.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\srvrbig.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textdoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\wordp48.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\wordpad.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\write.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
