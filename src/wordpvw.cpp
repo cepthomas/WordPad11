@@ -47,7 +47,7 @@ BOOL CCharFormat::operator==(CCharFormat& cf)
 	&& (lstrcmp(szFaceName, cf.szFaceName) == 0);
 }
 
-BOOL CParaFormat::operator==(WP_PARAFORMAT& pf)
+BOOL CParaFormat::operator==(PARAFORMAT2& pf)
 {
 	if(
 		dwMask != pf.dwMask
@@ -465,11 +465,8 @@ void CWordPadView::GetDefaultFont(CCharFormat& cf, UINT nFontNameID)
 	CString strDefFont;
 	VERIFY(strDefFont.LoadString(nFontNameID));
 	ASSERT(cf.cbSize == sizeof(CHARFORMAT2));
-	cf.dwMask = CFM_BOLD|CFM_ITALIC|CFM_UNDERLINE|CFM_STRIKEOUT|CFM_SIZE|
-		CFM_COLOR|CFM_OFFSET|CFM_PROTECTED;
-#if _RICHEDIT_VER >= 0x210 //TODO1
+	cf.dwMask = CFM_BOLD|CFM_ITALIC|CFM_UNDERLINE|CFM_STRIKEOUT|CFM_SIZE|CFM_COLOR|CFM_OFFSET|CFM_PROTECTED;
 	cf.dwEffects = CFE_AUTOCOLOR;
-#endif
 	cf.yHeight = 200; //10pt
 	cf.yOffset = 0;
 	cf.crTextColor = RGB(0, 0, 0);
@@ -593,8 +590,7 @@ void CWordPadView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CRichEditView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
 
-HRESULT CWordPadView::GetClipboardData(CHARRANGE* lpchrg, DWORD /*reco*/,
-	LPDATAOBJECT lpRichDataObj, LPDATAOBJECT* lplpdataobj)
+HRESULT CWordPadView::GetClipboardData(CHARRANGE* lpchrg, DWORD /*reco*/, LPDATAOBJECT lpRichDataObj, LPDATAOBJECT* lplpdataobj)
 {
 	CHARRANGE& cr = *lpchrg;
 

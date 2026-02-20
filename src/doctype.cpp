@@ -122,14 +122,8 @@ int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 		CString ext = CString(pszPathName).Right(4);
 		if (ext[0] != '.')
 			return RD_TEXT;
-#if defined(_MSC_VER) && _MSC_VER >= 1400
-#pragma warning(suppress:6400)
-#endif
 		if (lstrcmpi(ext, _T(".doc"))==0)
 			return RD_WORDPAD;
-#if defined(_MSC_VER) && _MSC_VER >= 1400
-#pragma warning(suppress:6400)
-#endif
 		if (lstrcmpi(ext, _T(".rtf"))==0)
 			return RD_RICHTEXT;
 		return RD_TEXT;

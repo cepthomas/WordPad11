@@ -28,8 +28,7 @@ public:
 	CWordPadDoc* GetDocument();
 	BOOL IsFormatText();
 
-	virtual HMENU GetContextMenu(WORD seltype, LPOLEOBJECT lpoleobj,
-		CHARRANGE* lpchrg);
+	virtual HMENU GetContextMenu(WORD seltype, LPOLEOBJECT lpoleobj, CHARRANGE* lpchrg);
 
 // Operations
 public:
@@ -49,10 +48,8 @@ public:
 	virtual void OnPrint(CDC* pDC, CPrintInfo* pInfo);
 	//}}AFX_VIRTUAL
 	BOOL OnPreparePrinting(CPrintInfo* pInfo);
-	virtual HRESULT GetClipboardData(CHARRANGE* lpchrg, DWORD reco,
-		LPDATAOBJECT lpRichDataObj, LPDATAOBJECT* lplpdataobj);
-	virtual HRESULT QueryAcceptData(LPDATAOBJECT, CLIPFORMAT*, DWORD,
-		BOOL, HGLOBAL);
+	virtual HRESULT GetClipboardData(CHARRANGE* lpchrg, DWORD reco, LPDATAOBJECT lpRichDataObj, LPDATAOBJECT* lplpdataobj);
+	virtual HRESULT QueryAcceptData(LPDATAOBJECT, CLIPFORMAT*, DWORD, BOOL, HGLOBAL);
 public:
 	virtual void WrapChanged();
 

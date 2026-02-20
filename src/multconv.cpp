@@ -485,7 +485,7 @@ ULONGLONG CConverter::Seek(LONGLONG lOff, UINT nFrom)
 	return 0;
 }
 
-WP_FILE_SIZE CConverter::GetPosition() const
+ULONGLONG CConverter::GetPosition() const
 {
 	return 0;
 }
