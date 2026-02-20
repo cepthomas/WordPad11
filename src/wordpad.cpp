@@ -55,12 +55,14 @@ CUnit(1440, 180,        720,    1440,       90,         IDS_INCH3_ABBREV,   FALS
 CUnit(1440, 180,        720,    1440,       90,         IDS_INCH4_ABBREV,   FALSE)//inches
 };
 
+#ifdef _REGISTER_APP
 static UINT DoRegistry(LPVOID lpv)
 {
 	ENSURE(lpv != NULL);
 	((CWordPadApp*)lpv)->UpdateRegistry();
 	return 0;
 }
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp
@@ -94,13 +96,15 @@ CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),
 {
 	_tsetlocale(LC_ALL, _T(""));
 
-	m_nFilterIndex = 1;
-	DWORD dwVersion = ::GetVersion();
-	m_bWin4 = (BYTE)dwVersion >= 4;
-#ifndef _UNICODE
-	m_bWin31 = (dwVersion > 0x80000000 && !m_bWin4);
-#endif
-	m_nDefFont = (m_bWin4) ? DEFAULT_GUI_FONT : ANSI_VAR_FONT;
+//	m_nFilterIndex = 1;
+//	DWORD dwVersion = ::GetVersion(); TODO1 fix/clean all version stuff
+//	m_bWin4 = (BYTE)dwVersion >= 4;
+//#ifndef _UNICODE
+//	m_bWin31 = (dwVersion > 0x80000000 && !m_bWin4);
+//#endif
+//	m_nDefFont = (m_bWin4) ? DEFAULT_GUI_FONT : ANSI_VAR_FONT;
+
+	m_nDefFont = DEFAULT_GUI_FONT;// : ANSI_VAR_FONT;
 	m_dcScreen.Attach(::GetDC(NULL));
 	m_bLargeIcons = m_dcScreen.GetDeviceCaps(LOGPIXELSX) >= 120;
 	m_bForceOEM = FALSE;
@@ -188,7 +192,7 @@ BOOL CWordPadApp::InitInstance()
 	NotifyPrinterChanged((m_hDevNames == NULL));
 
 	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath = _T("WORDPAD.HLP");
+	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODO1 ?
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
@@ -199,7 +203,11 @@ BOOL CWordPadApp::InitInstance()
 	RegisterFormats();
 
 	// Initialize RichEdit control
+#if _MFC_VER >= 0x700
+	if (!AfxInitRichEdit2())
+#else
 	if (!AfxInitRichEdit())
+#endif
 	{
 		AfxMessageBox(IDS_RICHED_LOAD_FAIL, MB_OK|MB_ICONEXCLAMATION);
 		return FALSE;
@@ -272,7 +280,9 @@ BOOL CWordPadApp::InitInstance()
 		UpdateRegistry();
 	else
 #endif
+#ifdef _REGISTER_APP
 		AfxBeginThread(DoRegistry, this, THREAD_PRIORITY_IDLE);
+#endif
 
 	return TRUE;
 }
@@ -385,8 +395,11 @@ void CWordPadApp::LoadOptions()
 
 	if (GetProfileBinary(szSection, szFrameRect, &pb, &nLen))
 	{
-		ASSERT(nLen == sizeof(CRect));
-		memcpy_s(&m_rectInitialFrame, nLen, pb, sizeof(CRect));
+		if (nLen >= sizeof(CRect))
+		{
+			ASSERT(nLen == sizeof(CRect));
+			memcpy(&m_rectInitialFrame, pb, sizeof(CRect));
+		}
 		delete pb;
 	}
 	else
@@ -401,8 +414,11 @@ void CWordPadApp::LoadOptions()
 
 	if (GetProfileBinary(szSection, szPageMargin, &pb, &nLen))
 	{
-		ASSERT(nLen == sizeof(CRect));
-		memcpy_s(&m_rectPageMargin, nLen, pb, sizeof(CRect));
+		if (nLen >= sizeof(CRect))
+		{
+			ASSERT(nLen == sizeof(CRect));
+			memcpy(&m_rectPageMargin, pb, sizeof(CRect));
+		}
 		delete pb;
 	}
 	else
@@ -505,7 +521,7 @@ int CWordPadApp::ExitInstance()
 {
 	m_pszHelpFilePath = NULL;
 
-	FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
+	//TODO? FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
 	SaveOptions();
 
 	return CWinApp::ExitInstance();
@@ -532,7 +548,7 @@ void CWordPadApp::OnFileNew()
 		if (dlg.DoModal() == IDCANCEL)
 			return;
 
-		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT:  //Word 6
+		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT:  //Word 6 TODO1 probably ng
 					(dlg.m_nSel == 1) ? RD_RICHTEXT :   //RTF
 					RD_TEXT ;                   //text
 
@@ -618,6 +634,7 @@ BOOL CWordPadApp::OnDDECommand(LPTSTR /*lpszCommand*/)
 	return FALSE;
 }
 
+#ifdef _REGISTER_APP
 /////////////////////////////////////////////////////////////////////////////
 // DDE and ShellExecute support
 
@@ -760,7 +777,7 @@ void CWordPadApp::UpdateRegistry()
 	::GetShortPathName(szLongPathName, szShortPathName, _MAX_PATH);
 
 	LPCTSTR rglpszSymbols[NUM_REG_ARGS];
-	rglpszSymbols[0] = COLE2CT(lpszClassID);
+	rglpszSymbols[0] = OLE2CT(lpszClassID);
 	rglpszSymbols[1] = strServerName;
 	rglpszSymbols[2] = szShortPathName;
 	rglpszSymbols[3] = strLocalShortName;
@@ -845,6 +862,7 @@ BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
 
 	return bResult;
 }
+#endif
 
 void CWordPadApp::WinHelp(DWORD dwData, UINT nCmd)
 {

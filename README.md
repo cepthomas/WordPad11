@@ -22,7 +22,7 @@ The WordPad source code has been included as a sample in compilers since 1995 un
 
 # my changes
 - mfc static
-- remove 32bit x64 only, add amd?
+- remove 32bit x64 only
 
 
 
@@ -52,5 +52,12 @@ license/about
 
 #if _MFC_VER >= 0x700 etc
 search "https://github.com/malxau/wordpad"  IDD_ABOUT
+- all WP_XXX macros
+
+
+
+# TODO?
+
+, add amd?
 
 

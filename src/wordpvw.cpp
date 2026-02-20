@@ -47,16 +47,19 @@ BOOL CCharFormat::operator==(CCharFormat& cf)
 	&& (lstrcmp(szFaceName, cf.szFaceName) == 0);
 }
 
-BOOL CParaFormat::operator==(PARAFORMAT2& pf)
+BOOL CParaFormat::operator==(WP_PARAFORMAT& pf)
 {
 	if(
 		dwMask != pf.dwMask
 		|| wNumbering != pf.wNumbering
+#if _MFC_VER >= 0x700
 		|| wEffects != pf.wEffects
+#endif
 		|| dxStartIndent != pf.dxStartIndent
 		|| dxRightIndent != pf.dxRightIndent
 		|| dxOffset != pf.dxOffset
 		|| cTabCount != pf.cTabCount
+#if _MFC_VER >= 0x700
 		|| dySpaceBefore != pf.dySpaceBefore
 		|| dySpaceAfter != pf.dySpaceAfter
 		|| dyLineSpacing != pf.dyLineSpacing
@@ -71,6 +74,7 @@ BOOL CParaFormat::operator==(PARAFORMAT2& pf)
 		|| wBorderSpace != pf.wBorderSpace
 		|| wBorderWidth != pf.wBorderWidth
 		|| wBorders != pf.wBorders
+#endif
 		)
 	{
 		return FALSE;
@@ -463,7 +467,9 @@ void CWordPadView::GetDefaultFont(CCharFormat& cf, UINT nFontNameID)
 	ASSERT(cf.cbSize == sizeof(CHARFORMAT2));
 	cf.dwMask = CFM_BOLD|CFM_ITALIC|CFM_UNDERLINE|CFM_STRIKEOUT|CFM_SIZE|
 		CFM_COLOR|CFM_OFFSET|CFM_PROTECTED;
+#if _RICHEDIT_VER >= 0x210 //TODO1
 	cf.dwEffects = CFE_AUTOCOLOR;
+#endif
 	cf.yHeight = 200; //10pt
 	cf.yOffset = 0;
 	cf.crTextColor = RGB(0, 0, 0);

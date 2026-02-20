@@ -60,8 +60,10 @@ CFormatParaDlg::CFormatParaDlg(PARAFORMAT2& pf, CWnd* pParent /*=NULL*/)
 	else
 		m_nAlignment = -1;
 
+#if _MFC_VER >= 0x700
 	m_nAfter = m_pf.dySpaceAfter;
 	m_nBefore = m_pf.dySpaceBefore;
+#endif
 
 	//{{AFX_DATA_INIT(CFormatParaDlg)
 	m_nFirst = 0;
@@ -137,19 +139,23 @@ void CFormatParaDlg::OnOK()
 	if (m_nFirst != DDXM_BLANK)
 		m_pf.dwMask |= PFM_OFFSET;
 
+#if _MFC_VER >= 0x700
 	if (m_bPageBreak)
 	{
 		m_pf.dwMask |= PFM_PAGEBREAKBEFORE;
 		m_pf.wEffects |= PFE_PAGEBREAKBEFORE;
 	}
+#endif
 
 	m_pf.dxRightIndent = m_nRight;
 	m_pf.dxOffset = -m_nFirst;
 	m_pf.dxStartIndent = m_nLeft + m_nFirst;
 
+#if _MFC_VER >= 0x700
 	m_pf.dwMask |= PFM_SPACEAFTER | PFM_SPACEBEFORE;
 	m_pf.dySpaceBefore = m_nBefore * 20;
 	m_pf.dySpaceAfter = m_nAfter * 20;
+#endif
 }
 
 BOOL CFormatParaDlg::OnInitDialog()
@@ -169,8 +175,12 @@ BOOL CFormatParaDlg::OnInitDialog()
 		GetDlgItem(IDC_TEXT_ALIGNMENT)->EnableWindow(FALSE);
 	}
 
+#if _MFC_VER >= 0x700
 	m_bPageBreak = (m_pf.dwMask & PFM_PAGEBREAKBEFORE) &&
 				   (m_pf.wEffects & PFE_PAGEBREAKBEFORE);
+#else
+    m_bPageBreak = false;
+#endif
 
 	m_nRight = (m_pf.dwMask & PFM_RIGHTINDENT) ? m_pf.dxRightIndent : DDXM_BLANK;
 	if (m_pf.dwMask & PFM_OFFSET)
@@ -182,10 +192,12 @@ BOOL CFormatParaDlg::OnInitDialog()
 	else
 		m_nLeft = m_nFirst = DDXM_BLANK;
 
+#if _MFC_VER >= 0x700
 	if (m_pf.dwMask & PFM_SPACEBEFORE)
 		m_nBefore = m_pf.dySpaceBefore / 20;
 	if (m_pf.dwMask & PFM_SPACEAFTER)
 		m_nAfter = m_pf.dySpaceAfter / 20;
+#endif
 
 	CCSDialog::OnInitDialog();
 	return TRUE;  // return TRUE unless you set the focus to a control
