@@ -1,20 +1,114 @@
-#include "afxres.h"
+// Microsoft Visual C++ generated resource script.
+//
 #include "resource.h"
 
+#define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
-#pragma code_page(1252)
-#endif //_WIN32
+
+// TODO from old???
+// #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+// #ifdef _WIN32
+// LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+// #pragma code_page(1252)
+// #endif //_WIN32
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#include ""res\\wordpad.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""      // Standard components\r\n"
+    "#include ""afxprint.rc""    // printing/print preview resources\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""        // MFC ribbon and control bar resources\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+// Icon with lowest ID value placed first to ensure application icon remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "RES\\WORDPAD.ICO"
+IDI_ICON_DOC            ICON                    "RES\\RTFDOC.ICO"
+IDI_ICON_WRITE          ICON                    "res\\write.ico"
+IDI_ICON_TEXT           ICON                    "res\\textdoc.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+IDB_RULER_BLOCK         BITMAP                  "res\\rulerbl.bmp"
+IDB_RULER_DOWN          BITMAP                  "res\\rulerdo.bmp"
+IDB_RULER_TAB           BITMAP                  "res\\rulerta.bmp"
+IDB_RULER_UP            BITMAP                  "res\\rulerup.bmp"
+IDB_FORMATBAR           BITMAP                  "res\\formatba.bmp"
+IDR_SRVR_INPLACE        BITMAP                  "res\\srvr.bmp"
+IDR_MAINFRAME1          BITMAP                  "RES\\main1.BMP"
+IDB_FORMATBAR_BIG       BITMAP                  "res\\formatbg.bmp"
+IDR_MAINFRAME1_BIG      BITMAP                  "res\\main1b.bmp"
+IDR_SRVR_INPLACE_BIG    BITMAP                  "res\\srvrbig.bmp"
+IDB_BITMAP48            BITMAP                  "res\\WORDP48.bmp"
+IDB_FONTTYPE            BITMAP                  "res\\font.bmp"
+IDB_RULER_BLOCKM        BITMAP                  "res\\rulerblm.bmp"
+IDB_RULER_DOWNM         BITMAP                  "res\\rulerdom.bmp"
+IDB_RULER_TABM          BITMAP                  "res\\rulertam.bmp"
+IDB_RULER_UPM           BITMAP                  "res\\rulerupm.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
-
 IDR_MAINFRAME MENU 
 BEGIN
     POPUP "&File"
@@ -283,20 +377,17 @@ END
 //
 // Accelerator
 //
-
 IDR_MAINFRAME ACCELERATORS 
 BEGIN
     "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
-    "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, NOINVERT
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
     "E",            ID_PARA_CENTER,         VIRTKEY, CONTROL, NOINVERT
     "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
     "H",            ID_EDIT_REPLACE,        VIRTKEY, CONTROL, NOINVERT
     "I",            ID_CHAR_ITALIC,         VIRTKEY, CONTROL, NOINVERT
-    "I",            ID_CHAR_ITALIC,         VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "I",            ID_CHAR_ITALIC,         VIRTKEY, SHIFT, CONTROL, NOINVERT
     "L",            ID_PARA_LEFT,           VIRTKEY, CONTROL, NOINVERT
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
@@ -304,8 +395,7 @@ BEGIN
     "R",            ID_PARA_RIGHT,          VIRTKEY, CONTROL, NOINVERT
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     "U",            ID_CHAR_UNDERLINE,      VIRTKEY, CONTROL, NOINVERT
-    "U",            ID_CHAR_UNDERLINE,      VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "U",            ID_CHAR_UNDERLINE,      VIRTKEY, SHIFT, CONTROL, NOINVERT
     "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
     VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
     VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
@@ -335,20 +425,17 @@ IDR_SRVR_INPLACE ACCELERATORS
 BEGIN
     "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
-    "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, NOINVERT
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
     "E",            ID_PARA_CENTER,         VIRTKEY, CONTROL, NOINVERT
     "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
     "H",            ID_EDIT_REPLACE,        VIRTKEY, CONTROL, NOINVERT
     "I",            ID_CHAR_ITALIC,         VIRTKEY, CONTROL, NOINVERT
-    "I",            ID_CHAR_ITALIC,         VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "I",            ID_CHAR_ITALIC,         VIRTKEY, SHIFT, CONTROL, NOINVERT
     "L",            ID_PARA_LEFT,           VIRTKEY, CONTROL, NOINVERT
     "R",            ID_PARA_RIGHT,          VIRTKEY, CONTROL, NOINVERT
     "U",            ID_CHAR_UNDERLINE,      VIRTKEY, CONTROL, NOINVERT
-    "U",            ID_CHAR_UNDERLINE,      VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "U",            ID_CHAR_UNDERLINE,      VIRTKEY, SHIFT, CONTROL, NOINVERT
     "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
     VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
     VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
@@ -363,22 +450,19 @@ END
 IDR_SRVR_EMBEDDED ACCELERATORS 
 BEGIN
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
-    "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, NOINVERT
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
     "E",            ID_PARA_CENTER,         VIRTKEY, CONTROL, NOINVERT
     "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
     "H",            ID_EDIT_REPLACE,        VIRTKEY, CONTROL, NOINVERT
     "I",            ID_CHAR_ITALIC,         VIRTKEY, CONTROL, NOINVERT
-    "I",            ID_CHAR_ITALIC,         VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "I",            ID_CHAR_ITALIC,         VIRTKEY, SHIFT, CONTROL, NOINVERT
     "L",            ID_PARA_LEFT,           VIRTKEY, CONTROL, NOINVERT
     "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
     "R",            ID_PARA_RIGHT,          VIRTKEY, CONTROL, NOINVERT
     "S",            ID_FILE_UPDATE,         VIRTKEY, CONTROL, NOINVERT
     "U",            ID_CHAR_UNDERLINE,      VIRTKEY, CONTROL, NOINVERT
-    "U",            ID_CHAR_UNDERLINE,      VIRTKEY, SHIFT, CONTROL, 
-                                                    NOINVERT
+    "U",            ID_CHAR_UNDERLINE,      VIRTKEY, SHIFT, CONTROL, NOINVERT
     "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
     VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
     VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
@@ -398,10 +482,8 @@ END
 //
 // Dialog
 //
-
 IDD_FORMAT_PARA DIALOG  0, 0, 239, 146
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Paragraph"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -413,34 +495,26 @@ BEGIN
     LTEXT           "&First line:",IDC_STATIC,13,63,32,8,NOT WS_GROUP
     EDITTEXT        IDC_EDIT_FIRST_LINE,52,60,60,14,ES_AUTOHSCROLL
     LTEXT           "Ali&gnment:",IDC_TEXT_ALIGNMENT,126,70,37,8
-    COMBOBOX        IDC_COMBO_ALIGNMENT,165,68,60,45,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Page Brea&k Before",IDC_CHECK_PAGEBREAK,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,126,49,76,10
+    COMBOBOX        IDC_COMBO_ALIGNMENT,165,68,60,45,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Page Brea&k Before",IDC_CHECK_PAGEBREAK,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,126,49,76,10
     DEFPUSHBUTTON   "OK",IDOK,182,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,182,24,50,14
     LTEXT           "&Before:",IDC_STATIC,13,102,38,8
     EDITTEXT        IDC_EDIT_BEFORE,52,100,60,14,ES_AUTOHSCROLL
-    CONTROL         "Spin2",IDC_SPIN_BEFORE,"msctls_updown32",UDS_ALIGNRIGHT | 
-                    UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,106,95,
-                    11,11
+    CONTROL         "Spin2",IDC_SPIN_BEFORE,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,106,95, 11,11
     LTEXT           "&After:",IDC_STATIC,13,120,38,8
     EDITTEXT        IDC_EDIT_AFTER,52,119,60,14,ES_AUTOHSCROLL
-    CONTROL         "Spin3",IDC_SPIN_AFTER,"msctls_updown32",UDS_ALIGNRIGHT | 
-                    UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,105,108,
-                    11,16
+    CONTROL         "Spin3",IDC_SPIN_AFTER,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,105,108, 11,16
     GROUPBOX        "Spacing",IDC_STATIC,7,88,225,50
 END
 
 IDD_FORMAT_TAB DIALOG  0, 0, 186, 119
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Tabs"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "&Tab stop position",IDC_BOX,7,7,114,103
-    COMBOBOX        IDC_COMBO1,13,18,101,68,CBS_SIMPLE | WS_VSCROLL | 
-                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO1,13,18,101,68,CBS_SIMPLE | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Set",IDC_BUTTON_SET,13,87,48,14
     PUSHBUTTON      "Cl&ear",IDC_BUTTON_CLEAR,66,87,48,14
     DEFPUSHBUTTON   "OK",IDOK,128,10,50,14
@@ -449,8 +523,7 @@ BEGIN
 END
 
 IDD_PAGE_SETUP_DIALOG DIALOG  0, 0, 185, 112
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Page Setup"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -468,15 +541,12 @@ BEGIN
 END
 
 IDD_DATEDIALOG DIALOG  0, 0, 185, 112
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Date and Time"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "&Available formats:",IDC_STATIC_HEADING,7,7,111,8,NOT 
-                    WS_GROUP
-    LISTBOX         IDC_DATEDIALOG_LIST,7,17,113,87,LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Available formats:",IDC_STATIC_HEADING,7,7,111,8,NOT WS_GROUP
+    LISTBOX         IDC_DATEDIALOG_LIST,7,17,113,87,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,127,17,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,127,34,50,14
 END
@@ -485,18 +555,13 @@ IDD_SPLASH DIALOGEX 0, 0, 253, 92
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,
-                    38,40
+    CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,38,40
     LTEXT           "WordPad Version 1.0",IDC_STATIC,60,6,164,8,NOT WS_GROUP
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKRECT,60,30,188,1
-    LTEXT           "Warning: This computer program is protected by",
-                    IDC_STATIC,60,36,188,8
-    LTEXT           "copyright law and international treaties.",IDC_STATIC,
-                    60,44,188,8
-    LTEXT           "© 1998 - 2008 Microsoft Corporation.  All rights reserved.",
-                    IDC_STATIC,60,60,188,8
-    LTEXT           "Licensed under the terms of the MIT license.",
-                    IDC_STATIC,60,68,188,8
+    LTEXT           "Warning: This computer program is protected by", IDC_STATIC,60,36,188,8
+    LTEXT           "copyright law and international treaties.",IDC_STATIC, 60,44,188,8
+    LTEXT           "Â© 1998 - 2008 Microsoft Corporation.  All rights reserved.",IDC_STATIC,60,60,188,8
+    LTEXT           "Licensed under the terms of the MIT license.",IDC_STATIC,60,68,188,8
 END
 
 IDD_OPTIONS_UNITS DIALOG  0, 0, 280, 86
@@ -504,17 +569,12 @@ STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Options"
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "&Inches",IDC_UNITS_IN,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,13,21,54,10
-    CONTROL         "&Centimeters",IDC_UNITS_CM,"Button",BS_AUTORADIOBUTTON,
-                    74,21,68,10
-    CONTROL         "&Points",IDC_UNITS_PT,"Button",BS_AUTORADIOBUTTON,13,39,
-                    54,10
-    CONTROL         "Pic&as",IDC_UNITS_PI,"Button",BS_AUTORADIOBUTTON,74,39,
-                    68,10
+    CONTROL         "&Inches",IDC_UNITS_IN,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,21,54,10
+    CONTROL         "&Centimeters",IDC_UNITS_CM,"Button",BS_AUTORADIOBUTTON,74,21,68,10
+    CONTROL         "&Points",IDC_UNITS_PT,"Button",BS_AUTORADIOBUTTON,13,39,54,10
+    CONTROL         "Pic&as",IDC_UNITS_PI,"Button",BS_AUTORADIOBUTTON,74,39,68,10
     GROUPBOX        "Measurement units",IDC_BOX,7,7,264,53
-    CONTROL         "Automatic &word selection",IDC_WORDSEL,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,66,106,10
+    CONTROL         "Automatic &word selection",IDC_WORDSEL,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,7,66,106,10
 END
 
 IDD_OPTIONS_WRAP DIALOG  0, 0, 280, 86
@@ -522,33 +582,23 @@ STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Word wrap",IDC_BOX,7,7,128,72
-    CONTROL         "&No wrap",IDC_WRAP_NONE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,13,21,81,10
-    CONTROL         "&Wrap to window",IDC_WRAP_WINDOW,"Button",
-                    BS_AUTORADIOBUTTON,13,39,81,10
-    CONTROL         "Wr&ap to ruler",IDC_WRAP_RULER,"Button",
-                    BS_AUTORADIOBUTTON,13,57,81,10
+    CONTROL         "&No wrap",IDC_WRAP_NONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,21,81,10
+    CONTROL         "&Wrap to window",IDC_WRAP_WINDOW,"Button", BS_AUTORADIOBUTTON,13,39,81,10
+    CONTROL         "Wr&ap to ruler",IDC_WRAP_RULER,"Button",BS_AUTORADIOBUTTON,13,57,81,10
     GROUPBOX        "Toolbars",IDC_BOXT,144,7,128,72
-    CONTROL         "&Toolbar",IDC_CHECK_TOOLBAR,"Button",BS_AUTOCHECKBOX | 
-                    WS_GROUP | WS_TABSTOP,153,21,68,10
-    CONTROL         "&Format bar",IDC_CHECK_FORMATBAR,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,153,35,68,10
-    CONTROL         "&Ruler",IDC_CHECK_RULERBAR,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,153,49,68,10
-    CONTROL         "&Status bar",IDC_CHECK_STATUSBAR,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,153,63,68,10
+    CONTROL         "&Toolbar",IDC_CHECK_TOOLBAR,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,153,21,68,10
+    CONTROL         "&Format bar",IDC_CHECK_FORMATBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,35,68,10
+    CONTROL         "&Ruler",IDC_CHECK_RULERBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,49,68,10
+    CONTROL         "&Status bar",IDC_CHECK_STATUSBAR,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,153,63,68,10
 END
 
 IDD_FILENEWDIALOG DIALOG  0, 0, 185, 112
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "New"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "New document type:",IDC_STATIC_HEADING,7,7,111,8,NOT 
-                    WS_GROUP
-    LISTBOX         IDC_DATEDIALOG_LIST,7,17,114,87,LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "New document type:",IDC_STATIC_HEADING,7,7,111,8,NOT WS_GROUP
+    LISTBOX         IDC_DATEDIALOG_LIST,7,17,114,87,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,127,17,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,127,34,50,14
 END
@@ -558,14 +608,11 @@ END
 //CAPTION "About WordPad"
 //FONT 8, "MS Sans Serif", 0, 0, 0x0
 //BEGIN
-//    CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,
-//                    38,40
-//    LTEXT           "WordPad Version 1.0",-1,60,6,164,8,NOT WS_GROUP
-//    LTEXT           "https://github.com/malxau/wordpad",-1,60,18,188,8
-//    EDITTEXT        IDC_LICENSE_TEXT,60,33,350,206,ES_MULTILINE | 
-//                    ES_AUTOHSCROLL | ES_NOHIDESEL | ES_READONLY | WS_VSCROLL | 
-//                    NOT WS_TABSTOP
-//    DEFPUSHBUTTON   "&Close",IDOK,332,7,78,18
+//   CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,38,40
+//   LTEXT           "WordPad Version 1.0",-1,60,6,164,8,NOT WS_GROUP
+//   LTEXT           "https://github.com/malxau/wordpad",-1,60,18,188,8
+//   EDITTEXT        IDC_LICENSE_TEXT,60,33,350,206,ES_MULTILINE | ES_AUTOHSCROLL | ES_NOHIDESEL | ES_READONLY | WS_VSCROLL | NOT WS_TABSTOP
+//   DEFPUSHBUTTON   "&Close",IDOK,332,7,78,18
 //END
 
 
@@ -573,7 +620,6 @@ END
 //
 // Version
 //
-
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 1,0,0,0
  PRODUCTVERSION 5,0,0,0
@@ -595,9 +641,9 @@ BEGIN
             VALUE "FileDescription", "WordPad MFC Application"
             VALUE "FileVersion", "1.0"
             VALUE "InternalName", "wordpad"
-            VALUE "LegalCopyright", "© Microsoft Corporation.  All rights reserved."
+            VALUE "LegalCopyright", "Â© Microsoft Corporation.  All rights reserved."
             VALUE "OriginalFilename", "WORDPAD.EXE"
-            VALUE "ProductName", "Microsoft® Windows (TM) Operating System"
+            VALUE "ProductName", "MicrosoftÂ® Windows (TM) Operating System"
             VALUE "ProductVersion", "5.0"
         END
     END
@@ -610,43 +656,8 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Bitmap
-//
-
-IDB_RULER_BLOCK         BITMAP                  "res\\rulerbl.bmp"
-IDB_RULER_DOWN          BITMAP                  "res\\rulerdo.bmp"
-IDB_RULER_TAB           BITMAP                  "res\\rulerta.bmp"
-IDB_RULER_UP            BITMAP                  "res\\rulerup.bmp"
-IDB_FORMATBAR           BITMAP                  "res\\formatba.bmp"
-IDR_SRVR_INPLACE        BITMAP                  "res\\srvr.bmp"
-IDR_MAINFRAME1          BITMAP                  "RES\\main1.BMP"
-IDB_FORMATBAR_BIG       BITMAP                  "res\\formatbg.bmp"
-IDR_MAINFRAME1_BIG      BITMAP                  "res\\main1b.bmp"
-IDR_SRVR_INPLACE_BIG    BITMAP                  "res\\srvrbig.bmp"
-IDB_BITMAP48            BITMAP                  "res\\WORDP48.bmp"
-IDB_FONTTYPE            BITMAP                  "res\\font.bmp"
-IDB_RULER_BLOCKM        BITMAP                  "res\\rulerblm.bmp"
-IDB_RULER_DOWNM         BITMAP                  "res\\rulerdom.bmp"
-IDB_RULER_TABM          BITMAP                  "res\\rulertam.bmp"
-IDB_RULER_UPM           BITMAP                  "res\\rulerupm.bmp"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "RES\\WORDPAD.ICO"
-IDI_ICON_DOC            ICON                    "RES\\RTFDOC.ICO"
-IDI_ICON_WRITE          ICON                    "res\\write.ico"
-IDI_ICON_TEXT           ICON                    "res\\textdoc.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // DESIGNINFO
 //
-
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO 
 BEGIN
@@ -668,7 +679,6 @@ END
 //
 // String Table
 //
-
 STRINGTABLE 
 BEGIN
     IDP_OLE_INIT_FAILED     "OLE initialization failed.  WordPad can not continue."
@@ -940,21 +950,30 @@ BEGIN
     IDS_WRITEPROTECT        "Unable to write to %1.\nThe disk is write-protected.\nA file cannot be saved on a write-protected disk."
 END
 
-#endif    // English (U.S.) resources
+
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 
+#ifndef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
-#include "res\wordpad.rc2"  // non-App Studio edited resources
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
 
-#include "afxres.rc"  	// Standard components
-#include "afxprint.rc"	// printing/print preview resources
-#include "afxolecl.rc"	// OLE container resources
-#include "afxolesv.rc"	// OLE server resources
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#include "res\wordpad.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"      // Standard components
+#include "afxprint.rc"    // printing/print preview resources
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"        // MFC ribbon and control bar resources
+#endif
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
-
+#endif    // not APSTUDIO_INVOKED
