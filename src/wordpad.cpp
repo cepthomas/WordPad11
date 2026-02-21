@@ -24,6 +24,7 @@
 #include <winnls.h>
 #include <winreg.h>
 
+
 extern BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn);
 static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
 	BOOL bReplace);
@@ -97,14 +98,14 @@ CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),
 	_tsetlocale(LC_ALL, _T(""));
 
 //	m_nFilterIndex = 1;
-//	DWORD dwVersion = ::GetVersion(); TODO1 fix/clean all version stuff
+//	DWORD dwVersion = ::GetVersion(); TODO??
 //	m_bWin4 = (BYTE)dwVersion >= 4;
 //#ifndef _UNICODE
 //	m_bWin31 = (dwVersion > 0x80000000 && !m_bWin4);
 //#endif
 //	m_nDefFont = (m_bWin4) ? DEFAULT_GUI_FONT : ANSI_VAR_FONT;
 
-	m_nDefFont = DEFAULT_GUI_FONT;// : ANSI_VAR_FONT;
+	m_nDefFont = DEFAULT_GUI_FONT; // : ANSI_VAR_FONT;
 	m_dcScreen.Attach(::GetDC(NULL));
 	m_bLargeIcons = m_dcScreen.GetDeviceCaps(LOGPIXELSX) >= 120;
 	m_bForceOEM = FALSE;
@@ -192,7 +193,7 @@ BOOL CWordPadApp::InitInstance()
 	NotifyPrinterChanged((m_hDevNames == NULL));
 
 	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODO1 ?
+	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODO??
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
@@ -521,7 +522,7 @@ int CWordPadApp::ExitInstance()
 {
 	m_pszHelpFilePath = NULL;
 
-	//TODO? FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
+	//TODO try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
 	SaveOptions();
 
 	return CWinApp::ExitInstance();
@@ -548,7 +549,7 @@ void CWordPadApp::OnFileNew()
 		if (dlg.DoModal() == IDCANCEL)
 			return;
 
-		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT:  //Word 6 TODO1 probably ng
+		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT:  //Word 6 TODOx probably ng
 					(dlg.m_nSel == 1) ? RD_RICHTEXT :   //RTF
 					RD_TEXT ;                   //text
 

@@ -38,7 +38,6 @@ CCSDialog::CCSDialog() : CDialog()
 BEGIN_MESSAGE_MAP(CCSDialog, CDialog)
 	//{{AFX_MSG_MAP(CCSDialog)
 	//}}AFX_MSG_MAP
-//TODO other repo doesn't have these two messages:
 	ON_MESSAGE(WM_HELP, OnHelp)
 	ON_MESSAGE(WM_CONTEXTMENU, OnHelpContextMenu)
 END_MESSAGE_MAP()

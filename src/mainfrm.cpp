@@ -35,7 +35,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_SYSCOLORCHANGE()
 	ON_WM_SIZE()
 	ON_WM_MOVE()
-	ON_COMMAND(ID_HELP, OnHelpFinder) //TODO? all these
+	ON_COMMAND(ID_HELP, OnHelpFinder)
 	ON_WM_DROPFILES()
 	ON_COMMAND(ID_CHAR_COLOR, OnCharColor)
 	ON_COMMAND(ID_PEN_TOGGLE, OnPenToggle)
@@ -407,7 +407,7 @@ LONG_PTR CMainFrame::OnOpenMsg(UINT_PTR, LONG_PTR lParam)
 	return FALSE;
 }
 
-void CMainFrame::OnHelpFinder() //TODO?
+void CMainFrame::OnHelpFinder()
 {
 	theApp.WinHelp(0, HELP_FINDER);
 }

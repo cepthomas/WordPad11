@@ -22,7 +22,6 @@ public:
 
 // Implementation
 protected:
-//TODO other repo doesn't have these two messages:
 	virtual const DWORD* GetHelpIDs() = 0;
 
 	// Generated message map functions

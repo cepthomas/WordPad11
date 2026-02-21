@@ -23,8 +23,6 @@ This source is a fork of the [most recent code from the 2010 compiler](https://g
 
 
 
-
-
 # my changes
 - mfc static - portable
 - remove 32bit -> x64 only
@@ -32,22 +30,22 @@ This source is a fork of the [most recent code from the 2010 compiler](https://g
 - removed all old version-specific stuff < VS2022  - all WP_XXX macros
 
 
-
-#if defined(_MSC_VER) && _MSC_VER >= 1400
-#pragma warning(suppress:6400)
-#endif
-
-
-
 # to add
 
-- remove wri support. word6? other txt?
+- remove wri support. word6? other txt? TODOx
 
 - add? help/about
 search "https://github.com/malxau/wordpad"  IDD_ABOUT
 ??? Add MIT license to compiled binaries, which is required by the license
+TODO bunch of these:
+  ON_MESSAGE(WM_HELP, OnHelp)
+  ON_MESSAGE(WM_CONTEXTMENU, OnHelpContextMenu)
+  ON_COMMAND(ID_DEFAULT_HELP, OnHelpFinder)
+  irtual const DWORD* GetHelpIDs() = 0;
+  CMainFrame::OnHelpFinder()
+  IDD_ABOUT DIALOGEX
 
 
-# TODO?
+# TO-DO later
 
 - add amd64?
