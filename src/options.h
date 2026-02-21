@@ -22,8 +22,7 @@ public:
 	CString m_strAbbrev;// cm, pt, pi, ", in, inch, inches
 
 	CUnit() {}
-	CUnit(int nTPU, int nSmallDiv, int nMediumDiv, int nLargeDiv,
-		int nMinMove, UINT nAbbrevID, BOOL bSpaceAbbrev);
+	CUnit(int nTPU, int nSmallDiv, int nMediumDiv, int nLargeDiv, int nMinMove, UINT nAbbrevID, BOOL bSpaceAbbrev);
 	const CUnit& operator=(const CUnit& unit);
 };
 
@@ -37,10 +36,8 @@ public:
 	int m_nDefWrap;
 	void SaveOptions(LPCTSTR lpsz);
 	void LoadOptions(LPCTSTR lpsz);
-	void SaveDockState(CDockState& ds, LPCTSTR lpszProfileName,
-		LPCTSTR lpszLayout);
-	void LoadDockState(CDockState& ds, LPCTSTR lpszProfileName,
-		LPCTSTR lpszLayout);
+	void SaveDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR lpszLayout);
+	void LoadDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR lpszLayout);
 	CDockState& GetDockState(BOOL bPrimary) {return (bPrimary) ? m_ds1 : m_ds2;}
 };
 

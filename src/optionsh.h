@@ -23,8 +23,6 @@ public:
 	CUnitsPage units;
 	CDocOptPage pageText;
 	CDocOptPage pageRTF;
-	CDocOptPage pageWord;
-	CDocOptPage pageWrite;
 	CEmbeddedOptPage pageEmbedded;
 
 // Operations

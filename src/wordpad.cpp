@@ -93,8 +93,7 @@ void CWordPadCommandLineInfo::ParseParam(const char* pszParam,BOOL bFlag,BOOL bL
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp construction
 
-CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),
-	m_optionsWord(2), m_optionsWrite(2), m_optionsIP(2), m_optionsNull(0)  //
+CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),	m_optionsIP(2), m_optionsNull(0)
 {
 	_tsetlocale(LC_ALL, _T(""));
 
@@ -109,7 +108,7 @@ CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),
 	m_nDefFont = DEFAULT_GUI_FONT; // : ANSI_VAR_FONT;
 	m_dcScreen.Attach(::GetDC(NULL));
 	m_bLargeIcons = m_dcScreen.GetDeviceCaps(LOGPIXELSX) >= 120;
-	m_bForceOEM = FALSE;
+	//m_bForceOEM = FALSE;
 }
 
 CWordPadApp::~CWordPadApp()
@@ -145,7 +144,11 @@ BOOL CWordPadApp::InitInstance()
 	if (::FindWindow(szWordPadClass, NULL) && IsDocOpen(cmdInfo.m_strFileName))
 		return FALSE;
 
+#ifdef _REGISTER_APP
+	const TCHAR szRegKey[] = _T("Microsoft\\Windows\\CurrentVersion\\Applets");
 	SetRegistryKey(szRegKey);
+#endif
+
 	LoadOptions();
 
 	CSplashWnd splash;
@@ -339,16 +342,10 @@ CDocOptions& CWordPadApp::GetDocOptions(LONG_PTR nDocType)
 {
 	switch (nDocType)
 	{
-		case RD_WINWORD6:
-		case RD_WORDPAD:
-			return m_optionsWord;
 		case RD_RICHTEXT:
 			return m_optionsRTF;
 		case RD_TEXT:
-		case RD_OEMTEXT:
 			return m_optionsText;
-		case RD_WRITE:
-			return m_optionsWrite;
 		case RD_EMBEDDED:
 			return m_optionsIP;
 	}
@@ -366,14 +363,10 @@ void CWordPadApp::SaveOptions()
 	WriteProfileInt(szSection, szWordSel, m_bWordSel);
 	WriteProfileInt(szSection, szUnits, GetUnits());
 	WriteProfileInt(szSection, szMaximized, m_bMaximized);
-	WriteProfileBinary(szSection, szFrameRect, (BYTE*)&m_rectInitialFrame,
-		sizeof(CRect));
-	WriteProfileBinary(szSection, szPageMargin, (BYTE*)&m_rectPageMargin,
-		sizeof(CRect));
+	WriteProfileBinary(szSection, szFrameRect, (BYTE*)&m_rectInitialFrame, sizeof(CRect));
+	WriteProfileBinary(szSection, szPageMargin, (BYTE*)&m_rectPageMargin, sizeof(CRect));
 	m_optionsText.SaveOptions(szTextSection);
 	m_optionsRTF.SaveOptions(szRTFSection);
-	m_optionsWord.SaveOptions(szWordSection);
-	m_optionsWrite.SaveOptions(szWriteSection);
 	m_optionsIP.SaveOptions(szIPSection);
 }
 
@@ -428,8 +421,6 @@ void CWordPadApp::LoadOptions()
 
 	m_optionsText.LoadOptions(szTextSection);
 	m_optionsRTF.LoadOptions(szRTFSection);
-	m_optionsWord.LoadOptions(szWordSection);
-	m_optionsWrite.LoadOptions(szWriteSection);
 	m_optionsIP.LoadOptions(szIPSection);
 }
 
@@ -559,13 +550,12 @@ void CWordPadApp::OnFileNew()
 	}
 	m_nNewDocType = nDocType;
 	DocTemplate.OpenDocumentFile(NULL);
-		// if returns NULL, the user has already been alerted
+	// if returns NULL, the user has already been alerted
 }
 
 // prompt for file name - used for open and save as
 // static function called from app
-BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle,
-	DWORD dwFlags, BOOL bOpenFileDialog, int* pType)
+BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, int* pType)
 {
 	ScanForConverters();
 	CFileDialog dlgFile(bOpenFileDialog);
@@ -581,18 +571,26 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle,
 	{
 		int nDocType = (pType != NULL) ? *pType : RD_DEFAULT;
 		nIndex = GetIndexFromType(nDocType, bOpenFileDialog);
+
 		if (nIndex == -1)
+		{
 			nIndex = GetIndexFromType(RD_DEFAULT, bOpenFileDialog);
+		}
+
 		if (nIndex == -1)
+		{
 			nIndex = GetIndexFromType(RD_NATIVE, bOpenFileDialog);
+		}
+
 		ASSERT(nIndex != -1);
 		nIndex++;
 	}
+
 	dlgFile.m_ofn.nFilterIndex = nIndex;
 	// strDefExt is necessary to hold onto the memory from GetExtFromType
-	CString strDefExt = GetExtFromType(GetTypeFromIndex(nIndex-1, bOpenFileDialog));
+	int tfi = GetTypeFromIndex(nIndex, bOpenFileDialog);
+	CString strDefExt = GetExtFromType(tfi);
 	dlgFile.m_ofn.lpstrDefExt = strDefExt;
-
 
 	CString strFilter = GetFileTypes(bOpenFileDialog);
 	dlgFile.m_ofn.lpstrFilter = strFilter;
@@ -604,7 +602,10 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle,
 	if (bRet)
 	{
 		if (bOpenFileDialog)
+		{
 			m_nFilterIndex = dlgFile.m_ofn.nFilterIndex;
+		}
+
 		if (pType != NULL)
 		{
 			nIndex = (int)dlgFile.m_ofn.nFilterIndex - 1;
@@ -620,14 +621,13 @@ void CWordPadApp::OnFileOpen()
 	// prompt the user (with all document templates)
 	CString newName;
 	int nType = RD_DEFAULT;
-	if (!PromptForFileName(newName, AFX_IDS_OPENFILE,
-	  OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
+	if (!PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
+	{
 		return; // open cancelled
+	}
 
-	if (nType == RD_OEMTEXT)
-		m_bForceOEM = TRUE;
 	OpenDocumentFile(newName);
-	m_bForceOEM = FALSE;
+
 	// if returns NULL, the user has already been alerted
 }
 
@@ -790,14 +790,10 @@ void CWordPadApp::UpdateRegistry()
 	if (RegisterHelper((LPCTSTR*)rglpszWordPadRegister, rglpszSymbols, FALSE))
 		RegisterHelper((LPCTSTR*)rglpszWordPadOverwrite, rglpszSymbols, TRUE);
 
-//  RegisterExt(_T(".txt"), _T("txtfile"), IDS_TEXT_DOC, rglpszSymbols,
-//      (LPCTSTR*)rglpszTxtExtRegister, (LPCTSTR*)rglpszTxtRegister, 3);
+	// RegisterExt(_T(".txt"), _T("txtfile"), IDS_TEXT_DOC, rglpszSymbols,
+	//     (LPCTSTR*)rglpszTxtExtRegister, (LPCTSTR*)rglpszTxtRegister, 3);
 	RegisterExt(_T(".rtf"), _T("rtffile"), IDS_RICHTEXT_DOC, rglpszSymbols,
 		(LPCTSTR*)rglpszRtfExtRegister, (LPCTSTR*)rglpszRtfRegister, 1);
-	RegisterExt(_T(".wri"), _T("wrifile"), IDS_WRITE_DOC, rglpszSymbols,
-		(LPCTSTR*)rglpszWriExtRegister, (LPCTSTR*)rglpszWriRegister, 2);
-	RegisterExt(_T(".doc"), _T("WordPad.Document.1"), IDS_WINWORD6_DOC, rglpszSymbols,
-		(LPCTSTR*)rglpszDocExtRegister, (LPCTSTR*)rglpszDocRegister, 1);
 
 	// free memory for class ID
 	ASSERT(lpszClassID != NULL);

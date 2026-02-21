@@ -14,7 +14,6 @@
 
 #include "wordpad.h"
 #include "multconv.h"
-#include "mswd6_32.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -84,22 +83,6 @@ void CTrackFile::OutputPercent(int nPercentComplete)
 	}
 }
 
-COEMFile::COEMFile(CFrameWnd* pWnd) : CTrackFile(pWnd)
-{
-}
-
-UINT COEMFile::Read(void FAR* lpBuf, UINT nCount)
-{
-	UINT n = CTrackFile::Read(lpBuf, nCount);
-	OemToCharBuffA((const char*)lpBuf, (char*)lpBuf, n);
-	return n;
-}
-
-void COEMFile::Write(const void FAR* lpBuf, UINT nCount)
-{
-	CharToOemBuffA((const char*)lpBuf, (char*)lpBuf, nCount);
-	CTrackFile::Write(lpBuf, nCount);
-}
 
 #ifdef CONVERTERS
 
@@ -345,11 +328,10 @@ void CConverter::LoadFunctions()
 
 ///////////////////////////////////////////////////////////////////////////////
 
-BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags,
-	CFileException* pException)
+BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags, CFileException* pException)
 {
 	USES_CONVERSION;
-	// we convert to oem and back because of the following case
+	// TODO? we convert to oem and back because of the following case
 	// test(c).txt becomes testc.txt in OEM and stays testc.txt to Ansi
 	char buf[_MAX_PATH];
 	strncpy_s(buf, _MAX_PATH, T2CA(pszFileName), _TRUNCATE);

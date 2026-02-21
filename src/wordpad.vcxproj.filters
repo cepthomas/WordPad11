@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="about.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bigicon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="buttondi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,9 +84,6 @@
     <ClCompile Include="srvritem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="strings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -116,12 +107,6 @@
     </ClCompile> -->
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="about.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bigicon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="buttondi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -203,10 +188,10 @@
     <ClInclude Include="srvritem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="strings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="strings.h">
+    <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="unitspag.h">
@@ -219,6 +204,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wordpvw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -294,5 +285,10 @@
     <Image Include="res\write.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\wordpad.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

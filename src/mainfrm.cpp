@@ -126,7 +126,6 @@ CMainFrame::CMainFrame()
 {
 	m_hIconDoc = theApp.LoadIcon(IDI_ICON_DOC);
 	m_hIconText = theApp.LoadIcon(IDI_ICON_TEXT);
-	m_hIconWrite = theApp.LoadIcon(IDI_ICON_WRITE);
 }
 
 CMainFrame::~CMainFrame()
@@ -285,16 +284,11 @@ HICON CMainFrame::GetIcon(int nDocType)
 {
 	switch (nDocType)
 	{
-		case RD_WINWORD6:
-		case RD_WORDPAD:
 		case RD_EMBEDDED:
 		case RD_RICHTEXT:
 			return m_hIconDoc;
 		case RD_TEXT:
-		case RD_OEMTEXT:
 			return m_hIconText;
-		case RD_WRITE:
-			return m_hIconWrite;
 	}
 	return m_hIconDoc;
 }

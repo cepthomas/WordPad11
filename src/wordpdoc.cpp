@@ -154,20 +154,20 @@ BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	else
 	{
 		if (theApp.cmdInfo.m_bForceTextMode)
+		{
 			m_nNewDocType = RD_TEXT;
+		}
 		else
 		{
 			CFileException fe;
 			m_nNewDocType = GetDocTypeFromName(lpszPathName, fe);
 			if (m_nNewDocType == -1)
 			{
-				ReportSaveLoadException(lpszPathName, &fe, FALSE,
-					AFX_IDP_FAILED_TO_OPEN_DOC);
+				ReportSaveLoadException(lpszPathName, &fe, FALSE, AFX_IDP_FAILED_TO_OPEN_DOC);
 				return FALSE;
 			}
-			if (m_nNewDocType == RD_TEXT && theApp.m_bForceOEM)
-				m_nNewDocType = RD_OEMTEXT;
 		}
+
 		ScanForConverters();
 		if (!doctypes[m_nNewDocType].bRead)
 		{
@@ -219,47 +219,28 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 	ScanForConverters();
 
 	BOOL bSaveAs = FALSE;
+
 	if (newName.IsEmpty())
+	{
 		bSaveAs = TRUE;
+	}
 	else if (!doctypes[m_nDocType].bWrite)
 	{
-		if (m_nDocType == RD_WINWORD6)
+		if (AfxMessageBox(IDS_SAVE_UNSUPPORTED, MB_YESNO | MB_ICONEXCLAMATION) != IDYES)
 		{
-			//      DWORD nHelpIDs[] =
-			//      {
-			//          0, 0
-			//      };
-			INT_PTR nRes = CButtonDialog::DisplayMessageBox(
-				MAKEINTRESOURCE(IDS_WORD6_WARNING), AfxGetAppName(),
-				MAKEINTRESOURCE(IDS_WORD6_WARNING_BUTTONS),
-				MB_ICONEXCLAMATION, 1, 2);
-			if (nRes == 0) // Save
-				SetDocType(RD_WORDPAD, TRUE);
-			else if (nRes == 2) // Cancel
-				return FALSE;
-			else
-				bSaveAs = TRUE;
-			// else save as
+			return FALSE;
 		}
-		else //
+		else
 		{
-			if (AfxMessageBox(IDS_SAVE_UNSUPPORTED,
-				MB_YESNO | MB_ICONEXCLAMATION) != IDYES)
-			{
-				return FALSE;
-			}
-			else
-				bSaveAs = TRUE;
+			bSaveAs = TRUE;
 		}
 	}
 
-	if (m_lpRootStg == NULL && IsTextType(m_nDocType) &&
-		!GetView()->IsFormatText())
+	if (m_lpRootStg == NULL && IsTextType(m_nDocType) && !GetView()->IsFormatText())
 	{
 		// formatting changed in plain old text file
 		DWORD nHelpIDs[] =
 		{
-			0, IDH_WORDPAD_WORD6FILE,
 			0, IDH_WORDPAD_FORMATTED,
 			0, IDH_WORDPAD_TEXTFILE,
 			0, 0
@@ -269,15 +250,24 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 		INT_PTR nRes = CButtonDialog::DisplayMessageBox(str,
 			MAKEINTRESOURCE(AFX_IDS_APP_TITLE),
 			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3, nHelpIDs);
+
 		if (nRes == 3)
+		{
 			return FALSE;
+		}
+
 		int nDocType = (nRes == 0) ? RD_DEFAULT:    //Word 6
-					(nRes == 1) ? RD_RICHTEXT : //RTF
-					RD_TEXT;                    //text
+					(nRes == 1) ? RD_RICHTEXT : RD_TEXT;
+
 		if (IsTextType(m_nDocType) && nDocType != RD_TEXT)
+		{
 			SetDocType(nDocType, TRUE);
+		}
+
 		if (nDocType != RD_TEXT)
+		{
 			bSaveAs = TRUE;
+		}
 	}
 
 	GetView()->GetParentFrame()->RecalcLayout();
@@ -433,6 +423,7 @@ CFile* CWordPadDoc::GetFile(LPCTSTR pszPathName, UINT nOpenFlags, CFileException
 {
 	CTrackFile* pFile = NULL;
 	CFrameWnd* pWnd = GetView()->GetParentFrame();
+
 #ifdef CONVERTERS
 	ScanForConverters();
 
@@ -443,10 +434,8 @@ CFile* CWordPadDoc::GetFile(LPCTSTR pszPathName, UINT nOpenFlags, CFileException
 		pFile = new CConverter(doctypes[nType].pszConverterName, pWnd);
 	else
 #endif
-	if (nType == RD_OEMTEXT)
-		pFile = new COEMFile(pWnd);
-	else
 		pFile = new CTrackFile(pWnd);
+
 	if (!pFile->Open(pszPathName, nOpenFlags, pException))
 	{
 		delete pFile;
@@ -501,9 +490,7 @@ void CWordPadDoc::Dump(CDumpContext& dc) const
 
 int CWordPadDoc::MapType(int nType)
 {
-	if (nType == RD_OEMTEXT)
-		nType = RD_TEXT;
-	else if (!IsInPlaceActive() && nType == RD_EMBEDDED)
+	if (!IsInPlaceActive() && nType == RD_EMBEDDED)
 		nType = RD_RICHTEXT;
 	return nType;
 }
@@ -516,8 +503,6 @@ void CWordPadDoc::OnViewOptions()
 		nFirstPage = 1;
 	else if (nType == RD_RICHTEXT)
 		nFirstPage = 2;
-	else if (nType == RD_WRITE)
-		nFirstPage = 4;
 	else if (nType == RD_EMBEDDED)
 		nFirstPage = 5;
 
@@ -529,11 +514,12 @@ void CWordPadDoc::OnViewOptions()
 	{
 		CWordPadView* pView = GetView();
 		if (theApp.m_bWordSel)
+		{
 			pView->GetRichEditCtrl().SetOptions(ECOOP_OR, ECO_AUTOWORDSELECTION);
+		}
 		else
 		{
-			pView->GetRichEditCtrl().SetOptions(ECOOP_AND,
-				~(DWORD)ECO_AUTOWORDSELECTION);
+			pView->GetRichEditCtrl().SetOptions(ECOOP_AND, ~(DWORD)ECO_AUTOWORDSELECTION);
 		}
 		RestoreState(nType);
 	}

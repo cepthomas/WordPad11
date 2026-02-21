@@ -134,6 +134,7 @@
     <ClInclude Include="splash.h" />
     <ClInclude Include="srvritem.h" />
     <ClInclude Include="strings.h" />
+    <ClInclude Include="targetver.h" />
     <ClInclude Include="unitspag.h" />
     <ClInclude Include="wordpad.h" />
     <ClInclude Include="wordpdoc.h" />

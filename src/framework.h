@@ -48,7 +48,7 @@
 
 #pragma warning(disable: 4996) // Function declared deprecated
 
-#define CONVERTERS
+#define CONVERTERS // TODO?
 
 #include <afxrich.h>
 //#include <afxpriv.h>
@@ -79,7 +79,7 @@ struct CParaFormat : public PARAFORMAT2
 
 ////////// Content custom for WordPad11 //////////
 
-// Turns on writing the registry - the original way.
+// Turns on writing associations etc to the registry - the original way.
 //#define _REGISTER_APP
 
 // Check version mins for building - Basically standardVS2022.

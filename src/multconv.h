@@ -48,13 +48,13 @@ public:
 	virtual void Write(const void FAR* lpBuf, UINT nCount);
 };
 
-class COEMFile : public CTrackFile
-{
-public:
-	COEMFile(CFrameWnd* pWnd);
-	virtual UINT Read(void FAR* lpBuf, UINT nCount);
-	virtual void Write(const void FAR* lpBuf, UINT nCount);
-};
+//class COEMFile : public CTrackFile
+//{
+//public:
+//	COEMFile(CFrameWnd* pWnd);
+//	virtual UINT Read(void FAR* lpBuf, UINT nCount);
+//	virtual void Write(const void FAR* lpBuf, UINT nCount);
+//};
 
 #ifdef CONVERTERS
 

@@ -9,23 +9,18 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#define RD_WINWORD2 0
-#define RD_WINWORD6 1
-#define RD_WORDPAD 2
-#define RD_WRITE 3
-#define RD_RICHTEXT 4
-#define RD_TEXT 5
-#define RD_OEMTEXT 6
-#define RD_ALL 7
-#define RD_EXE 8
-#define RD_EMBEDDED 9
-#define NUM_DOC_TYPES 10
 
-#define RD_DEFAULT RD_WORDPAD
+#define RD_RICHTEXT 0
+#define RD_TEXT 1
+#define RD_ALL 2
+#define RD_EXE 3
+#define RD_EMBEDDED 4
+#define NUM_DOC_TYPES 5
+#define RD_DEFAULT RD_RICHTEXT
 #define RD_NATIVE RD_RICHTEXT
 
 typedef BOOL (*PISFORMATFUNC)(LPCSTR pszConverter, LPCSTR pszPathName);
-inline BOOL IsTextType(LONG_PTR nType) {return ((nType==RD_TEXT) || (nType==RD_OEMTEXT));}
+inline BOOL IsTextType(LONG_PTR nType) {return nType == RD_TEXT;}
 
 struct DocType
 {
@@ -44,12 +39,8 @@ public:
 #define DOCTYPE_EXT 2
 #define DOCTYPE_PROGID 3
 
-#define DECLARE_DOCTYPE(name, b1, b2, b3, p) \
-{RD_##name, IDS_##name##_DOC, b1, b2, b3, p}
-#define DECLARE_DOCTYPE_SYN(actname, name, b1, b2, b3, p) \
-{RD_##actname, IDS_##name##_DOC, b1, b2, b3, p}
-#define DECLARE_DOCTYPE_NULL(name, b1, b2, b3, p) \
-{RD_##name, NULL, b1, b2, b3, p}
+#define DECLARE_DOCTYPE(name, b1, b2, b3, p) {RD_##name, IDS_##name##_DOC, b1, b2, b3, p}
+#define DECLARE_DOCTYPE_NULL(name, b1, b2, b3, p) {RD_##name, NULL, b1, b2, b3, p}
 
 extern DocType doctypes[NUM_DOC_TYPES];
 extern int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);

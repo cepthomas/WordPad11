@@ -57,13 +57,10 @@ public:
 	BOOL m_bLargeIcons;
 	BOOL m_bForceTextMode;
 	BOOL m_bWordSel;
-	BOOL m_bForceOEM;
 	int m_nFilterIndex;
 	int m_nNewDocType;
 	CDocOptions m_optionsText;
 	CDocOptions m_optionsRTF;
-	CDocOptions m_optionsWord; //wrap to ruler
-	CDocOptions m_optionsWrite; //wrap to ruler
 	CDocOptions m_optionsIP;    //wrap to ruler
 	CDocOptions m_optionsNull;
 	CList<HWND, HWND> m_listPrinterNotify;
@@ -89,8 +86,7 @@ public:
 	static BOOL CALLBACK StaticEnumProc(HWND hWnd, LPARAM lParam);
 	void UpdateRegistry();
 	void NotifyPrinterChanged(BOOL bUpdatePrinterSelection = FALSE);
-	BOOL PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags,
-		BOOL bOpenFileDialog, int* pType = NULL);
+	BOOL PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, int* pType = NULL);
 
 	BOOL ParseMeasurement(TCHAR* buf, int& lVal);
 	void PrintTwips(TCHAR* buf, int nSize, int nValue, int nDecimal);

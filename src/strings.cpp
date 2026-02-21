@@ -22,12 +22,9 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 const TCHAR szWordPadClass[] = _T("WordPadClass");
 const TCHAR szLayout1[] = _T("Layout2");
 const TCHAR szLayout2[] = _T("LayoutAux2");
-const TCHAR szRegKey[] = _T("Microsoft\\Windows\\CurrentVersion\\Applets");
 
 const TCHAR szTextSection[] = _T("Text");
 const TCHAR szRTFSection[] = _T("RTF");
-const TCHAR szWordSection[] = _T("Word6");
-const TCHAR szWriteSection[] =_T("Write");
 const TCHAR szIPSection[] = _T("IP");
 const TCHAR szWrap[] = _T("Wrap");
 const TCHAR szPageMargin[] = _T("PageMargin");
@@ -39,8 +36,5 @@ const TCHAR szFrameRect[] = _T("FrameRect");
 const TCHAR szMaximized[] = _T("Maximized");
 
 const TCHAR szSumInfo[] = _T("\005SummaryInformation");
-
-const char szWordConverter[] = "MSWRD632.WPC";
-const char szWriteConverter[] = "WRITE32.WPC";
 
 const TCHAR szContents[] = _T("Contents");

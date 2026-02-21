@@ -16,12 +16,9 @@
 extern const TCHAR szWordPadClass[];
 extern const TCHAR szLayout1[];
 extern const TCHAR szLayout2[];
-extern const TCHAR szRegKey[];
 
 extern const TCHAR szTextSection[];
 extern const TCHAR szRTFSection[];
-extern const TCHAR szWordSection[];
-extern const TCHAR szWriteSection[];
 extern const TCHAR szIPSection[];
 extern const TCHAR szWrap[];
 extern const TCHAR szPageMargin[];
@@ -34,8 +31,5 @@ extern const TCHAR szMaximized[];
 extern const TCHAR szDeleteTemp[];
 
 extern const TCHAR szSumInfo[];
-
-extern const char szWordConverter[];
-extern const char szWriteConverter[];
 
 extern const TCHAR szContents[];
