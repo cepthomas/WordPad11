@@ -1,27 +1,20 @@
 # WordPad11 TODO clean up
 
-Good old WordPad brought into the 21st century.
+Good old WordPad brought into the 21st century. The executaable was quietly removed from Win11 24H2 but MS 
+handed over the keys as MIT licensed open-source. There are several re-interpretations of this tool - search
+github for them if interested.
 
-The WordPad source code has been included as a sample in compilers since 1995 under restrictive terms.
-These samples are now available under the MIT license, including the version bundled with Visual C++ 2008 and 2010.
+Main aspects:
+- Windows 11 and later - Build it in VS 2022+ with the C++ (with MFC) workload.
+- 64 bit static/portable executable, no default registry writing.
+- Historical cruft removed.
 
-This source is based on a copy (not fork) of [WordPad OG](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/ole/wordpad).
+The repo baseline is a copy (not fork) of [WordPad OG](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/ole/wordpad).
 
-> This is a modern version for Win11 24H2 and beyond (since it was removed). Build it in VS 2022+ with the C++ (with MFC) workload.
-
-
-
->>>>>>>>>>>>>>>>>>>>>>>>>
-original > wordpad_orig is from https://github.com/malxau/wordpad
-This repo is an attempt to maintain the WordPad source code and keep it useful and relevant.
-The WordPad source code has been included as a sample in compilers since 1995 under restrictive terms.
-These samples are now available under the MIT license, including the version bundled with Visual C++ 2008 and 2010.
-This source is a fork of the [most recent code from the 2010 compiler](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/ole/wordpad).
-
-
-# changes like malxau
-
-
+TODO - output location - for portable/release
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(TOOLS_PATH)' != ''">
+        <Exec Command="copy /Y $(OutputPath)Shellinator.exe $(TOOLS_PATH)" />
+    </Target>
 
 # my changes
 - mfc static - portable
@@ -33,6 +26,15 @@ This source is a fork of the [most recent code from the 2010 compiler](https://g
 # to add
 
 - remove wri support. word6? other txt? TODOx
+    case RD_WINWORD6:
+    case RD_WORDPAD:
+    case RD_RICHTEXT:
+    case RD_TEXT:
+    case RD_OEMTEXT:
+    case RD_WRITE:
+    case RD_EMBEDDED:
+
+
 
 - add? help/about
 search "https://github.com/malxau/wordpad"  IDD_ABOUT
@@ -44,6 +46,8 @@ TODO bunch of these:
   irtual const DWORD* GetHelpIDs() = 0;
   CMainFrame::OnHelpFinder()
   IDD_ABOUT DIALOGEX
+
+
 
 
 # TO-DO later

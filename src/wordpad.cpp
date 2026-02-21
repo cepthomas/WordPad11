@@ -26,8 +26,9 @@
 
 
 extern BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn);
-static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
-	BOOL bReplace);
+#ifdef _REGISTER_APP
+static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols, BOOL bReplace);
+#endif
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -132,8 +133,7 @@ static CSingleDocTemplate DocTemplate(
 
 // This identifier was generated to be statistically unique for your app.
 // You may change it if you prefer to choose a specific identifier.
-static const CLSID BASED_CODE clsid =
-{ 0x73FDDC80L, 0xAEA9, 0x101A, { 0x98, 0xA7, 0x00, 0xAA, 0x00, 0x37, 0x49, 0x59} };
+static const CLSID BASED_CODE clsid = { 0x73FDDC80L, 0xAEA9, 0x101A, { 0x98, 0xA7, 0x00, 0xAA, 0x00, 0x37, 0x49, 0x59} };
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp initialization
@@ -329,6 +329,7 @@ BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
 
 void CWordPadApp::RegisterFormats()
 {
+	// Registers a new clipboard format. This format can then be used as a valid clipboard format.
 	cfEmbeddedObject = (CLIPFORMAT)::RegisterClipboardFormat(_T("Embedded Object"));
 	cfRTF = (CLIPFORMAT)::RegisterClipboardFormat(CF_RTF);
 	cfRTO = (CLIPFORMAT)::RegisterClipboardFormat(CF_RETEXTOBJ);
