@@ -14,7 +14,7 @@
 
 #include "resource.h"
 #include "strings.h"
-#include "multconv.h"
+//#include "multconv.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE	

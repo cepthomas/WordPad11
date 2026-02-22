@@ -9,7 +9,9 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#ifdef CONVERTERS
+
+// If using converters, set CONVERTERS in MSbuild preprocessor definitions.
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CConverter
@@ -23,40 +25,6 @@ typedef int (FAR PASCAL *PFOREIGNTORTF)(HANDLE ghszFile, LPVOID lpv, HANDLE ghBu
 typedef int (FAR PASCAL *PRTFTOFOREIGN)(HANDLE ghszFile, LPVOID lpv, HANDLE ghBuff,
 	HANDLE ghszClass, LPFNIN lpfnIn);
 
-#endif
-
-/////////////////////////////////////////////////////////////////////////////
-// CTrackFile
-class CTrackFile : public CFile
-{
-public:
-//Construction
-	CTrackFile(CFrameWnd* pWnd);
-	~CTrackFile();
-
-//Attributes
-	int m_nLastPercent;
-	DWORD m_dwLength;
-	CFrameWnd* m_pFrameWnd;
-	CString m_strComplete;
-	CString m_strWait;
-	CString m_strSaving;
-//Operations
-	void OutputPercent(int nPercentComplete = 0);
-	void OutputString(LPCTSTR lpsz);
-	virtual UINT Read(void FAR* lpBuf, UINT nCount);
-	virtual void Write(const void FAR* lpBuf, UINT nCount);
-};
-
-//class COEMFile : public CTrackFile
-//{
-//public:
-//	COEMFile(CFrameWnd* pWnd);
-//	virtual UINT Read(void FAR* lpBuf, UINT nCount);
-//	virtual void Write(const void FAR* lpBuf, UINT nCount);
-//};
-
-#ifdef CONVERTERS
 
 class CConverter : public CTrackFile
 {
@@ -124,7 +92,5 @@ protected:
 	static UINT ConverterThread(LPVOID pParam);
 	static CConverter *m_pThis;
 };
-
-#endif
 
 /////////////////////////////////////////////////////////////////////////////

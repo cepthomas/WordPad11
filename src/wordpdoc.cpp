@@ -27,8 +27,9 @@
 #include "unitspag.h"
 #include "docopt.h"
 #include "optionsh.h"
+#include "trackfil.h"
 
-#include "multconv.h"
+//#include "multconv.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -397,11 +398,15 @@ void CWordPadDoc::SetDocType(int nNewDocType, BOOL bNoOptionChange)
 {
 	ASSERT(nNewDocType != -1);
 	if (nNewDocType == m_nDocType)
+	{
 		return;
+	}
 
 	m_bRTF = !IsTextType(nNewDocType);
 	if (bNoOptionChange)
+	{
 		m_nDocType = nNewDocType;
+	}
 	else
 	{
 		SaveState(m_nDocType);
@@ -433,18 +438,27 @@ CFile* CWordPadDoc::GetFile(LPCTSTR pszPathName, UINT nOpenFlags, CFileException
 	if (doctypes[nType].pszConverterName != NULL)
 		pFile = new CConverter(doctypes[nType].pszConverterName, pWnd);
 	else
-#endif
 		pFile = new CTrackFile(pWnd);
+#else
+	pFile = new CTrackFile(pWnd);
+#endif
 
 	if (!pFile->Open(pszPathName, nOpenFlags, pException))
 	{
 		delete pFile;
 		return NULL;
 	}
-	if (nOpenFlags & (CFile::modeWrite | CFile::modeReadWrite))
-		pFile->m_dwLength = 0; // can't estimate this
-	else
-		pFile->m_dwLength = (DWORD)pFile->GetLength();
+
+	pFile->m_dwLength = nOpenFlags & (CFile::modeWrite | CFile::modeReadWrite) ?
+		0 : // can't estimate this
+		(DWORD)pFile->GetLength();
+
+	//was:
+	//if (nOpenFlags & (CFile::modeWrite | CFile::modeReadWrite))
+	//	pFile->m_dwLength = 0; // can't estimate this
+	//else
+	//	pFile->m_dwLength = (DWORD)pFile->GetLength();
+
 	return pFile;
 }
 

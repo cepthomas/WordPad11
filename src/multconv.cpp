@@ -13,6 +13,7 @@
 #include "framework.h"
 
 #include "wordpad.h"
+#include "trackfil.h"
 #include "multconv.h"
 
 #ifdef _DEBUG
@@ -20,71 +21,10 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-#ifdef CONVERTERS
 CConverter* CConverter::m_pThis = NULL;
-#endif
 
 #define BUFFSIZE 4096
 
-CTrackFile::CTrackFile(CFrameWnd* pWnd) : CFile()
-{
-	m_nLastPercent = -1;
-	m_dwLength = 0;
-	m_pFrameWnd = pWnd;
-	VERIFY(m_strComplete.LoadString(IDS_COMPLETE));
-	VERIFY(m_strWait.LoadString(IDS_PLEASE_WAIT));
-	VERIFY(m_strSaving.LoadString(IDS_SAVING));
-//  OutputPercent(0);
-}
-
-CTrackFile::~CTrackFile()
-{
-	OutputPercent(100);
-	if (m_pFrameWnd != NULL)
-		m_pFrameWnd->SetMessageText(AFX_IDS_IDLEMESSAGE);
-}
-
-UINT CTrackFile::Read(void FAR* lpBuf, UINT nCount)
-{
-	UINT n = CFile::Read(lpBuf, nCount);
-	if (m_dwLength != 0)
-		OutputPercent((int)((GetPosition()*100)/m_dwLength));
-	return n;
-}
-
-void CTrackFile::Write(const void FAR* lpBuf, UINT nCount)
-{
-	CFile::Write(lpBuf, nCount);
-	OutputString(m_strSaving);
-//  if (m_dwLength != 0)
-//      OutputPercent((int)((GetPosition()*100)/m_dwLength));
-}
-
-void CTrackFile::OutputString(LPCTSTR lpsz)
-{
-	if (m_pFrameWnd != NULL)
-	{
-		m_pFrameWnd->SetMessageText(lpsz);
-		CWnd* pBarWnd = m_pFrameWnd->GetMessageBar();
-		if (pBarWnd != NULL)
-			pBarWnd->UpdateWindow();
-	}
-}
-
-void CTrackFile::OutputPercent(int nPercentComplete)
-{
-	if (m_pFrameWnd != NULL && m_nLastPercent != nPercentComplete)
-	{
-		m_nLastPercent = nPercentComplete;
-		TCHAR buf[64];
-		int n = nPercentComplete;
-		_stprintf_s(buf, 64, (n==100) ? m_strWait : m_strComplete, n);
-		OutputString(buf);
-	}
-}
-
-
-#ifdef CONVERTERS
 
 HGLOBAL CConverter::StringToHGLOBAL(LPCSTR pstr)
 {
@@ -324,7 +264,6 @@ void CConverter::LoadFunctions()
 	m_pForeignToRtf = (PFOREIGNTORTF)GetProcAddress(m_hLibCnv, "ForeignToRtf32");
 	m_pRtfToForeign = (PRTFTOFOREIGN)GetProcAddress(m_hLibCnv, "RtfToForeign32");
 }
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 
