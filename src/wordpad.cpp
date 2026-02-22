@@ -398,14 +398,17 @@ void CWordPadApp::LoadOptions()
 		delete pb;
 	}
 	else
-		m_rectInitialFrame.SetRect(0,0,0,0);
+	{
+		m_rectInitialFrame.SetRect(0, 0, 0, 0);
+	}
 
-	CRect rectScreen(0, 0, GetSystemMetrics(SM_CXSCREEN),
-		GetSystemMetrics(SM_CYSCREEN));
+	CRect rectScreen(0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
 	CRect rectInt;
 	rectInt.IntersectRect(&rectScreen, &m_rectInitialFrame);
 	if (rectInt.Width() < 10 || rectInt.Height() < 10)
+	{
 		m_rectInitialFrame.SetRect(0, 0, 0, 0);
+	}
 
 	if (GetProfileBinary(szSection, szPageMargin, &pb, &nLen))
 	{
@@ -417,7 +420,9 @@ void CWordPadApp::LoadOptions()
 		delete pb;
 	}
 	else
+	{
 		m_rectPageMargin.SetRect(1800, 1440, 1800, 1440);
+	}
 
 	m_optionsText.LoadOptions(szTextSection);
 	m_optionsRTF.LoadOptions(szRTFSection);
@@ -427,30 +432,37 @@ void CWordPadApp::LoadOptions()
 void CWordPadApp::LoadAbbrevStrings()
 {
 	for (int i=0;i<m_nNumUnits;i++)
+	{
 		m_units[i].m_strAbbrev.LoadString(m_units[i].m_nAbbrevID);
+	}
 }
 
 BOOL CWordPadApp::ParseMeasurement(LPTSTR buf, int& lVal)
 {
 	TCHAR* pch;
 	if (buf[0] == NULL)
+	{
 		return FALSE;
+	}
+
 	float f = (float)_tcstod(buf,&pch);
 
 	// eat white space, if any
 	while (isspace((int)*pch))
+	{
 		pch++;
+	}
 
 	if (pch[0] == NULL) // default
 	{
 		lVal = (f < 0.f) ? (int)(f*GetTPU()-0.5f) : (int)(f*GetTPU()+0.5f);
 		return TRUE;
 	}
-	for (int i=0;i<m_nNumUnits;i++)
+	for (int i = 0; i < m_nNumUnits; i++)
 	{
 		if (lstrcmpi(pch, GetAbbrev(i)) == 0)
 		{
-			lVal = (f < 0.f) ? (int)(f*GetTPU(i)-0.5f) : (int)(f*GetTPU(i)+0.5f);
+			lVal = (f < 0.f) ? (int)(f * GetTPU(i) - 0.5f) : (int)(f * GetTPU(i) + 0.5f);
 			return TRUE;
 		}
 	}
