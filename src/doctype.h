@@ -1,4 +1,4 @@
-// doctype.h : header file
+	// doctype.h : header file
 //
 // This is a part of the Microsoft Foundation Classes C++ library.
 // Copyright (c) Microsoft Corporation.  All rights reserved.

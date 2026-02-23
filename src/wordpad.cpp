@@ -515,7 +515,7 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nSize, int nValue, int nDec)
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp commands
 
-void CWordPadApp::OnAppAbout()
+void CWordPadApp::OnAppAbout() //TODOhelp
 {
 	CString strTitle;
 	VERIFY(strTitle.LoadString(AFX_IDS_APP_TITLE));

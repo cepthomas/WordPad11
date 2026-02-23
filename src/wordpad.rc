@@ -170,11 +170,13 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
+        // MENUITEM "&Help Topics",                ID_HELP_INDEX TODOhelp
+        // MENUITEM SEPARATOR
         MENUITEM "&About WordPad",              ID_APP_ABOUT
     END
 END
 
-IDR_CNTR_INPLACE MENU 
+IDR_CNTR_INPLACE MENU   //TODOemb
 BEGIN
     POPUP "&File"
     BEGIN
@@ -189,7 +191,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "Sen&d...",                    ID_FILE_SEND_MAIL
+        MENUITEM "Sen&d...",                    ID_FILE_SEND_MAIL //TODO???
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
@@ -197,7 +199,7 @@ BEGIN
     MENUITEM SEPARATOR
 END
 
-IDR_SRVR_INPLACE MENU 
+IDR_SRVR_INPLACE MENU  //TODOemb
 BEGIN
     POPUP "&Edit"
     BEGIN
@@ -243,11 +245,11 @@ BEGIN
     MENUITEM SEPARATOR
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About WordPad",              ID_APP_ABOUT
+        MENUITEM "&About WordPad",              ID_APP_ABOUT //TODOhelp
     END
 END
 
-IDR_SRVR_EMBEDDED MENU 
+IDR_SRVR_EMBEDDED MENU  //TODOemb
 BEGIN
     POPUP "&File"
     BEGIN
@@ -272,7 +274,7 @@ BEGIN
         MENUITEM "Find &Next\tF3",              ID_EDIT_REPEAT
         MENUITEM "R&eplace...\tCtrl+H",         ID_EDIT_REPLACE
         MENUITEM SEPARATOR
-        MENUITEM "Lin&ks...",                   ID_OLE_EDIT_LINKS
+        MENUITEM "Lin&ks...",                   ID_OLE_EDIT_LINKS //TODO???
         MENUITEM "Object P&roperties\tAlt+Enter", ID_OLE_EDIT_PROPERTIES
         MENUITEM "<<OLE VERBS GO HERE>>",       ID_OLE_VERB_FIRST
     END
@@ -409,7 +411,7 @@ BEGIN
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
 END
 
-IDR_CNTR_INPLACE ACCELERATORS 
+IDR_CNTR_INPLACE ACCELERATORS   //TODOemb
 BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
@@ -420,7 +422,7 @@ BEGIN
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
 END
 
-IDR_SRVR_INPLACE ACCELERATORS 
+IDR_SRVR_INPLACE ACCELERATORS   //TODOemb
 BEGIN
     "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
@@ -446,7 +448,7 @@ BEGIN
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
 END
 
-IDR_SRVR_EMBEDDED ACCELERATORS 
+IDR_SRVR_EMBEDDED ACCELERATORS   //TODOemb
 BEGIN
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, NOINVERT
@@ -550,7 +552,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,127,34,50,14
 END
 
-IDD_SPLASH DIALOGEX 0, 0, 253, 92
+IDD_SPLASH DIALOGEX 0, 0, 253, 92  //TODOhelp
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
@@ -559,7 +561,7 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKRECT,60,30,188,1
     LTEXT           "Warning: This computer program is protected by", IDC_STATIC,60,36,188,8
     LTEXT           "copyright law and international treaties.",IDC_STATIC, 60,44,188,8
-    LTEXT           "© 1998 - 2008 Microsoft Corporation.  All rights reserved.",IDC_STATIC,60,60,188,8
+    LTEXT           "© 1998 - 2008 Microsoft Corporation.  All rights reserved. TODOhlp",IDC_STATIC,60,60,188,8
     LTEXT           "Licensed under the terms of the MIT license.",IDC_STATIC,60,68,188,8
 END
 
@@ -602,12 +604,28 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,127,34,50,14
 END
 
+//TODOhelp from malxau
+// IDD_ABOUT DIALOGEX 0, 0, 422, 250
+// STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+// CAPTION "About WordPad"
+// FONT 8, "MS Sans Serif", 0, 0, 0x0
+// BEGIN
+//     CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,
+//                     38,40
+//     LTEXT           "WordPad Version 1.0",-1,60,6,164,8,NOT WS_GROUP
+//     LTEXT           "https://github.com/malxau/wordpad",-1,60,18,188,8
+//     EDITTEXT        IDC_LICENSE_TEXT,60,33,350,206,ES_MULTILINE | 
+//                     ES_AUTOHSCROLL | ES_NOHIDESEL | ES_READONLY | WS_VSCROLL | 
+//                     NOT WS_TABSTOP
+//     DEFPUSHBUTTON   "&Close",IDOK,332,7,78,18
+// END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
 //
-VS_VERSION_INFO VERSIONINFO
+VS_VERSION_INFO VERSIONINFO  //TODOhelp
  FILEVERSION 1,0,0,0
  PRODUCTVERSION 5,0,0,0
  FILEFLAGSMASK 0x3fL
@@ -625,13 +643,13 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "Microsoft Corporation"
-            VALUE "FileDescription", "WordPad MFC Application"
-            VALUE "FileVersion", "1.0"
+            VALUE "FileDescription", "WordPad MFC Application - updated for Windows 11"
+            VALUE "FileVersion", "2.0"
             VALUE "InternalName", "wordpad"
-            VALUE "LegalCopyright", "© Microsoft Corporation.  All rights reserved."
-            VALUE "OriginalFilename", "WORDPAD.EXE"
+            VALUE "LegalCopyright", "© Microsoft Corporation. All rights reserved."
+            VALUE "OriginalFilename", "Wordpad.exe"
             VALUE "ProductName", "Microsoft® Windows (TM) Operating System"
-            VALUE "ProductVersion", "5.0"
+            VALUE "ProductVersion", "11.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -653,11 +671,12 @@ BEGIN
         BOTTOMMARGIN, 145
     END
 
-    IDD_ABOUT, DIALOG
-    BEGIN
-        RIGHTMARGIN, 410
-        BOTTOMMARGIN, 239
-    END
+//TODOhelp from malxau
+    // IDD_ABOUT, DIALOG
+    // BEGIN
+    //     RIGHTMARGIN, 410
+    //     BOTTOMMARGIN, 239
+    // END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -675,9 +694,9 @@ BEGIN
     IDS_COMPLETE            "%d%% complete"
     IDS_SAVE_UNSUPPORTED    "Can not save this file in its current format.  Do you wish to save this file in a different format?"
     IDS_CLOSE_TEXT          "Cl&ose"
-    IDS_RICHED_LOAD_FAIL    "Could not load the RichEdit control DLL.  The file RICHED32.DLL may be missing or corrupt."
+    IDS_RICHED_LOAD_FAIL    "Could not load the RichEdit control DLL.  The file riched32.dll may be missing or corrupt."
     IDS_DEFAULTFONT         "Times New Roman"
-    IDS_TF_BUTTONS          "&Word 6.0 Document\n&Rich Text Document\n&Text Document\nCancel"
+    IDS_TF_BUTTONS          "&Rich Text Document\n&Text Document\nCancel"
     IDS_DEFAULTTEXTFONT     "Courier New"
 END
 
@@ -696,7 +715,7 @@ STRINGTABLE
 BEGIN
     AFX_IDS_APP_TITLE       "WordPad"
     AFX_IDS_IDLEMESSAGE     ""
-    AFX_IDS_HELPMODEMESSAGE "Select an object you want to get Help on."
+    AFX_IDS_HELPMODEMESSAGE "Select an object you want to get Help on." //TODOhelp
 END
 
 STRINGTABLE 
@@ -721,19 +740,19 @@ BEGIN
     ID_FILE_PRINT           "Prints the active document\nPrint"
     ID_FILE_PRINT_DIRECT    "Prints the active document\nPrint"
     ID_FILE_PRINT_PREVIEW   "Displays full pages\nPrint Preview"
-    ID_FILE_UPDATE          "Updates the container to show any changes\nUpdate"
+    ID_FILE_UPDATE          "Updates the container to show any changes\nUpdate"  //TODO?
     ID_FILE_SAVE_COPY_AS    "Saves a copy of the active document with a new name\nSave Copy"
-    ID_FILE_SEND_MAIL       "Sends the document through electronic mail\nSend"
+    ID_FILE_SEND_MAIL       "Sends the document through electronic mail\nSend"   //TODOemb
 END
 
 STRINGTABLE 
 BEGIN
     ID_APP_ABOUT            "Displays program information, version number, and copyright\nAbout"
     ID_APP_EXIT             "Quits the application; prompts you to save documents\nExit"
-    ID_HELP_INDEX           "Lists Help topics\nHelp Index"
-    ID_HELP_USING           "Displays instructions about how to use help\nHelp"
-    ID_CONTEXT_HELP         "Displays Help for the button, menu, or window you click\nHelp"
-    ID_HELP                 "Displays Help for current task or command\nHelp"
+    ID_HELP_INDEX           "Lists Help topics\nHelp Index" //TODOhelp
+    ID_HELP_USING           "Displays instructions about how to use help\nHelp" //TODOhelp
+    ID_CONTEXT_HELP         "Displays Help for the button, menu, or window you click\nHelp" //TODOhelp
+    ID_HELP                 "Displays Help for current task or command\nHelp" //TODOhelp
 END
 
 STRINGTABLE 
@@ -746,13 +765,13 @@ END
 
 STRINGTABLE 
 BEGIN
-    ID_NEXT_PANE            "Switches to the next window pane\nNext Pane"
-    ID_PREV_PANE            "Switches back to the previous window pane\nPrevious Pane"
+    ID_NEXT_PANE            "Switches to the next window pane\nNext Pane" //TODO?
+    ID_PREV_PANE            "Switches back to the previous window pane\nPrevious Pane" //TODO?
 END
 
 STRINGTABLE 
 BEGIN
-    ID_WINDOW_SPLIT         "Splits the active window into panes\nSplit"
+    ID_WINDOW_SPLIT         "Splits the active window into panes\nSplit"  //TODO?
 END
 
 STRINGTABLE 
@@ -783,14 +802,14 @@ END
 STRINGTABLE 
 BEGIN
     ID_OLE_INSERT_NEW       "Inserts new embedded object\nInsert Object"
-    ID_OLE_EDIT_LINKS       "Edits linked objects\nEdit Links"
-    ID_OLE_EDIT_CONVERT     "Converts object to different type\nConvert Object"
-    ID_OLE_EDIT_PROPERTIES  "Change selected object's properties\nProperties"
+    ID_OLE_EDIT_LINKS       "Edits linked objects\nEdit Links"  //TODOemb
+    ID_OLE_EDIT_CONVERT     "Converts object to different type\nConvert Object"  //TODOemb
+    ID_OLE_EDIT_PROPERTIES  "Change selected object's properties\nProperties"  //TODO?
 END
 
 STRINGTABLE 
 BEGIN
-    ID_OLE_VERB_FIRST       "Activates embedded or linked object"
+    ID_OLE_VERB_FIRST       "Activates embedded or linked object"  //TODO?
     57873                   "Activates embedded or linked object"
     57874                   "Activates embedded or linked object"
     57875                   "Activates embedded or linked object"
@@ -802,7 +821,7 @@ BEGIN
     AFX_IDS_SCMOVE          "Changes the window position"
     AFX_IDS_SCMINIMIZE      "Reduces the window to an icon"
     AFX_IDS_SCMAXIMIZE      "Enlarges the window to full size"
-    AFX_IDS_SCNEXTWINDOW    "Switches to the next document window"
+    AFX_IDS_SCNEXTWINDOW    "Switches to the next document window"  //TODO?
     AFX_IDS_SCPREVWINDOW    "Switches to the previous document window"
     AFX_IDS_SCCLOSE         "Closes the active window and prompts to save the documents"
 END
@@ -918,7 +937,7 @@ BEGIN
     IDS_TEXT_OPTIONS        "Text"
     IDS_RTF_OPTIONS         "Rich Text"
     IDS_OPTIONS             "Options"
-    IDS_EMBEDDED_OPTIONS    "Embedded"
+    IDS_EMBEDDED_OPTIONS    "Embedded"  //TODOemb
     IDS_TEXT_DOCUMENT       "Text Document"
     IDS_RTF_DOCUMENT        "Rich Text Document"
 END
