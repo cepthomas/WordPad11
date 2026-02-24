@@ -1,4 +1,4 @@
-// This is a part of the Microsoft Foundation Classes C++ library. TODOhelp?
+// This is a part of the Microsoft Foundation Classes C++ library. TODOhelp? remove
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //
 // This source code is only intended as a supplement to the

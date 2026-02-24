@@ -10,11 +10,9 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
-// #include "strings.h"
 #include "options.h"
+#include "wordpad.h"
+#include "strings.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -10,12 +10,7 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
 #include "filenewd.h"
-// #include "helpids.h"
-// #include "chicdial.h"
 
 
 #ifdef _DEBUG
@@ -25,7 +20,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 DWORD const CFileNewDialog::m_nHelpIDs[] =
 {
-	IDC_DATEDIALOG_LIST, IDH_WORDPAD_FILENEW_DOC,
+	//IDC_DATEDIALOG_LIST, IDH_WORDPAD_FILENEW_DOC,
 	0, 0
 };
 

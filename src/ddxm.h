@@ -7,8 +7,6 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-//TODO?????
-
 #pragma once
 
 #include <limits.h>

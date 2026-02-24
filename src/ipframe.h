@@ -11,6 +11,10 @@
 
 #pragma once
 
+#include "formatba.h"
+#include "ruler.h"
+
+
 class CWordPadResizeBar : public COleResizeBar
 {
 public:

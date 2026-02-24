@@ -10,12 +10,7 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
 #include "doctype.h"
-// #include "resource.h"
-// #include "strings.h"
-//#include "multconv.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE	

@@ -11,10 +11,8 @@
 
 #include "pch.h"
 #include "framework.h"
-
 #include "ddxm.h"
-// #include "wordpad.h"
-// #include "resource.h"
+#include "wordpad.h"
 
 
 // this routine prints a floatingpoint number with 2 digits after the decimal

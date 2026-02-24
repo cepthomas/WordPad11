@@ -12,13 +12,9 @@
 #include <memory.h>
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
 #include "ruler.h"
-// #include "wordpvw.h"
-// #include "wordpdoc.h"
-// #include "strings.h"
+#include "wordpvw.h"
+#include "wordpad.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

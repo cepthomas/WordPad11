@@ -11,8 +11,10 @@
 
 #pragma once
 
-class CWordPadView;
-class CWordPadDoc;
+#include "wordpdoc.h"
+#include "wordpvw.h"
+#include "options.h"
+
 class CRulerBar;
 
 // ruler items include left margin, right margin, indent, and tabs

@@ -11,9 +11,9 @@
 
 #pragma once
 
-class CFormatBar;
-class CWordPadSrvrItem;
-class CWordPadView;
+#include "formatba.h"
+#include "srvritem.h"
+#include "wordpvw.h"
 
 class CWordPadDoc : public CRichEditDoc
 {

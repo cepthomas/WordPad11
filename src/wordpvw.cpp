@@ -10,22 +10,19 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "doctype.h"
-// #include "wordpad.h"
-// #include "cntritem.h"
-// #include "srvritem.h"
-// #include "wordpdoc.h"
+#include "doctype.h"
+#include "wordpad.h"
+#include "srvritem.h"
+#include "wordpdoc.h"
 #include "wordpvw.h"
-// #include "formatta.h"
-// #include "datedial.h"
-// #include "formatpa.h"
-// #include "formatba.h"
-// #include "ruler.h"
-// #include "strings.h"
-// #include "colorlis.h"
-// #include "pageset.h"
+#include "formatta.h"
+#include "datedial.h"
+#include "formatpa.h"
+#include "formatba.h"
+#include "ruler.h"
+#include "strings.h"
+#include "colorlis.h"
+#include "pageset.h"
 
 extern CLIPFORMAT cfEmbeddedObject;
 extern CLIPFORMAT cfRTO;

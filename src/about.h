@@ -10,13 +10,6 @@
 // Microsoft Foundation Classes product.
 
 #pragma once
-//#include "resource.h"       // main symbols
-//#include "splash.h"
-//#include "options.h"
-//#include "afxtempl.h"
-
-//#include "pch.h"
-//#include "framework.h"
 
 
 /////////////////////////////////////////////////////////////////////////////

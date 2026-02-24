@@ -11,9 +11,6 @@
 
 #pragma once
 
-//class CWordPadDoc;
-//class CWordPadView;
-
 #include "wordpdoc.h"
 #include "wordpvw.h"
 

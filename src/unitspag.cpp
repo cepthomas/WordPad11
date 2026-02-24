@@ -10,12 +10,7 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
-// #include "chicdial.h"
 #include "unitspag.h"
-// #include "helpids.h"
 
 
 #ifdef _DEBUG
@@ -28,12 +23,12 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 const DWORD CUnitsPage::m_nHelpIDs[] =
 {
-	IDC_BOX, IDH_COMM_GROUPBOX,
-	IDC_UNITS_IN, IDH_WORDPAD_INCHES,
-	IDC_UNITS_CM, IDH_WORDPAD_CENTIMETERS,
-	IDC_UNITS_PT, IDH_WORDPAD_POINTS,
-	IDC_UNITS_PI, IDH_WORDPAD_PICAS,
-	IDC_WORDSEL, IDH_WORDPAD_OPTIONS_AUTOWORDSEL,
+	//IDC_BOX, IDH_COMM_GROUPBOX,
+	//IDC_UNITS_IN, IDH_WORDPAD_INCHES,
+	//IDC_UNITS_CM, IDH_WORDPAD_CENTIMETERS,
+	//IDC_UNITS_PT, IDH_WORDPAD_POINTS,
+	//IDC_UNITS_PI, IDH_WORDPAD_PICAS,
+	//IDC_WORDSEL, IDH_WORDPAD_OPTIONS_AUTOWORDSEL,
 	0, 0
 };
 

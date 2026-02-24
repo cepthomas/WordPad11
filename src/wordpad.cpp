@@ -9,24 +9,21 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+
+#include "pch.h"
+#include "wordpad.h"
+#include "mainfrm.h"
+#include "ipframe.h"
+#include "wordpdoc.h"
+#include "wordpvw.h"
+#include "doctype.h"
+#include "strings.h"
+#include "about.h"
+#include "filenewd.h"
+
 #include <locale.h>
 #include <winnls.h>
 #include <winreg.h>
-
-#include "pch.h"
-#include "framework.h"
-
-// #include "doctype.h"
-#include "wordpad.h"
-// #include "mainfrm.h"
-// #include "ipframe.h"
-// #include "wordpdoc.h"
-// #include "wordpvw.h"
-// #include "strings.h"
-// #include "key.h"
-// #include "about.h"
-// #include "filenewd.h"
-
 
 extern BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn);
 #ifdef _REGISTER_APP

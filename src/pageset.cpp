@@ -10,15 +10,8 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
-// #include "resource.h"
 #include "pageset.h"
-// #include "ruler.h"
-// #include "ddxm.h"
-// #include "helpids.h"
-// #include "chicdial.h"
+#include "ddxm.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -30,11 +23,11 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 const DWORD CPageSetupDlg::m_nHelpIDs[] =
 {
-	IDC_EDIT_TM, IDH_WORDPAD_TOPMARGIN,
-	IDC_EDIT_BM, IDH_WORDPAD_BOTTOMMARGIN,
-	IDC_EDIT_LM, IDH_WORDPAD_LEFTMARGIN,
-	IDC_EDIT_RM, IDH_WORDPAD_RIGHTMARGIN,
-	IDC_BOX, IDH_COMM_GROUPBOX,
+	//IDC_EDIT_TM, IDH_WORDPAD_TOPMARGIN,
+	//IDC_EDIT_BM, IDH_WORDPAD_BOTTOMMARGIN,
+	//IDC_EDIT_LM, IDH_WORDPAD_LEFTMARGIN,
+	//IDC_EDIT_RM, IDH_WORDPAD_RIGHTMARGIN,
+	//IDC_BOX, IDH_COMM_GROUPBOX,
 	0, 0
 };
 

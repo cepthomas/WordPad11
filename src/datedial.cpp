@@ -9,15 +9,12 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#include <winnls.h>
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
 #include "datedial.h"
-// #include "helpids.h"
-// #include "chicdial.h"
+
+
+#include <winnls.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -33,10 +30,10 @@ CListBox* CDateDialog::m_pListBox = NULL;
 
 const DWORD CDateDialog::m_nHelpIDs[] =
 {
-	IDC_DATEDIALOG_LIST, IDH_WORDPAD_TIMEDATE,
-	IDC_STATIC_HEADING, IDH_WORDPAD_TIMEDATE,
-	IDOK, IDH_WORDPAD_TIMEDATE,
-	IDCANCEL, IDH_WORDPAD_TIMEDATE,
+	//IDC_DATEDIALOG_LIST, IDH_WORDPAD_TIMEDATE,
+	//IDC_STATIC_HEADING, IDH_WORDPAD_TIMEDATE,
+	//IDOK, IDH_WORDPAD_TIMEDATE,
+	//IDCANCEL, IDH_WORDPAD_TIMEDATE,
 	0 , 0
 };
 

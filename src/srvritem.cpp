@@ -12,11 +12,9 @@
 #include <limits.h>
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "wordpad.h"
-// #include "wordpdoc.h"
-// #include "wordpvw.h"
+#include "wordpad.h"
+#include "wordpdoc.h"
+#include "wordpvw.h"
 #include "srvritem.h"
 
 IMPLEMENT_DYNAMIC(CEmbeddedItem, COleServerItem)

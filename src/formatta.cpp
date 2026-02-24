@@ -11,12 +11,9 @@
 
 #include "pch.h"
 #include "framework.h"
-
-// #include "wordpad.h"
 #include "formatta.h"
-// #include "ddxm.h"
-// #include "helpids.h"
-// #include "chicdial.h"
+#include "wordpad.h"
+#include "ddxm.h"
 
 
 #ifdef _DEBUG
@@ -26,11 +23,11 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 const DWORD CFormatTabDlg::m_nHelpIDs[] =
 {
-	IDC_BUTTON_SET, IDH_WORDPAD_TABSET,
-	IDC_BUTTON_CLEAR, IDH_WORDPAD_TABCLEAR,
-	IDC_BUTTON_CLEARALL, IDH_WORDPAD_TAB_CLEARALL,
-	IDC_COMBO1, IDH_WORDPAD_TABSTOPS,
-	IDC_BOX, IDH_COMM_GROUPBOX,
+	//IDC_BUTTON_SET, IDH_WORDPAD_TABSET,
+	//IDC_BUTTON_CLEAR, IDH_WORDPAD_TABCLEAR,
+	//IDC_BUTTON_CLEARALL, IDH_WORDPAD_TAB_CLEARALL,
+	//IDC_COMBO1, IDH_WORDPAD_TABSTOPS,
+	//IDC_BOX, IDH_COMM_GROUPBOX,
 	0, 0
 };
 

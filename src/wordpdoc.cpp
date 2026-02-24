@@ -10,27 +10,15 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-// #include "doctype.h"
-// #include "wordpad.h"
 #include "wordpdoc.h"
-// #include "wordpvw.h"
-// #include "cntritem.h"
-// #include "srvritem.h"
-// #include "formatba.h"
-
-// #include "mainfrm.h"
-// #include "ipframe.h"
-// #include "buttondi.h"
-// #include "helpids.h"
-// #include "strings.h"
-// #include "unitspag.h"
-// #include "docopt.h"
-// #include "optionsh.h"
-// #include "trackfil.h"
-
-//#include "multconv.h"
+#include "doctype.h"
+#include "wordpad.h"
+#include "wordpvw.h"
+#include "cntritem.h"
+#include "srvritem.h"
+#include "buttondi.h"
+#include "optionsh.h"
+#include "trackfil.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -240,18 +228,18 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 
 	if (m_lpRootStg == NULL && IsTextType(m_nDocType) && !GetView()->IsFormatText())
 	{
-		// formatting changed in plain old text file
-		DWORD nHelpIDs[] =
-		{
-			0, IDH_WORDPAD_FORMATTED,
-			0, IDH_WORDPAD_TEXTFILE,
-			0, 0
-		};
+		//// formatting changed in plain old text file
+		//DWORD nHelpIDs[] =
+		//{
+		//	0, IDH_WORDPAD_FORMATTED,
+		//	0, IDH_WORDPAD_TEXTFILE,
+		//	0, 0
+		//};
 		CString str;
 		AfxFormatString1(str, IDS_SAVE_FORMAT_TEXT, GetTitle());
 		INT_PTR nRes = CButtonDialog::DisplayMessageBox(str,
 			MAKEINTRESOURCE(AFX_IDS_APP_TITLE),
-			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3, nHelpIDs);
+			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3); // , nHelpIDs);
 
 		if (nRes == 3)
 		{

@@ -11,6 +11,11 @@
 
 #pragma once
 
+#include "optionsh.h"
+#include "unitspag.h"
+#include "docopt.h"
+
+
 /////////////////////////////////////////////////////////////////////////////
 // COptionSheet
 

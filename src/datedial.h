@@ -30,7 +30,7 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CDateDialog)
 	enum { IDD = IDD_DATEDIALOG };
-	CListBox    m_listBox;
+	CListBox m_listBox;
 	CString m_strSel;
 	//}}AFX_DATA
 

@@ -10,14 +10,10 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
-
-#include "doctype.h"
-#include "wordpad.h"
-#include "chicdial.h"
-#include "unitspag.h"
-#include "docopt.h"
 #include "optionsh.h"
+#include "wordpad.h"
+#include "doctype.h"
+#include "docopt.h"
 
 
 #ifdef _DEBUG

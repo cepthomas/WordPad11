@@ -10,8 +10,6 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-//#include "framework.h"
-
 #include "chicdial.h"
 
 #ifdef _DEBUG
