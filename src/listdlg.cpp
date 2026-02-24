@@ -12,7 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "resource.h"
+// #include "resource.h"
 #include "listdlg.h"
 
 #ifdef _DEBUG

@@ -9,8 +9,14 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-class CWordPadDoc;
-class CWordPadView;
+#pragma once
+
+//class CWordPadDoc;
+//class CWordPadView;
+
+#include "wordpdoc.h"
+#include "wordpvw.h"
+
 
 class CWordPadCntrItem : public CRichEditCntrItem
 {

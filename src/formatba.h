@@ -9,8 +9,7 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#ifndef __FORMATBA_H__
-#define __FORMATBA_H__
+#pragma once
 
 class CWordPadView;
 
@@ -162,5 +161,3 @@ protected:
 	afx_msg LONG_PTR OnPrinterChanged(UINT_PTR, LONG_PTR); //handles registered message
 	DECLARE_MESSAGE_MAP()
 };
-
-#endif

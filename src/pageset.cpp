@@ -12,13 +12,13 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
-#include "resource.h"
+// #include "wordpad.h"
+// #include "resource.h"
 #include "pageset.h"
-#include "ruler.h"
-#include "ddxm.h"
-#include "helpids.h"
-#include "chicdial.h"
+// #include "ruler.h"
+// #include "ddxm.h"
+// #include "helpids.h"
+// #include "chicdial.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

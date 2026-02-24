@@ -7,6 +7,8 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#pragma once
+
 class CListDlg : public CDialog
 {
 public:

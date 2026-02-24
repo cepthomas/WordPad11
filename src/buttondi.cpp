@@ -10,13 +10,13 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
+//#include "framework.h"
 
-#include "resource.h"
+// #include "resource.h"
 #include "buttondi.h"
-#include "strings.h"
-#include "wordpad.h"
-#include "chicdial.h"
+// #include "strings.h"
+ #include "wordpad.h"
+// #include "chicdial.h"
 
 
 #ifdef _DEBUG

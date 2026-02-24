@@ -1,4 +1,4 @@
-// riched.h : header file
+// ruler.h : header file
 //
 // This is a part of the Microsoft Foundation Classes C++ library.
 // Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -9,8 +9,7 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
-#ifndef __RULER_H__
-#define __RULER_H__
+#pragma once
 
 class CWordPadView;
 class CWordPadDoc;
@@ -201,4 +200,3 @@ protected:
 inline int CRulerItem::GetHorzPosPix()
 	{ return m_pRuler->XTwipsToRuler(m_nXPosTwips); }
 
-#endif

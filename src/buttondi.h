@@ -9,6 +9,10 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#pragma once
+
+#include "chicdial.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // CButtonDialog dialog
 

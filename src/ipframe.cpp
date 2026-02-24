@@ -12,14 +12,14 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "doctype.h"
-#include "wordpad.h"
-#include "formatba.h"
-#include "ruler.h"
+// #include "doctype.h"
+// #include "wordpad.h"
+// #include "formatba.h"
+// #include "ruler.h"
 #include "ipframe.h"
-#include "wordpdoc.h"
-#include "wordpvw.h"
-#include "colorlis.h"
+// #include "wordpdoc.h"
+// #include "wordpvw.h"
+// #include "colorlis.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

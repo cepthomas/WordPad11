@@ -9,6 +9,8 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#pragma once
+
 
 // If using converters, set CONVERTERS in MSbuild preprocessor definitions.
 

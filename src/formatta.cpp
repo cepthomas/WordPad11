@@ -12,11 +12,11 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
+// #include "wordpad.h"
 #include "formatta.h"
-#include "ddxm.h"
-#include "helpids.h"
-#include "chicdial.h"
+// #include "ddxm.h"
+// #include "helpids.h"
+// #include "chicdial.h"
 
 
 #ifdef _DEBUG

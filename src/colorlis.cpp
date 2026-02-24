@@ -12,7 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
+// #include "wordpad.h"
 #include "colorlis.h"
 
 #ifdef _DEBUG

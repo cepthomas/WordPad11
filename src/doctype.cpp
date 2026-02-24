@@ -13,8 +13,8 @@
 #include "framework.h"
 
 #include "doctype.h"
-#include "resource.h"
-#include "strings.h"
+// #include "resource.h"
+// #include "strings.h"
 //#include "multconv.h"
 
 #ifdef _DEBUG

@@ -12,8 +12,8 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
-#include "trackfil.h"
+// #include "wordpad.h"
+// #include "trackfil.h"
 #include "multconv.h"
 
 #ifdef _DEBUG

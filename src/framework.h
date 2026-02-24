@@ -48,7 +48,7 @@
 ////////// Content from original stdafx.h //////////
 // Most removed - see original file
 
-#pragma warning(disable: 4996) // Function declared deprecated
+#pragma warning(disable: 4996) // Function declared deprecated TODO?
 
 
 #include <afxrich.h>
@@ -79,6 +79,12 @@ struct CParaFormat : public PARAFORMAT2
 //#include "chicdial.h"
 
 ////////// Content custom for WordPad11 //////////
+
+// #include <afxcmn.h>
+// #include <afxdisp.h>
+// #include <afxdtctl.h>
+// #include <afxpriv.h>
+
 
 // Turns on writing associations etc to the registry - the original way.
 //#define _REGISTER_APP

@@ -1,7 +1,9 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
 // Used by WordPad.rc
-//
+
+#pragma once
+
 #define IDR_SRVR_INPLACE                4
 #define IDR_SRVR_EMBEDDED               5
 #define IDR_CNTR_INPLACE                6

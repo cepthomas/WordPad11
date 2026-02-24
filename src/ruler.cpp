@@ -9,15 +9,16 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#include <memory.h>
+
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
+// #include "wordpad.h"
 #include "ruler.h"
-#include "wordpvw.h"
-#include "wordpdoc.h"
-#include "strings.h"
-#include <memory.h>
+// #include "wordpvw.h"
+// #include "wordpdoc.h"
+// #include "strings.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

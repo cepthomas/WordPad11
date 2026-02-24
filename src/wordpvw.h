@@ -10,6 +10,8 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#pragma once
+
 class CWordPadView : public CRichEditView
 {
 protected: // create from serialization only

@@ -12,7 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
+#include "splash.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -12,10 +12,10 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
-#include "chicdial.h"
+// #include "wordpad.h"
+// #include "chicdial.h"
 #include "unitspag.h"
-#include "helpids.h"
+// #include "helpids.h"
 
 
 #ifdef _DEBUG

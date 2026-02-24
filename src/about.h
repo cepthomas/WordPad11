@@ -9,6 +9,16 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#pragma once
+//#include "resource.h"       // main symbols
+//#include "splash.h"
+//#include "options.h"
+//#include "afxtempl.h"
+
+//#include "pch.h"
+//#include "framework.h"
+
+
 /////////////////////////////////////////////////////////////////////////////
 // CAbout dialog
 
@@ -33,7 +43,7 @@ public:
 
 // Implementation
 protected:
-	CBigIcon m_icon; // self-draw button
+//	CBigIcon m_icon; // self-draw button
 
 	// Generated message map functions
 	//{{AFX_MSG(CAboutDialog)

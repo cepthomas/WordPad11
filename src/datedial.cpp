@@ -9,14 +9,15 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#include <winnls.h>
+
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
+// #include "wordpad.h"
 #include "datedial.h"
-#include "helpids.h"
-#include "chicdial.h"
-#include <winnls.h>
+// #include "helpids.h"
+// #include "chicdial.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -9,11 +9,12 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#include <winreg.h>
+
 #include "pch.h"
 #include "framework.h"
 
 #include "key.h"
-#include <winreg.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE

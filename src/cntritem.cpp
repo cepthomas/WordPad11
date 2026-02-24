@@ -10,11 +10,11 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
+//#include "framework.h"
 
-#include "wordpad.h"
-#include "wordpdoc.h"
-#include "wordpvw.h"
+//#include "wordpad.h"
+// #include "wordpdoc.h"
+// #include "wordpvw.h"
 #include "cntritem.h"
 
 #ifdef _DEBUG

@@ -9,14 +9,15 @@
 // See these sources for detailed information regarding the
 // Microsoft Foundation Classes product.
 
+#include <limits.h>
+
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
-#include "wordpdoc.h"
-#include "wordpvw.h"
+// #include "wordpad.h"
+// #include "wordpdoc.h"
+// #include "wordpvw.h"
 #include "srvritem.h"
-#include <limits.h>
 
 IMPLEMENT_DYNAMIC(CEmbeddedItem, COleServerItem)
 

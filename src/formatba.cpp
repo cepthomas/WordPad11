@@ -12,11 +12,11 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "wordpad.h"
-#include "wordpdoc.h"
-#include "wordpvw.h"
+// #include "wordpad.h"
+// #include "wordpdoc.h"
+// #include "wordpvw.h"
 #include "formatba.h"
-#include "strings.h"
+// #include "strings.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
