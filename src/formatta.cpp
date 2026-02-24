@@ -16,6 +16,8 @@
 #include "formatta.h"
 #include "ddxm.h"
 #include "helpids.h"
+#include "chicdial.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE

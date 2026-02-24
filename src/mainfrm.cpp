@@ -12,6 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
+#include "doctype.h"
 #include "wordpad.h"
 #include "mainfrm.h"
 #include "wordpdoc.h"

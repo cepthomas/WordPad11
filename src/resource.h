@@ -78,7 +78,7 @@
 #define IDS_DT7                         155
 #define IDS_DT8                         156
 #define IDS_DT9                         157
-#define IDD_SPLASH                      157
+//#define IDD_SPLASH                      157
 #define IDS_DT10                        158
 #define IDD_OPTIONS_UNITS               158
 #define IDS_DT11                        159
@@ -87,6 +87,7 @@
 #define IDD_OPTIONS_MARGINS             160
 #define IDD_FILENEWDIALOG               160
 #define IDS_DT13                        161
+#define IDD_ABOUT                       161
 #define IDB_BITMAP48                    162
 #define IDB_BITMAP_PRINTER              163
 #define IDS_FINISHED_SEARCH             164
@@ -157,6 +158,7 @@
 #define IDC_EDIT_AFTER                  1036
 #define IDC_SPIN_BEFORE                 1038
 #define IDC_SPIN_AFTER                  1039
+#define IDC_ABOUT_TEXT                  1041
 #define ID_CANCEL_EDIT_CNTR             32768
 #define ID_CANCEL_EDIT_SRVR             32769
 #define ID_PAGE_SETUP                   32771

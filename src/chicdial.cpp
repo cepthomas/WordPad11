@@ -12,6 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
+#include "chicdial.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

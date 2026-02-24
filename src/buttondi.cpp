@@ -16,6 +16,8 @@
 #include "buttondi.h"
 #include "strings.h"
 #include "wordpad.h"
+#include "chicdial.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE

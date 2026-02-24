@@ -12,10 +12,10 @@
 #include "pch.h"
 #include "framework.h"
 
+#include "doctype.h"
 #include "wordpad.h"
 #include "cntritem.h"
 #include "srvritem.h"
-
 #include "wordpdoc.h"
 #include "wordpvw.h"
 #include "formatta.h"

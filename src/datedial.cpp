@@ -15,6 +15,7 @@
 #include "wordpad.h"
 #include "datedial.h"
 #include "helpids.h"
+#include "chicdial.h"
 #include <winnls.h>
 
 #ifdef _DEBUG

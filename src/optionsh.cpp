@@ -12,10 +12,13 @@
 #include "pch.h"
 #include "framework.h"
 
+#include "doctype.h"
 #include "wordpad.h"
+#include "chicdial.h"
 #include "unitspag.h"
 #include "docopt.h"
 #include "optionsh.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE

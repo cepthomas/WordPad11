@@ -12,6 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
+#include "doctype.h"
 #include "wordpad.h"
 #include "formatba.h"
 #include "ruler.h"

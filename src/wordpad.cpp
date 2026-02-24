@@ -12,6 +12,7 @@
 #include "pch.h"
 #include "framework.h"
 
+#include "doctype.h"
 #include "wordpad.h"
 #include "mainfrm.h"
 #include "ipframe.h"
@@ -19,6 +20,7 @@
 #include "wordpvw.h"
 #include "strings.h"
 #include "key.h"
+#include "about.h"
 #include "filenewd.h"
 #include <locale.h>
 #include <winnls.h>
@@ -151,8 +153,9 @@ BOOL CWordPadApp::InitInstance()
 
 	LoadOptions();
 
-	CSplashWnd splash;
-	BOOL bSplash = cmdInfo.m_bShowSplash;
+	//CSplashWnd splash;
+	//BOOL bSplash = cmdInfo.m_bShowSplash;
+
 	if (!cmdInfo.m_bRunEmbedded)
 	{
 		switch (m_nCmdShow)
@@ -161,7 +164,7 @@ BOOL CWordPadApp::InitInstance()
 			case SW_SHOWMINIMIZED:
 			case SW_MINIMIZE:
 			case SW_SHOWMINNOACTIVE:
-				bSplash = FALSE;
+//				bSplash = FALSE;
 				break;
 			case SW_RESTORE:
 			case SW_SHOW:
@@ -171,7 +174,7 @@ BOOL CWordPadApp::InitInstance()
 			case SW_SHOWNORMAL:
 			case SW_SHOWMAXIMIZED:
 				if (m_bMaximized)
-					m_nCmdShow = SW_SHOWMAXIMIZED;
+					m_nCmdShow = SW_SHOWMAXIMIZED;	
 				break;
 		}
 	}
@@ -182,13 +185,13 @@ BOOL CWordPadApp::InitInstance()
 	}
 	int nCmdShow = m_nCmdShow;
 
-	if (bSplash)
-	{
-		// only show splash if not embedded
-		splash.Create();
-		splash.ShowWindow(SW_SHOW);
-		splash.UpdateWindow();
-	}
+	//if (bSplash)
+	//{
+	//	// only show splash if not embedded
+	//	splash.Create();
+	//	splash.ShowWindow(SW_SHOW);
+	//	splash.UpdateWindow();
+	//}
 
 	LoadAbbrevStrings();
 
@@ -196,7 +199,7 @@ BOOL CWordPadApp::InitInstance()
 	NotifyPrinterChanged((m_hDevNames == NULL));
 
 	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODO??
+	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODOhelp??
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
@@ -257,9 +260,13 @@ BOOL CWordPadApp::InitInstance()
 	m_bPromptForType = FALSE;
 	OnFileNew();
 	m_bPromptForType = TRUE;
-	// destroy splash window
-	if (cmdInfo.m_bShowSplash)
-		splash.DestroyWindow();
+
+
+	//// destroy splash window
+	//if (cmdInfo.m_bShowSplash)
+	//	splash.DestroyWindow();
+
+
 	m_nCmdShow = -1;
 	if (m_pMainWnd == NULL) // i.e. OnFileNew failed
 		return FALSE;
@@ -517,9 +524,13 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nSize, int nValue, int nDec)
 
 void CWordPadApp::OnAppAbout() //TODOhelp
 {
-	CString strTitle;
-	VERIFY(strTitle.LoadString(AFX_IDS_APP_TITLE));
-	ShellAbout(m_pMainWnd->GetSafeHwnd(), strTitle, _T(""), LoadIcon(IDR_MAINFRAME));
+	CAboutDialog dlg;
+	dlg.DoModal();
+
+	// Original:
+	// CString strTitle;
+	// VERIFY(strTitle.LoadString(AFX_IDS_APP_TITLE));
+	// ShellAbout(m_pMainWnd->GetSafeHwnd(), strTitle, _T(""), LoadIcon(IDR_MAINFRAME));
 }
 
 int CWordPadApp::ExitInstance()

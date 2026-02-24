@@ -17,7 +17,7 @@ The project baseline is a copy (not fork) of [WordPad OG](https://github.com/mic
 - Support AMD64?
 - Cosmetics?
 
-# from original html file - any useful?
+# from original html help file - any useful?
 
 WORDPAD Sample: The Windows Application
 

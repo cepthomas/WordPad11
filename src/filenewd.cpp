@@ -15,6 +15,8 @@
 #include "wordpad.h"
 #include "filenewd.h"
 #include "helpids.h"
+#include "chicdial.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE

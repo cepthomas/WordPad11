@@ -75,15 +75,15 @@ struct CParaFormat : public PARAFORMAT2
     BOOL operator==(PARAFORMAT2& pf);
 };
 
-#include "doctype.h"
-#include "chicdial.h"
+//#include "doctype.h"
+//#include "chicdial.h"
 
 ////////// Content custom for WordPad11 //////////
 
 // Turns on writing associations etc to the registry - the original way.
 //#define _REGISTER_APP
 
-// Check version mins for building - Basically standardVS2022.
+// Check version mins for building - Basically standard VS2022.
 #if _MSC_VER < 1900
 #error "MSC version invalid."
 #endif

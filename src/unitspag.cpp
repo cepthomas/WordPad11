@@ -13,8 +13,10 @@
 #include "framework.h"
 
 #include "wordpad.h"
+#include "chicdial.h"
 #include "unitspag.h"
 #include "helpids.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
