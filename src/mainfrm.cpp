@@ -14,7 +14,6 @@
 #include "mainfrm.h"
 #include "wordpad.h"
 #include "wordpdoc.h"
-#include "strings.h"
 #include "colorlis.h"
 
 #ifdef _DEBUG
@@ -138,19 +137,19 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	HINSTANCE hInst = AfxGetInstanceHandle();
 
 	// see if the class already exists
-	if (!::GetClassInfo(hInst, szWordPadClass, &wndcls))
+	if (!::GetClassInfo(hInst, WORDPAD_CLASS, &wndcls))
 	{
 		// get default stuff
 		::GetClassInfo(hInst, cs.lpszClass, &wndcls);
 		wndcls.style &= ~(CS_HREDRAW|CS_VREDRAW);
 		// register a new class
-		wndcls.lpszClassName = szWordPadClass;
+		wndcls.lpszClassName = WORDPAD_CLASS;
 		wndcls.hIcon = ::LoadIcon(hInst, MAKEINTRESOURCE(IDR_MAINFRAME));
 		ASSERT(wndcls.hIcon != NULL);
 		if (!AfxRegisterClass(&wndcls))
 			AfxThrowResourceException();
 	}
-	cs.lpszClass = szWordPadClass;
+	cs.lpszClass = WORDPAD_CLASS;
 	CRect rect = theApp.m_rectInitialFrame;
 	if (rect.Width() > 0 && rect.Height() > 0)
 	{

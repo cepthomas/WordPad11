@@ -20,7 +20,6 @@
 #include "formatpa.h"
 #include "formatba.h"
 #include "ruler.h"
-#include "strings.h"
 #include "colorlis.h"
 #include "pageset.h"
 
@@ -680,8 +679,7 @@ BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
 		// open Contents stream
 		COleStreamFile file;
 		CFileException fe;
-		if (file.OpenStream(stgMedium.pstg, szContents,
-			CFile::modeReadWrite|CFile::shareExclusive, &fe))
+		if (file.OpenStream(stgMedium.pstg, _T("Contents"), CFile::modeReadWrite|CFile::shareExclusive, &fe))
 		{
 
 			// load it with CArchive (loads from Contents stream)

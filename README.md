@@ -12,7 +12,9 @@ Main aspects:
 The project baseline is a copy (not fork) of [WordPad OG](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/ole/wordpad).
 
 # Tech
-Cleaned up convoluted includes.
+
+- Cleaned up convoluted includes.
+- Removed string clutter.
 
 
 # Future?

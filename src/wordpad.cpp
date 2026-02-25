@@ -17,7 +17,6 @@
 #include "wordpdoc.h"
 #include "wordpvw.h"
 #include "doctype.h"
-#include "strings.h"
 #include "about.h"
 #include "filenewd.h"
 
@@ -65,6 +64,19 @@ static UINT DoRegistry(LPVOID lpv)
 	return 0;
 }
 #endif
+
+// Option names.
+const TCHAR szTextSection[] = _T("Text");
+const TCHAR szRTFSection[] = _T("RTF");
+const TCHAR szIPSection[] = _T("IP");
+const TCHAR szPageMargin[] = _T("PageMargin");
+const TCHAR szSection[] = _T("Options");
+const TCHAR szWordSel[] = _T("WordSel");
+const TCHAR szUnits[] = _T("Units");
+const TCHAR szFrameRect[] = _T("FrameRect");
+const TCHAR szMaximized[] = _T("Maximized");
+const TCHAR szSumInfo[] = _T("\005SummaryInformation");
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp
@@ -141,7 +153,7 @@ BOOL CWordPadApp::InitInstance()
 {
 	ParseCommandLine(cmdInfo);
 
-	if (::FindWindow(szWordPadClass, NULL) && IsDocOpen(cmdInfo.m_strFileName))
+	if (::FindWindow(WORDPAD_CLASS, NULL) && IsDocOpen(cmdInfo.m_strFileName))
 		return FALSE;
 
 #ifdef _REGISTER_APP
@@ -317,7 +329,7 @@ BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
 {
 	TCHAR szClassName[30];
 	GetClassName(hWnd, szClassName, 30);
-	if (lstrcmp(szClassName, szWordPadClass) != 0)
+	if (lstrcmp(szClassName, WORDPAD_CLASS) != 0)
 		return TRUE;
 
 	ATOM* pAtom = (ATOM*)lParam;

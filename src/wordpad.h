@@ -11,16 +11,14 @@
 
 #pragma once
 
-//#ifndef __AFXWIN_H__
-//	#error include 'stdafx.h' before including this file for PCH
-//#endif
-
-#include "resource.h"       // main symbols
+#include "resource.h"
 #include "splash.h"
 #include "options.h"
 #include "afxtempl.h"
 
 #define WPM_BARSTATE WM_USER
+const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp:

@@ -12,12 +12,16 @@
 #include "pch.h"
 #include "options.h"
 #include "wordpad.h"
-#include "strings.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
+
+const TCHAR szWrap[] = _T("Wrap");
+const TCHAR szLayout1[] = _T("Layout2");
+const TCHAR szLayout2[] = _T("LayoutAux2");
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CDocOptions
