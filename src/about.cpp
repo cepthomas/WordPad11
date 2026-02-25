@@ -33,9 +33,9 @@ BOOL CAboutDialog::OnInitDialog()
 	CDialog::OnInitDialog();
 	CenterWindow();
 
-	//TODO Improve cosmetics of this.
+	//TODOhelp Improve cosmetics of this.
     CEdit* pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT_TEXT);
-    CRichEditView* pRichEditBox = (CRichEditView*)GetDlgItem(IDC_RICHEDIT21);
+//    CRichEditView* pRichEditBox = (CRichEditView*)GetDlgItem(IDC_RICHEDIT21);
 
 
 	// from splash
@@ -45,27 +45,82 @@ copyright law and international treaties.\r\n\
 Licensed under the terms of the MIT license.");
 	
 	pEditBox->SetWindowText(text);
-    pRichEditBox->SetWindowTextW(text);
+//    pRichEditBox->SetWindowTextW(text);
+
+    /////////////////////////////////////////////////////////////////////
+
+    // Get the file path of the current module
+    TCHAR szFileName[MAX_PATH];
+    GetModuleFileName(NULL, szFileName, MAX_PATH);
+
+    DWORD dwHandle, dwSize;
+    dwSize = GetFileVersionInfoSize(szFileName, &dwHandle);
+
+    if (dwSize == 0)
+    {
+        text = "Unknown Version 1";
+    }
+
+    // Allocate buffer for version information
+    //std::unique_ptr<BYTE[]> pVersionInfo(new BYTE[dwSize]);
+    BYTE* pVersionInfo = (BYTE*)calloc(dwSize, sizeof(BYTE));
+
+
+    if (!GetFileVersionInfo(szFileName, dwHandle, dwSize, pVersionInfo))
+    {
+        text = "Unknown Version 2";
+    }
+
+    VS_FIXEDFILEINFO* pFixedInfo;
+    UINT uLen;
+    // Query the fixed-info structure
+    if (VerQueryValue(pVersionInfo, L"\\", (LPVOID*)&pFixedInfo, &uLen))
+    {
+        DWORD dwFileVersionMS = pFixedInfo->dwFileVersionMS;
+        DWORD dwFileVersionLS = pFixedInfo->dwFileVersionLS;
+
+        DWORD dwMajor = HIWORD(dwFileVersionMS);
+        DWORD dwMinor = LOWORD(dwFileVersionMS);
+        DWORD dwBuild = HIWORD(dwFileVersionLS);
+        DWORD dwRevision = LOWORD(dwFileVersionLS);
+
+        // Format the version string
+        //std::wstring version = std::to_wstring(dwMajor) + L"." +
+        //    std::to_wstring(dwMinor) + L"." +
+        //    std::to_wstring(dwBuild) + L"." +
+        //    std::to_wstring(dwRevision);
+        //return version;
+
+        text = "pFixedInfo->TODOhelp";
+    }
+
+    // Fallback to string-based version if fixed-info fails.
+    //https://learn.microsoft.com/en-us/windows/win32/api/winver/nf-winver-verqueryvaluea#varfileinfotranslation
+    LPWSTR pStringInfo;
+    UINT uSLen;
+    //if (VerQueryValue(pVersionInfo, L"\\StringFileInfo\\040904B0\\FileVersion", (LPVOID*)&pStringInfo, &uLen))
+    if (VerQueryValue(pVersionInfo, L"\\VarFileInfo\\Translation", (LPVOID*)&pStringInfo, &uSLen))
+    {
+        //return std::wstring(pStringInfo);
+        text = (char*)pStringInfo;
+    }
+
+    pEditBox->SetWindowText(text);
+
+
+    /////////////////////////////////////////////////////////////////////
 
 	return FALSE;  // ???? return TRUE unless you set the focus to a control
-
     return TRUE;  // return TRUE  unless you set the focus to a control
 
-
-//    VS_VERSION_INFO VERSIONINFO
-//        PRODUCTVERSION 11, 0, 0, 0
-//        VALUE "CompanyName", "Ephemera"
-//        VALUE "FileDescription", "WordPad - Microsoft application updated for Windows 11"
-//        VALUE "InternalName", "wordpad"
-//        VALUE "ProductVersion", "11.0.0.0"
-
 }
-/*
+
+
 //#include <windows.h>
 //#include <tchar.h>
 //#include <string>
 
-char* GetAppVersion()
+char* GetAppVersion() // TODOhelp
 {
     // Get the file path of the current module
     TCHAR szFileName[MAX_PATH];
@@ -122,8 +177,6 @@ char* GetAppVersion()
 
     return "Unknown Version";
 }
-*/
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDialog message handlers

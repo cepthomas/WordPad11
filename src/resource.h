@@ -157,8 +157,9 @@
 #define IDC_EDIT_AFTER                  1036
 #define IDC_SPIN_BEFORE                 1038
 #define IDC_SPIN_AFTER                  1039
-#define IDC_RICHEDIT21                  1040
-#define IDC_ABOUT_TEXT                  1041
+#define IDC_LIDENSE_TEXT                1040
+#define IDC_LICENSE_TEXT                1041
+#define IDC_ABOUT_TEXT                  1042
 #define ID_CANCEL_EDIT_CNTR             32768
 #define ID_CANCEL_EDIT_SRVR             32769
 #define ID_PAGE_SETUP                   32771

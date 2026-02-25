@@ -72,9 +72,6 @@
     <ClCompile Include="ruler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="splash.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="srvritem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

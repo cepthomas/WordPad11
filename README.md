@@ -1,6 +1,6 @@
 # WordPad11 TODO clean up
 
-Good old WordPad brought into the 21st century. The executaable was quietly removed from Win11 24H2 but MS 
+Good old WordPad brought into the 21st century. The executable was quietly removed from Win11 24H2 but MS 
 handed over the keys as MIT licensed open-source. There are several re-interpretations of this tool - search
 github for them if interested.
 
