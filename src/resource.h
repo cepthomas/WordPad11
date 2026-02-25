@@ -1,9 +1,7 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by WordPad.rc
-
-#pragma once
-
+// Microsoft Visual C++ generated include file.
+// Used by wordpad.rc
+//
 #define IDR_SRVR_INPLACE                4
 #define IDR_SRVR_EMBEDDED               5
 #define IDR_CNTR_INPLACE                6
@@ -80,7 +78,6 @@
 #define IDS_DT7                         155
 #define IDS_DT8                         156
 #define IDS_DT9                         157
-//#define IDD_SPLASH                      157
 #define IDS_DT10                        158
 #define IDD_OPTIONS_UNITS               158
 #define IDS_DT11                        159
@@ -160,6 +157,7 @@
 #define IDC_EDIT_AFTER                  1036
 #define IDC_SPIN_BEFORE                 1038
 #define IDC_SPIN_AFTER                  1039
+#define IDC_RICHEDIT21                  1040
 #define IDC_ABOUT_TEXT                  1041
 #define ID_CANCEL_EDIT_CNTR             32768
 #define ID_CANCEL_EDIT_SRVR             32769
@@ -197,8 +195,6 @@
 #define ID_PEN_SPACE                    32808
 #define ID_PEN_BACKSPACE                32809
 #define ID_PEN_NEWLINE                  32810
-//This is defined in afxres.h which is included after this file.
-//#define ID_OLE_VERB_POPUP               32811
 #define ID_PEN_TOGGLE                   32812
 #define ID_PEN_LENS                     32813
 #define ID_PEN_TAB                      32814
@@ -212,7 +208,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        172
 #define _APS_NEXT_COMMAND_VALUE         32816
-#define _APS_NEXT_CONTROL_VALUE         1040
+#define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           103
 #endif
 #endif

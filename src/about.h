@@ -15,18 +15,14 @@
 /////////////////////////////////////////////////////////////////////////////
 // CAbout dialog
 
-#pragma warning(push)
-// Disable warning on Create.
-#pragma warning(disable : 4264)
-#pragma warning(disable : 4263)
 class CAboutDialog : public CDialog
 {
 private:
-	using CDialog::Create;
+	//BOOL Create(CWnd* pParent);
 
 // Construction
 public:
-	CAboutDialog(CWnd* pParent = NULL);   // standard constructor
+	CAboutDialog(CWnd* pParent = NULL);
 
 // Dialog Data
 	//{{AFX_DATA(CAboutDialog)
@@ -36,12 +32,9 @@ public:
 
 // Implementation
 protected:
-//	CBigIcon m_icon; // self-draw button
-
 	// Generated message map functions
 	//{{AFX_MSG(CAboutDialog)
 	virtual BOOL OnInitDialog();
 	afx_msg UINT OnGetDlgCode();
 	//}}AFX_MSG
 };
-#pragma warning(pop)

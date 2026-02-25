@@ -12,7 +12,6 @@
 #pragma once
 
 #include "resource.h"
-#include "splash.h"
 #include "options.h"
 #include "afxtempl.h"
 

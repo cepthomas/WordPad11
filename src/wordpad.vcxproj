@@ -128,7 +128,6 @@
     <ClInclude Include="penwin.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ruler.h" />
-    <ClInclude Include="splash.h" />
     <ClInclude Include="srvritem.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="trackfil.h" />
@@ -159,7 +158,6 @@
     <ClCompile Include="optionsh.cpp" />
     <ClCompile Include="pageset.cpp" />
     <ClCompile Include="ruler.cpp" />
-    <ClCompile Include="splash.cpp" />
     <ClCompile Include="srvritem.cpp" />
     <ClCompile Include="trackfil.cpp" />
     <ClCompile Include="unitspag.cpp" />

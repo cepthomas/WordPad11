@@ -17,10 +17,11 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDialog dialog
 
-CAboutDialog::CAboutDialog(CWnd* pParent /*=NULL*/)
+CAboutDialog::CAboutDialog(CWnd* pParent)
 	: CDialog(CAboutDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CAboutDialog)
@@ -32,60 +33,98 @@ BOOL CAboutDialog::OnInitDialog()
 	CDialog::OnInitDialog();
 	CenterWindow();
 
-	//TODOhelp
-	CEdit* pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT_TEXT);
+	//TODO Improve cosmetics of this.
+    CEdit* pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT_TEXT);
+    CRichEditView* pRichEditBox = (CRichEditView*)GetDlgItem(IDC_RICHEDIT21);
 
 
-
-	CString text = CString("TODOhelp \"Warning: This computer program is protected by\" \
-		           \"copyright law and international treaties.\" \
-		           \"© 1998 - 2008 Microsoft Corporation.  All rights reserved. TODOhelp\" \
-		           \"Licensed under the terms of the MIT license.\" ");
+	// from splash
+	CString text = CString("TODOhelp\nWarning: This computer program is protected by\r\n\
+copyright law and international treaties.\r\n\
+© 1998 - 2008 Microsoft Corporation.  All rights reserved.\r\n\
+Licensed under the terms of the MIT license.");
 	
 	pEditBox->SetWindowText(text);
+    pRichEditBox->SetWindowTextW(text);
+
+	return FALSE;  // ???? return TRUE unless you set the focus to a control
+
+    return TRUE;  // return TRUE  unless you set the focus to a control
 
 
+//    VS_VERSION_INFO VERSIONINFO
+//        PRODUCTVERSION 11, 0, 0, 0
+//        VALUE "CompanyName", "Ephemera"
+//        VALUE "FileDescription", "WordPad - Microsoft application updated for Windows 11"
+//        VALUE "InternalName", "wordpad"
+//        VALUE "ProductVersion", "11.0.0.0"
 
-//IDD_SPLASH DIALOGEX 0, 0, 253, 92  //TODOhelp
-//STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
-//FONT 8, "MS Sans Serif", 0, 0, 0x0
-//BEGIN
-//CONTROL         "", IDC_BIGICON, "Button", BS_OWNERDRAW | WS_DISABLED, 6, 6, 38, 40
-//LTEXT           "WordPad Version 1.0", IDC_STATIC, 60, 6, 164, 8, NOT WS_GROUP
-//CONTROL         "", IDC_STATIC, "Static", SS_BLACKRECT, 60, 30, 188, 1
-//LTEXT           "Warning: This computer program is protected by", IDC_STATIC, 60, 36, 188, 8
-//LTEXT           "copyright law and international treaties.", IDC_STATIC, 60, 44, 188, 8
-//LTEXT           "© 1998 - 2008 Microsoft Corporation.  All rights reserved. TODOhelp", IDC_STATIC, 60, 60, 188, 8
-//LTEXT           "Licensed under the terms of the MIT license.", IDC_STATIC, 60, 68, 188, 8
-//END
-//
-
-	//// initialize the big icon control
-	//m_icon.SubclassDlgItem(IDC_BIGICON, this);
-	//m_icon.SizeToContent();
-
-	//HINSTANCE hInst = AfxGetInstanceHandle();
-
-	//HRSRC hRsrc = ::FindResource(hInst, MAKEINTRESOURCE(IDR_LICENSE_TEXT), RT_RCDATA);
-	//if (hRsrc == NULL)
-	//	return FALSE;
-
-	//HGLOBAL hLoadedRsrc = ::LoadResource(hInst, hRsrc);
-	//if (hLoadedRsrc == NULL)
-	//	return FALSE;
-
-	//DWORD ResourceSize = ::SizeofResource(hInst, hRsrc);
-
-	//LPCSTR LicenseTextPtr = (LPCSTR)::LockResource(hLoadedRsrc);
-
-	//if (LicenseTextPtr == NULL)
-	//	return FALSE;
-
-	//CString LicenseText(LicenseTextPtr, ResourceSize);
-
-	//CEdit* pEditBox = (CEdit*)GetDlgItem(IDC_LICENSE_TEXT);
-	//pEditBox->SetWindowText(LicenseText);
-
-	return FALSE;  // return TRUE unless you set the focus to a control
 }
+/*
+//#include <windows.h>
+//#include <tchar.h>
+//#include <string>
+
+char* GetAppVersion()
+{
+    // Get the file path of the current module
+    TCHAR szFileName[MAX_PATH];
+    GetModuleFileName(NULL, szFileName, MAX_PATH);
+
+    DWORD dwHandle, dwSize;
+    dwSize = GetFileVersionInfoSize(szFileName, &dwHandle);
+
+    if (dwSize == 0)
+    {
+        return "Unknown Version";
+    }
+
+    // Allocate buffer for version information
+    //std::unique_ptr<BYTE[]> pVersionInfo(new BYTE[dwSize]);
+    BYTE* pVersionInfo = (BYTE * )calloc(dwSize, sizeof(BYTE));
+
+
+    if (!GetFileVersionInfo(szFileName, dwHandle, dwSize, pVersionInfo))
+    {
+        return "Unknown Version";
+    }
+
+    VS_FIXEDFILEINFO* pFixedInfo;
+    UINT uLen;
+    // Query the fixed-info structure
+    if (VerQueryValue(pVersionInfo, L"\\", (LPVOID*)&pFixedInfo, &uLen))
+    {
+        DWORD dwFileVersionMS = pFixedInfo->dwFileVersionMS;
+        DWORD dwFileVersionLS = pFixedInfo->dwFileVersionLS;
+
+        DWORD dwMajor = HIWORD(dwFileVersionMS);
+        DWORD dwMinor = LOWORD(dwFileVersionMS);
+        DWORD dwBuild = HIWORD(dwFileVersionLS);
+        DWORD dwRevision = LOWORD(dwFileVersionLS);
+
+        // Format the version string
+        //std::wstring version = std::to_wstring(dwMajor) + L"." +
+        //    std::to_wstring(dwMinor) + L"." +
+        //    std::to_wstring(dwBuild) + L"." +
+        //    std::to_wstring(dwRevision);
+        //return version;
+
+        return "pFixedInfo->TODOhelp";
+    }
+
+    // Fallback to string-based version if fixed-info fails
+    LPWSTR pStringInfo;
+    if (VerQueryValue(pVersionInfo, L"\\StringFileInfo\\040904B0\\FileVersion", (LPVOID*)&pStringInfo, &uLen))
+    {
+        //return std::wstring(pStringInfo);
+        return (char*)pStringInfo;
+    }
+
+    return "Unknown Version";
+}
+*/
+
+
+/////////////////////////////////////////////////////////////////////////////
+// CAboutDialog message handlers
 

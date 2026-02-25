@@ -532,22 +532,18 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nSize, int nValue, int nDec)
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp commands
 
-void CWordPadApp::OnAppAbout() //TODOhelp
+void CWordPadApp::OnAppAbout()
 {
 	CAboutDialog dlg;
-	dlg.DoModal();
 
-	// Original:
-	// CString strTitle;
-	// VERIFY(strTitle.LoadString(AFX_IDS_APP_TITLE));
-	// ShellAbout(m_pMainWnd->GetSafeHwnd(), strTitle, _T(""), LoadIcon(IDR_MAINFRAME));
+	dlg.DoModal();
 }
 
 int CWordPadApp::ExitInstance()
 {
 	m_pszHelpFilePath = NULL;
 
-	//TODO try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
+	//TODO? try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
 	SaveOptions();
 
 	return CWinApp::ExitInstance();
@@ -559,27 +555,34 @@ void CWordPadApp::OnFileNew()
 	if (!m_bPromptForType)
 	{
 		if (cmdInfo.m_bForceTextMode)
+		{
 			nDocType = RD_TEXT;
+		}
 		else if (!cmdInfo.m_strFileName.IsEmpty())
 		{
 			CFileException fe;
 			nDocType = GetDocTypeFromName(cmdInfo.m_strFileName, fe);
 		}
+
 		if (nDocType == -1)
+		{
 			nDocType = RD_DEFAULT;
+		}
 	}
 	else
 	{
 		CFileNewDialog dlg;
 		if (dlg.DoModal() == IDCANCEL)
+		{
 			return;
+		}
 
-		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT:  //Word 6 TODOx probably ng
-					(dlg.m_nSel == 1) ? RD_RICHTEXT :   //RTF
-					RD_TEXT ;                   //text
+		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT: (dlg.m_nSel == 1) ? RD_RICHTEXT : RD_TEXT;
 
 		if (nDocType != RD_TEXT)
+		{
 			cmdInfo.m_bForceTextMode = FALSE;
+		}
 	}
 	m_nNewDocType = nDocType;
 	DocTemplate.OpenDocumentFile(NULL);

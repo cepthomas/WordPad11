@@ -21,6 +21,7 @@
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -68,9 +69,13 @@ END
 //
 // Icon
 //
-// Icon with lowest ID value placed first to ensure application icon remains consistent on all systems.
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\wordpad.ico"
+
 IDI_ICON_DOC            ICON                    "res\\rtfdoc.ico"
+
 IDI_ICON_TEXT           ICON                    "res\\textdoc.ico"
 
 
@@ -78,21 +83,37 @@ IDI_ICON_TEXT           ICON                    "res\\textdoc.ico"
 //
 // Bitmap
 //
+
 IDB_RULER_BLOCK         BITMAP                  "res\\rulerbl.bmp"
+
 IDB_RULER_DOWN          BITMAP                  "res\\rulerdo.bmp"
+
 IDB_RULER_TAB           BITMAP                  "res\\rulerta.bmp"
+
 IDB_RULER_UP            BITMAP                  "res\\rulerup.bmp"
+
 IDB_FORMATBAR           BITMAP                  "res\\formatba.bmp"
+
 IDR_SRVR_INPLACE        BITMAP                  "res\\srvr.bmp"
+
 IDR_MAINFRAME1          BITMAP                  "res\\main1.bmp"
+
 IDB_FORMATBAR_BIG       BITMAP                  "res\\formatbg.bmp"
+
 IDR_MAINFRAME1_BIG      BITMAP                  "res\\main1b.bmp"
+
 IDR_SRVR_INPLACE_BIG    BITMAP                  "res\\srvrbig.bmp"
+
 IDB_BITMAP48            BITMAP                  "res\\wordp48.bmp"
+
 IDB_FONTTYPE            BITMAP                  "res\\font.bmp"
+
 IDB_RULER_BLOCKM        BITMAP                  "res\\rulerblm.bmp"
+
 IDB_RULER_DOWNM         BITMAP                  "res\\rulerdom.bmp"
+
 IDB_RULER_TABM          BITMAP                  "res\\rulertam.bmp"
+
 IDB_RULER_UPM           BITMAP                  "res\\rulerupm.bmp"
 
 
@@ -100,7 +121,8 @@ IDB_RULER_UPM           BITMAP                  "res\\rulerupm.bmp"
 //
 // Menu
 //
-IDR_MAINFRAME MENU 
+
+IDR_MAINFRAME MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -162,13 +184,11 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        // MENUITEM "&Help Topics",                ID_HELP_INDEX TODOhelp
-        // MENUITEM SEPARATOR
         MENUITEM "&About WordPad",              ID_APP_ABOUT
     END
 END
 
-IDR_CNTR_INPLACE MENU   //TODOemb
+IDR_CNTR_INPLACE MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -183,7 +203,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "Sen&d...",                    ID_FILE_SEND_MAIL //TODO???
+        MENUITEM "Sen&d...",                    ID_FILE_SEND_MAIL
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
@@ -191,7 +211,7 @@ BEGIN
     MENUITEM SEPARATOR
 END
 
-IDR_SRVR_INPLACE MENU  //TODOemb
+IDR_SRVR_INPLACE MENU
 BEGIN
     POPUP "&Edit"
     BEGIN
@@ -237,11 +257,11 @@ BEGIN
     MENUITEM SEPARATOR
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About WordPad",              ID_APP_ABOUT //TODOhelp
+        MENUITEM "&About WordPad",              ID_APP_ABOUT
     END
 END
 
-IDR_SRVR_EMBEDDED MENU  //TODOemb
+IDR_SRVR_EMBEDDED MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -266,7 +286,7 @@ BEGIN
         MENUITEM "Find &Next\tF3",              ID_EDIT_REPEAT
         MENUITEM "R&eplace...\tCtrl+H",         ID_EDIT_REPLACE
         MENUITEM SEPARATOR
-        MENUITEM "Lin&ks...",                   ID_OLE_EDIT_LINKS //TODO???
+        MENUITEM "Lin&ks...",                   ID_OLE_EDIT_LINKS
         MENUITEM "Object P&roperties\tAlt+Enter", ID_OLE_EDIT_PROPERTIES
         MENUITEM "<<OLE VERBS GO HERE>>",       ID_OLE_VERB_FIRST
     END
@@ -295,7 +315,7 @@ BEGIN
     END
 END
 
-IDR_COLOR_MENU MENU 
+IDR_COLOR_MENU MENU
 BEGIN
     POPUP "COLOR_POPUP"
     BEGIN
@@ -319,7 +339,7 @@ BEGIN
     END
 END
 
-IDR_MENU1 MENU 
+IDR_MENU1 MENU
 BEGIN
     POPUP "MISC"
     BEGIN
@@ -340,7 +360,7 @@ BEGIN
     END
 END
 
-IDR_TEXT_POPUP MENU 
+IDR_TEXT_POPUP MENU
 BEGIN
     POPUP "TEXT_POPUP"
     BEGIN
@@ -370,7 +390,8 @@ END
 //
 // Accelerator
 //
-IDR_MAINFRAME ACCELERATORS 
+
+IDR_MAINFRAME ACCELERATORS
 BEGIN
     "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
@@ -403,7 +424,7 @@ BEGIN
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
 END
 
-IDR_CNTR_INPLACE ACCELERATORS   //TODOemb
+IDR_CNTR_INPLACE ACCELERATORS
 BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
@@ -414,7 +435,7 @@ BEGIN
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
 END
 
-IDR_SRVR_INPLACE ACCELERATORS   //TODOemb
+IDR_SRVR_INPLACE ACCELERATORS
 BEGIN
     "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
@@ -440,7 +461,7 @@ BEGIN
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
 END
 
-IDR_SRVR_EMBEDDED ACCELERATORS   //TODOemb
+IDR_SRVR_EMBEDDED ACCELERATORS
 BEGIN
     "B",            ID_CHAR_BOLD,           VIRTKEY, CONTROL, NOINVERT
     "B",            ID_CHAR_BOLD,           VIRTKEY, SHIFT, CONTROL, NOINVERT
@@ -475,7 +496,8 @@ END
 //
 // Dialog
 //
-IDD_FORMAT_PARA DIALOG  0, 0, 239, 146
+
+IDD_FORMAT_PARA DIALOG 0, 0, 239, 146
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Paragraph"
 FONT 8, "MS Sans Serif"
@@ -489,19 +511,19 @@ BEGIN
     EDITTEXT        IDC_EDIT_FIRST_LINE,52,60,60,14,ES_AUTOHSCROLL
     LTEXT           "Ali&gnment:",IDC_TEXT_ALIGNMENT,126,70,37,8
     COMBOBOX        IDC_COMBO_ALIGNMENT,165,68,60,45,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Page Brea&k Before",IDC_CHECK_PAGEBREAK,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,126,49,76,10
+    CONTROL         "Page Brea&k Before",IDC_CHECK_PAGEBREAK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,126,49,76,10
     DEFPUSHBUTTON   "OK",IDOK,182,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,182,24,50,14
     LTEXT           "&Before:",IDC_STATIC,13,102,38,8
     EDITTEXT        IDC_EDIT_BEFORE,52,100,60,14,ES_AUTOHSCROLL
-    CONTROL         "Spin2",IDC_SPIN_BEFORE,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,106,95, 11,11
+    CONTROL         "Spin2",IDC_SPIN_BEFORE,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,106,95,11,11
     LTEXT           "&After:",IDC_STATIC,13,120,38,8
     EDITTEXT        IDC_EDIT_AFTER,52,119,60,14,ES_AUTOHSCROLL
-    CONTROL         "Spin3",IDC_SPIN_AFTER,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,105,108, 11,16
+    CONTROL         "Spin3",IDC_SPIN_AFTER,"msctls_updown32",UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS,105,108,11,16
     GROUPBOX        "Spacing",IDC_STATIC,7,88,225,50
 END
 
-IDD_FORMAT_TAB DIALOG  0, 0, 186, 119
+IDD_FORMAT_TAB DIALOG 0, 0, 186, 119
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Tabs"
 FONT 8, "MS Sans Serif"
@@ -515,7 +537,7 @@ BEGIN
     PUSHBUTTON      "Clear A&ll",IDC_BUTTON_CLEARALL,128,44,50,14
 END
 
-IDD_PAGE_SETUP_DIALOG DIALOG  0, 0, 185, 112
+IDD_PAGE_SETUP_DIALOG DIALOG 0, 0, 185, 112
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Page Setup"
 FONT 8, "MS Sans Serif"
@@ -533,7 +555,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,128,27,50,14
 END
 
-IDD_DATEDIALOG DIALOG  0, 0, 185, 112
+IDD_DATEDIALOG DIALOG 0, 0, 185, 112
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Date and Time"
 FONT 8, "MS Sans Serif"
@@ -544,7 +566,7 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,127,34,50,14
 END
 
-IDD_OPTIONS_UNITS DIALOG  0, 0, 280, 86
+IDD_OPTIONS_UNITS DIALOG 0, 0, 280, 86
 STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Options"
 FONT 8, "MS Sans Serif"
@@ -554,25 +576,25 @@ BEGIN
     CONTROL         "&Points",IDC_UNITS_PT,"Button",BS_AUTORADIOBUTTON,13,39,54,10
     CONTROL         "Pic&as",IDC_UNITS_PI,"Button",BS_AUTORADIOBUTTON,74,39,68,10
     GROUPBOX        "Measurement units",IDC_BOX,7,7,264,53
-    CONTROL         "Automatic &word selection",IDC_WORDSEL,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,7,66,106,10
+    CONTROL         "Automatic &word selection",IDC_WORDSEL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,66,106,10
 END
 
-IDD_OPTIONS_WRAP DIALOG  0, 0, 280, 86
+IDD_OPTIONS_WRAP DIALOG 0, 0, 280, 86
 STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Word wrap",IDC_BOX,7,7,128,72
     CONTROL         "&No wrap",IDC_WRAP_NONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,21,81,10
-    CONTROL         "&Wrap to window",IDC_WRAP_WINDOW,"Button", BS_AUTORADIOBUTTON,13,39,81,10
+    CONTROL         "&Wrap to window",IDC_WRAP_WINDOW,"Button",BS_AUTORADIOBUTTON,13,39,81,10
     CONTROL         "Wr&ap to ruler",IDC_WRAP_RULER,"Button",BS_AUTORADIOBUTTON,13,57,81,10
     GROUPBOX        "Toolbars",IDC_BOXT,144,7,128,72
     CONTROL         "&Toolbar",IDC_CHECK_TOOLBAR,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,153,21,68,10
     CONTROL         "&Format bar",IDC_CHECK_FORMATBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,35,68,10
     CONTROL         "&Ruler",IDC_CHECK_RULERBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,49,68,10
-    CONTROL         "&Status bar",IDC_CHECK_STATUSBAR,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,153,63,68,10
+    CONTROL         "&Status bar",IDC_CHECK_STATUSBAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,63,68,10
 END
 
-IDD_FILENEWDIALOG DIALOG  0, 0, 185, 112
+IDD_FILENEWDIALOG DIALOG 0, 0, 185, 112
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "New"
 FONT 8, "MS Sans Serif"
@@ -583,29 +605,16 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,127,34,50,14
 END
 
-//IDD_SPLASH DIALOGEX 0, 0, 253, 92  //TODOhelp
-//STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP
-//FONT 8, "MS Sans Serif", 0, 0, 0x0
-//BEGIN
-//CONTROL         "", IDC_BIGICON, "Button", BS_OWNERDRAW | WS_DISABLED, 6, 6, 38, 40
-//LTEXT           "WordPad Version 1.0", IDC_STATIC, 60, 6, 164, 8, NOT WS_GROUP
-//CONTROL         "", IDC_STATIC, "Static", SS_BLACKRECT, 60, 30, 188, 1
-//LTEXT           "Warning: This computer program is protected by", IDC_STATIC, 60, 36, 188, 8
-//LTEXT           "copyright law and international treaties.", IDC_STATIC, 60, 44, 188, 8
-//LTEXT           "© 1998 - 2008 Microsoft Corporation.  All rights reserved. TODOhelp", IDC_STATIC, 60, 60, 188, 8
-//LTEXT           "Licensed under the terms of the MIT license.", IDC_STATIC, 60, 68, 188, 8
-//END
-
 IDD_ABOUT DIALOGEX 0, 0, 422, 250
 STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "About WordPad"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "",IDC_BIGICON,"Button",BS_OWNERDRAW | WS_DISABLED,6,6,38,40
-    LTEXT           "WordPad Version 1.0",-1,60,6,164,8,NOT WS_GROUP
-    LTEXT           "https://github.com/malxau/wordpad TODOhelp",-1,60,18,188,8
-    EDITTEXT        IDC_ABOUT_TEXT,60,33,350,206,ES_MULTILINE | ES_AUTOHSCROLL | ES_NOHIDESEL | ES_READONLY | WS_VSCROLL | NOT WS_TABSTOP
-    DEFPUSHBUTTON   "&Close",IDOK,332,7,78,18
+    LTEXT           "111 WordPad Version 1.0",-1,9,7,142,23,WS_BORDER | NOT WS_GROUP
+    CONTROL         "222 simple  https://github.com/malxau/wordpad TODOhelp",-1,
+                    "Static",SS_SIMPLE | WS_BORDER | WS_GROUP,164,4,188,26
+    EDITTEXT        IDC_ABOUT_TEXT,17,132,359,99,ES_MULTILINE | ES_AUTOHSCROLL | ES_NOHIDESEL | ES_READONLY | WS_VSCROLL | NOT WS_TABSTOP
+    CONTROL         "",IDC_RICHEDIT21,"RichEdit20W",ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_TABSTOP,12,38,364,89,WS_EX_STATICEDGE
 END
 
 
@@ -613,9 +622,10 @@ END
 //
 // Version
 //
-VS_VERSION_INFO VERSIONINFO  //TODOhelp
- FILEVERSION 1,0,0,0
- PRODUCTVERSION 5,0,0,0
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,0
+ PRODUCTVERSION 11,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -630,14 +640,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Microsoft Corporation"
-            VALUE "FileDescription", "WordPad MFC Application - updated for Windows 11"
-            VALUE "FileVersion", "2.0"
+            VALUE "CompanyName", "Ephemera"
+            VALUE "FileDescription", "WordPad - Microsoft application updated for Windows 11"
+            VALUE "FileVersion", "2.0.0.0"
             VALUE "InternalName", "wordpad"
-            VALUE "LegalCopyright", "© Microsoft Corporation. All rights reserved."
-            VALUE "OriginalFilename", "Wordpad.exe"
-            VALUE "ProductName", "Microsoft® Windows (TM) Operating System"
-            VALUE "ProductVersion", "11.0"
+            VALUE "ProductVersion", "11.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -651,12 +658,37 @@ END
 //
 // DESIGNINFO
 //
+
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_FORMAT_PARA, DIALOG
     BEGIN
         BOTTOMMARGIN, 145
+    END
+
+    IDD_FORMAT_TAB, DIALOG
+    BEGIN
+    END
+
+    IDD_PAGE_SETUP_DIALOG, DIALOG
+    BEGIN
+    END
+
+    IDD_DATEDIALOG, DIALOG
+    BEGIN
+    END
+
+    IDD_OPTIONS_UNITS, DIALOG
+    BEGIN
+    END
+
+    IDD_OPTIONS_WRAP, DIALOG
+    BEGIN
+    END
+
+    IDD_FILENEWDIALOG, DIALOG
+    BEGIN
     END
 
     IDD_ABOUT, DIALOG
@@ -670,9 +702,21 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
-STRINGTABLE 
+
+STRINGTABLE
 BEGIN
     IDP_OLE_INIT_FAILED     "OLE initialization failed.  WordPad can not continue."
     IDP_FAILED_TO_CREATE    "Failed to create object.  Make sure the object is entered in the system registry."
@@ -687,7 +731,7 @@ BEGIN
     IDS_DEFAULTTEXTFONT     "Courier New"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "WordPad\n\nWordPad\n\n\nWordPad.Document\nWordPad.Document"
     IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
@@ -698,14 +742,13 @@ BEGIN
     IDS_CLIP_TEXT           "Unformatted Text\ntext without any formatting"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_APP_TITLE       "WordPad"
-    AFX_IDS_IDLEMESSAGE     ""
-    AFX_IDS_HELPMODEMESSAGE "Select an object you want to get Help on." //TODOhelp
+    AFX_IDS_HELPMODEMESSAGE "Select an object you want to get Help on."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_INDICATOR_EXT        "EXT"
     ID_INDICATOR_CAPS       "CAP"
@@ -715,7 +758,7 @@ BEGIN
     ID_INDICATOR_REC        "REC"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FILE_NEW             "Creates a new document\nNew"
     ID_FILE_OPEN            "Opens an existing document\nOpen"
@@ -727,22 +770,22 @@ BEGIN
     ID_FILE_PRINT           "Prints the active document\nPrint"
     ID_FILE_PRINT_DIRECT    "Prints the active document\nPrint"
     ID_FILE_PRINT_PREVIEW   "Displays full pages\nPrint Preview"
-    ID_FILE_UPDATE          "Updates the container to show any changes\nUpdate"  //TODO?
+    ID_FILE_UPDATE          "Updates the container to show any changes\nUpdate"
     ID_FILE_SAVE_COPY_AS    "Saves a copy of the active document with a new name\nSave Copy"
-    ID_FILE_SEND_MAIL       "Sends the document through electronic mail\nSend"   //TODOemb
+    ID_FILE_SEND_MAIL       "Sends the document through electronic mail\nSend"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_APP_ABOUT            "Displays program information, version number, and copyright\nAbout"
     ID_APP_EXIT             "Quits the application; prompts you to save documents\nExit"
-    ID_HELP_INDEX           "Lists Help topics\nHelp Index" //TODOhelp
-    ID_HELP_USING           "Displays instructions about how to use help\nHelp" //TODOhelp
-    ID_CONTEXT_HELP         "Displays Help for the button, menu, or window you click\nHelp" //TODOhelp
-    ID_HELP                 "Displays Help for current task or command\nHelp" //TODOhelp
+    ID_HELP_INDEX           "Lists Help topics\nHelp Index"
+    ID_HELP_USING           "Displays instructions about how to use help\nHelp"
+    ID_CONTEXT_HELP         "Displays Help for the button, menu, or window you click\nHelp"
+    ID_HELP                 "Displays Help for current task or command\nHelp"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FILE_MRU_FILE1       "Opens this document"
     ID_FILE_MRU_FILE2       "Opens this document"
@@ -750,18 +793,18 @@ BEGIN
     ID_FILE_MRU_FILE4       "Opens this document"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    ID_NEXT_PANE            "Switches to the next window pane\nNext Pane" //TODO?
-    ID_PREV_PANE            "Switches back to the previous window pane\nPrevious Pane" //TODO?
+    ID_NEXT_PANE            "Switches to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switches back to the previous window pane\nPrevious Pane"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    ID_WINDOW_SPLIT         "Splits the active window into panes\nSplit"  //TODO?
+    ID_WINDOW_SPLIT         "Splits the active window into panes\nSplit"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_EDIT_CLEAR           "Erases the selection\nErase"
     ID_EDIT_CLEAR_ALL       "Erases everything\nErase All"
@@ -778,7 +821,7 @@ BEGIN
     ID_EDIT_REDO            "Carries out the previously undone action\nRedo"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_VIEW_TOOLBAR         "Shows or hides the toolbar\nToggle ToolBar"
     ID_VIEW_STATUS_BAR      "Shows or hides the status bar\nToggle StatusBar"
@@ -786,45 +829,45 @@ BEGIN
     ID_VIEW_RULER           "Shows or hides the ruler\nToggle Ruler"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_OLE_INSERT_NEW       "Inserts new embedded object\nInsert Object"
-    ID_OLE_EDIT_LINKS       "Edits linked objects\nEdit Links"  //TODOemb
-    ID_OLE_EDIT_CONVERT     "Converts object to different type\nConvert Object"  //TODOemb
-    ID_OLE_EDIT_PROPERTIES  "Change selected object's properties\nProperties"  //TODO?
+    ID_OLE_EDIT_LINKS       "Edits linked objects\nEdit Links"
+    ID_OLE_EDIT_CONVERT     "Converts object to different type\nConvert Object"
+    ID_OLE_EDIT_PROPERTIES  "Change selected object's properties\nProperties"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    ID_OLE_VERB_FIRST       "Activates embedded or linked object"  //TODO?
+    ID_OLE_VERB_FIRST       "Activates embedded or linked object"
     57873                   "Activates embedded or linked object"
     57874                   "Activates embedded or linked object"
     57875                   "Activates embedded or linked object"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_SCSIZE          "Changes the window size"
     AFX_IDS_SCMOVE          "Changes the window position"
     AFX_IDS_SCMINIMIZE      "Reduces the window to an icon"
     AFX_IDS_SCMAXIMIZE      "Enlarges the window to full size"
-    AFX_IDS_SCNEXTWINDOW    "Switches to the next document window"  //TODO?
+    AFX_IDS_SCNEXTWINDOW    "Switches to the next document window"
     AFX_IDS_SCPREVWINDOW    "Switches to the previous document window"
     AFX_IDS_SCCLOSE         "Closes the active window and prompts to save the documents"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "Restores the window to normal size"
     AFX_IDS_SCTASKLIST      "Activates Task List"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     AFX_IDS_PREVIEW_CLOSE   "Closes print preview mode\nCancel Preview"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_PAGE_SETUP           "Changes page layout settings\nPage Setup"
     ID_VIEW_OPTIONS         "Sets Options\nOptions"
@@ -836,12 +879,12 @@ BEGIN
     ID_COLOR1               "Maroon"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_FORMAT_FONT          "Selects font for current selection\nFont"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_COLOR2               "Green"
     ID_COLOR3               "Olive"
@@ -861,7 +904,7 @@ BEGIN
     ID_CHAR_BOLD            "Makes the selection bold (toggle).\nBold"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     ID_CHAR_ITALIC          "Makes the selection italic (toggle)\nItalic"
     ID_CHAR_COLOR           "Formats the selection with a color\nColor"
@@ -878,7 +921,7 @@ BEGIN
     ID_PEN_TAB              "Inserts a tab\nTab"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_SAVE_FORMAT_TEXT    "You are about to save the document in Text-Only format, which will remove all formatting. Save %1 as"
     IDS_SAVING              "Saving File.  Please Wait."
@@ -896,7 +939,7 @@ BEGIN
     IDS_PICAS               "Picas"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_FINISHED_SEARCH     "WordPad has finished searching the document."
     IDC_FONTNAME            "Changes the font of the selection\nFont"
@@ -912,7 +955,7 @@ BEGIN
     IDS_PICA_ABBREV         "pi"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_NOMORETABS          "There are too many tab stops set in this paragraph."
     IDS_MAPI_FAIL           "An error occurred while sending the document."
@@ -924,16 +967,15 @@ BEGIN
     IDS_TEXT_OPTIONS        "Text"
     IDS_RTF_OPTIONS         "Rich Text"
     IDS_OPTIONS             "Options"
-    IDS_EMBEDDED_OPTIONS    "Embedded"  //TODOemb
+    IDS_EMBEDDED_OPTIONS    "Embedded"
     IDS_TEXT_DOCUMENT       "Text Document"
     IDS_RTF_DOCUMENT        "Rich Text Document"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_WRITEPROTECT        "Unable to write to %1.\nThe disk is write-protected.\nA file cannot be saved on a write-protected disk."
 END
-
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
@@ -961,3 +1003,4 @@ LANGUAGE 9, 1
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
+
