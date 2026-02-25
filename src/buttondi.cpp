@@ -11,7 +11,7 @@
 
 #include "pch.h"
 #include "buttondi.h"
- #include "wordpad.h"
+#include "wordpad.h"
 
 
 #ifdef _DEBUG
@@ -19,41 +19,40 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-#ifndef DS_CONTEXTHELP
-#define DS_CONTEXTHELP 0x2000L
+#ifndef DS_3DLOOK
+#define DS_3DLOOK 0x4
 #endif
 
-static const int nFontSize = 10;
+static const int FONT_SIZE = 10;
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CButtonDialog dialog
 
-INT_PTR CButtonDialog::DisplayMessageBox(LPCTSTR lpszText, LPCTSTR lpszCaption,
-	LPCTSTR lpszButtons, WORD wStyle, int nDef, int nCancel,
-	DWORD* pHelpIDs, CWnd* pParentWnd)
+INT_PTR CButtonDialog::DisplayMessageBox(LPCTSTR lpszText, LPCTSTR lpszCaption, LPCTSTR lpszButtons, WORD wStyle,
+	int nDef, int nCancel, CWnd* pParentWnd)
 {
-	CButtonDialog dlg(lpszText, lpszCaption, lpszButtons, wStyle, pHelpIDs,
-		pParentWnd);
+	CButtonDialog dlg(lpszText, lpszCaption, lpszButtons, wStyle, pParentWnd);
 	dlg.SetDefault(nDef);
 	dlg.SetCancel(nCancel);
 	return dlg.DoModal();
 }
 
-CButtonDialog::CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption,
-	LPCTSTR lpszButtons, WORD wStyle, DWORD* pHelpIDs ,
-	CWnd* pParentWnd) : CCSDialog()
+CButtonDialog::CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption, LPCTSTR lpszButtons, WORD wStyle, CWnd* pParentWnd) : CDialog()
 {
-
 	ASSERT(lpszText != NULL);
 	ASSERT(lpszCaption != NULL);
+
 	if (HIWORD(lpszText) == NULL)
 		VERIFY(m_strText.LoadString(LOWORD((DWORD)(DWORD_PTR)lpszText)));
 	else
 		m_strText = lpszText;
+
 	if (HIWORD(lpszCaption) == NULL)
 		VERIFY(m_strCaption.LoadString(LOWORD((DWORD)(DWORD_PTR)lpszCaption)));
 	else
 		m_strCaption = lpszCaption;
+
 	if (lpszButtons != NULL)
 		AddButtons(lpszButtons);
 
@@ -62,12 +61,12 @@ CButtonDialog::CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption,
 	m_nCancel = -1;
 	m_pButtons = NULL;
 	m_wStyle = wStyle;
-	m_nBaseID = nFontSize; // don't use IDOK, IDCANCEL, etc
+	m_nBaseID = FONT_SIZE; // don't use IDOK, IDCANCEL, etc
 	m_hDlgTmp = NULL;
 
 	LOGFONT lf;
 	memcpy_s(&lf, sizeof(LOGFONT), &theApp.m_lf, sizeof(LOGFONT));
-	lf.lfHeight = -nFontSize;
+	lf.lfHeight = -FONT_SIZE;
 	lf.lfWidth = 0;
 	lf.lfWeight = FW_NORMAL;
 	VERIFY(m_font.CreateFontIndirect(&lf));
@@ -75,7 +74,6 @@ CButtonDialog::CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption,
 //  m_font.CreateFont(-nFontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE,
 //      FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 //      DEFAULT_QUALITY, DEFAULT_PITCH|FF_DONTCARE, szFontName);
-	m_pHelpIDs = pHelpIDs;
 }
 
 CButtonDialog::~CButtonDialog()
@@ -85,48 +83,42 @@ CButtonDialog::~CButtonDialog()
 		GlobalFree(m_hDlgTmp);
 }
 
-BEGIN_MESSAGE_MAP(CButtonDialog, CCSDialog)
+BEGIN_MESSAGE_MAP(CButtonDialog, CDialog)
 	//{{AFX_MSG_MAP(CButtonDialog)
 	ON_WM_CREATE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CButtonDialog message handlers
 
 int CButtonDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (m_pHelpIDs != NULL)
-	{
-		for (int i=0;i<m_strArray.GetSize();i++)
-			m_pHelpIDs[i*2] = i+m_nBaseID;
-	}
-	if (CCSDialog::OnCreate(lpCreateStruct) == -1)
+	if (CDialog::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
 	SetWindowText(m_strCaption);
 	m_pButtons = new CButton[m_strArray.GetSize()];
 
 	CRect rect(0, 0, 10, 10);
-	if (!m_staticIcon.Create(NULL,
-		SS_ICON | WS_GROUP | WS_CHILD | WS_VISIBLE, rect, this))
+	if (!m_staticIcon.Create(NULL, SS_ICON | WS_GROUP | WS_CHILD | WS_VISIBLE, rect, this))
 	{
 		return -1;
 	}
 	m_staticIcon.SetIcon(::LoadIcon(NULL, GetIconID(m_wStyle)));
 
-	if (!m_staticText.Create(m_strText, SS_LEFT | SS_NOPREFIX | WS_GROUP |
-		WS_CHILD | WS_VISIBLE, rect, this))
+	if (!m_staticText.Create(m_strText, SS_LEFT | SS_NOPREFIX | WS_GROUP | WS_CHILD | WS_VISIBLE, rect, this))
 	{
 		return -1;
 	}
 	m_staticText.SetFont(&m_font);
 
-	for (int i=0;i<m_strArray.GetSize();i++)
+	for (int i = 0; i < m_strArray.GetSize(); i++)
 	{
 		if (!m_pButtons[i].Create(m_strArray[i], WS_TABSTOP | WS_CHILD |
-			WS_VISIBLE | ((i == 0) ? WS_GROUP : 0) |
-			((i == m_nDefButton) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON),
+				WS_VISIBLE | ((i == 0) ? WS_GROUP : 0) |
+				((i == m_nDefButton) ? BS_DEFPUSHBUTTON : BS_PUSHBUTTON),
 			rect, this, i+m_nBaseID))
 		{
 			return -1;
@@ -139,9 +131,7 @@ int CButtonDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 BOOL CButtonDialog::OnInitDialog()
 {
-	CCSDialog::OnInitDialog();
-	if (m_pHelpIDs == NULL) // no context help
-		ModifyStyleEx(WS_EX_CONTEXTHELP, 0); //remove
+	CDialog::OnInitDialog();
 
 	m_pButtons[m_nDefButton].SetFocus();
 	return FALSE;  // return TRUE  unless you set the focus to a control
@@ -162,10 +152,6 @@ void CButtonDialog::AddButtons(LPCTSTR lpszButton)
 		AddButton(str);
 }
 
-#ifndef DS_3DLOOK
-#define DS_3DLOOK 0x4
-#endif
-
 void CButtonDialog::FillInHeader(LPDLGTEMPLATE lpDlgTmp)
 {
 	USES_CONVERSION;
@@ -180,10 +166,10 @@ void CButtonDialog::FillInHeader(LPDLGTEMPLATE lpDlgTmp)
 	lpDlgTmp->cx = 100;
 	lpDlgTmp->cy = 100;
 
-	LPWSTR lpStr = (LPWSTR)(lpDlgTmp + 1); /* Move ptr to the variable fields */
+	LPWSTR lpStr = (LPWSTR)(lpDlgTmp + 1); // Move ptr to the variable fields
 
-	*lpStr++ = 0;  /* No Menu resource for Message Box */
-	*lpStr++ = 0;  /* No Class name for MessageBox */
+	*lpStr++ = 0;  // No Menu resource for Message Box
+	*lpStr++ = 0;  // No Class name for MessageBox
 
 	int nLen = m_strCaption.GetLength();
 	wcscpy_s(lpStr, sizeof(DLGTEMPLATE), CT2CW(m_strCaption));
@@ -233,7 +219,7 @@ INT_PTR CButtonDialog::DoModal()
 	GlobalUnlock(m_hDlgTmp);
 	InitModalIndirect(m_hDlgTmp);
 
-	return CCSDialog::DoModal();
+	return CDialog::DoModal();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -277,17 +263,14 @@ void CButtonDialog::PositionControls()
 	INT_PTR i;
 	for (i=0;i<nButtons;i++)
 	{
-		nButtonsWidth +=
-			dc.GetTextExtent(m_strArray[i],m_strArray[i].GetLength()).cx+
-			nButtonAdj*2;
+		nButtonsWidth += dc.GetTextExtent(m_strArray[i], m_strArray[i].GetLength()).cx + nButtonAdj * 2;
 	}
 
 	nWidth = min(nTextIconWidth,nScreenWidth58);
 	nWidth = max(nWidth, nCaptionWidth);
 	nWidth = max(nWidth, nButtonsWidth);
 
-	m_staticIcon.SetWindowPos(NULL, nLeftMargin, nTopMargin, sizeIcon.cx,
-		sizeIcon.cy, SWP_NOZORDER);
+	m_staticIcon.SetWindowPos(NULL, nLeftMargin, nTopMargin, sizeIcon.cx, sizeIcon.cy, SWP_NOZORDER);
 
 	if (sizeText.cx > nWidth-nLeftMargin-nRightMargin-sizeIcon.cx-nSep)
 	{
@@ -295,7 +278,7 @@ void CButtonDialog::PositionControls()
 //      int nTextWidth = nWidth-nLeftMargin-nRightMargin-sizeIcon.cx-nSep;
 //      rectText.SetRect(0, 0, nTextWidth, 32767);
 		rectText.SetRect(0, 0, sizeText.cx, 32767);
-		/* Ask DrawText for the right cy */
+		// Ask DrawText for the right cy
 		sizeText.cy = dc.DrawText(m_strText, m_strText.GetLength(), &rectText,
 			DT_CALCRECT | DT_WORDBREAK | DT_EXPANDTABS | DT_NOPREFIX);
 	}
@@ -311,10 +294,9 @@ void CButtonDialog::PositionControls()
 	rect.top = nTopMargin + sizeText.cy + nSep;
 	rect.bottom = rect.top + nButtonHeight;
 
-	for (i=0;i<m_strArray.GetSize();i++)
+	for (i  =0;i < m_strArray.GetSize(); i++)
 	{
-		rect.right = rect.left + dc.GetTextExtent(m_strArray[i],m_strArray[i].GetLength()).cx +
-			2*nButtonAdj;
+		rect.right = rect.left + dc.GetTextExtent(m_strArray[i],m_strArray[i].GetLength()).cx + 2 * nButtonAdj;
 		m_pButtons[i].MoveWindow(&rect);
 		rect.left = rect.right + nSep;
 	}

@@ -25,7 +25,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 // COptionSheet
 
 COptionSheet::COptionSheet(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)
-	: CCSPropertySheet(nIDCaption, pParentWnd, iSelectPage),
+	: CPropertySheet(nIDCaption, pParentWnd, iSelectPage),
 	pageText(IDS_TEXT_OPTIONS), pageRTF(IDS_RTF_OPTIONS), pageEmbedded()
 {
 	units.m_nUnits = theApp.GetUnits();
@@ -99,7 +99,7 @@ void COptionSheet::SetState(CDocOptPage& page, CDockState& ds)
 	}
 }
 
-BEGIN_MESSAGE_MAP(COptionSheet, CCSPropertySheet)
+BEGIN_MESSAGE_MAP(COptionSheet, CPropertySheet)
 	//{{AFX_MSG_MAP(COptionSheet)
 	ON_WM_CREATE()
 	//}}AFX_MSG_MAP
@@ -111,7 +111,7 @@ END_MESSAGE_MAP()
 
 INT_PTR COptionSheet::DoModal()
 {
-	INT_PTR nRes = CCSPropertySheet::DoModal();
+	INT_PTR nRes = CPropertySheet::DoModal();
 	if (nRes == IDOK)
 	{
 		SetState(pageText, theApp.GetDockState(RD_TEXT));

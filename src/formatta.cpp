@@ -21,21 +21,12 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-const DWORD CFormatTabDlg::m_nHelpIDs[] =
-{
-	//IDC_BUTTON_SET, IDH_WORDPAD_TABSET,
-	//IDC_BUTTON_CLEAR, IDH_WORDPAD_TABCLEAR,
-	//IDC_BUTTON_CLEARALL, IDH_WORDPAD_TAB_CLEARALL,
-	//IDC_COMBO1, IDH_WORDPAD_TABSTOPS,
-	//IDC_BOX, IDH_COMM_GROUPBOX,
-	0, 0
-};
 
 /////////////////////////////////////////////////////////////////////////////
 // CFormatTabDlg dialog
 
 CFormatTabDlg::CFormatTabDlg(PARAFORMAT2& pf, CWnd* pParent /*=NULL*/)
-	: CCSDialog(CFormatTabDlg::IDD, pParent)
+	: CDialog(CFormatTabDlg::IDD, pParent)
 {
 	m_pf = pf;
 	m_tabarray = new LONG[MAX_TAB_STOPS];
@@ -59,7 +50,7 @@ CFormatTabDlg::~CFormatTabDlg()
 
 void CFormatTabDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CCSDialog::DoDataExchange(pDX);
+	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CFormatTabDlg)
 	DDX_Control(pDX, IDC_BUTTON_CLEARALL, m_buttonClearAll);
 	DDX_Control(pDX, IDC_BUTTON_SET, m_buttonSet);
@@ -70,7 +61,7 @@ void CFormatTabDlg::DoDataExchange(CDataExchange* pDX)
 		UpdateListBox();
 }
 
-BEGIN_MESSAGE_MAP(CFormatTabDlg, CCSDialog)
+BEGIN_MESSAGE_MAP(CFormatTabDlg, CDialog)
 	//{{AFX_MSG_MAP(CFormatTabDlg)
 	ON_BN_CLICKED(IDC_BUTTON_CLEAR, OnClickedClear)
 	ON_BN_CLICKED(IDC_BUTTON_CLEARALL, OnClickedClearAll)
@@ -95,8 +86,8 @@ void CFormatTabDlg::OnClickedClear()
 		DDV_MinMaxTwips(&dx, nTab, 0, 31680);
 		if (nTab != DDXM_BLANK)
 		{
-				if (RemoveTabFromArray(nTab))
-					UpdateListBox();
+			if (RemoveTabFromArray(nTab))
+				UpdateListBox();
 		}
 	}
 	else
@@ -154,7 +145,7 @@ void CFormatTabDlg::SetEditFocus()
 BOOL CFormatTabDlg::RemoveTabFromArray(LONG lTab)
 {
 	int i;
-	for (i=0;i<m_nCount;i++)
+	for (i = 0;i < m_nCount; i++)
 	{
 		if (m_tabarray[i] == lTab)
 		{
@@ -167,8 +158,7 @@ BOOL CFormatTabDlg::RemoveTabFromArray(LONG lTab)
 
 void CFormatTabDlg::RemoveTabFromArrayByIndex(int nIndex)
 {
-	memmove_s(&m_tabarray[nIndex], sizeof(LONG), &m_tabarray[nIndex+1],
-		(m_nCount-nIndex-1)*sizeof(LONG));
+	memmove_s(&m_tabarray[nIndex], sizeof(LONG), &m_tabarray[nIndex + 1], (m_nCount - nIndex - 1) * sizeof(LONG));
 	m_nCount--;
 }
 
@@ -214,9 +204,9 @@ void CFormatTabDlg::OnOK()
 		if (!Set())
 			return;
 	}
-	CCSDialog::OnOK();
+	CDialog::OnOK();
 	m_pf.cTabCount = (SHORT) m_nCount;
-	for (int i=0;i<m_nCount;i++)
+	for (int i = 0; i < m_nCount; i++)
 		m_pf.rgxTabs[i] = m_tabarray[i];
 	m_pf.dwMask = PFM_TABSTOPS;
 }
@@ -247,7 +237,7 @@ void CFormatTabDlg::UpdateButtons()
 
 BOOL CFormatTabDlg::OnInitDialog()
 {
-	CCSDialog::OnInitDialog();
+	CDialog::OnInitDialog();
 	UpdateButtons();
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE

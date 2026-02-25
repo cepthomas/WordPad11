@@ -10,7 +10,6 @@
 #include "framework.h"
 
 #include "resource.h"
-#include "chicdial.h"
 
 //TODO? #include "wordpad.h", others?
 

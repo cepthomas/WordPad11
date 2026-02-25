@@ -20,21 +20,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CDocOptPage property page
 
-const DWORD CDocOptPage::m_nHelpIDs[] =
-{
-	//IDC_BOX, IDH_COMM_GROUPBOX,
-	//IDC_WRAP_NONE, IDH_WORDPAD_WRAP_NO,
-	//IDC_WRAP_WINDOW, IDH_WORDPAD_WRAP_WINDOW,
-	//IDC_WRAP_RULER, IDH_WORDPAD_WRAP_RULER,
-	//IDC_BOXT, IDH_COMM_GROUPBOX,
-	//IDC_CHECK_TOOLBAR, IDH_WORDPAD_CHECK_TOOLBAR,
-	//IDC_CHECK_FORMATBAR, IDH_WORDPAD_CHECK_FORMATBAR,
-	//IDC_CHECK_STATUSBAR, IDH_WORDPAD_CHECK_STATUSBAR,
-	//IDC_CHECK_RULERBAR, IDH_WORDPAD_CHECK_RULERBAR,
-	0, 0
-};
-
-CDocOptPage::CDocOptPage() : CCSPropertyPage(CDocOptPage::IDD)
+CDocOptPage::CDocOptPage() : CPropertyPage(CDocOptPage::IDD)
 {
 	//{{AFX_DATA_INIT(CDocOptPage)
 	m_nWordWrap = -1;
@@ -46,7 +32,7 @@ CDocOptPage::CDocOptPage() : CCSPropertyPage(CDocOptPage::IDD)
 }
 
 CDocOptPage::CDocOptPage(UINT nIDCaption) :
-	CCSPropertyPage(CDocOptPage::IDD, nIDCaption)
+	CPropertyPage(CDocOptPage::IDD, nIDCaption)
 {
 	m_nWordWrap = -1;
 	m_bFormatBar = FALSE;
@@ -61,7 +47,7 @@ CDocOptPage::~CDocOptPage()
 
 void CDocOptPage::DoDataExchange(CDataExchange* pDX)
 {
-	CCSPropertyPage::DoDataExchange(pDX);
+	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CDocOptPage)
 	DDX_Radio(pDX, IDC_WRAP_NONE, m_nWordWrap);
 	DDX_Check(pDX, IDC_CHECK_FORMATBAR, m_bFormatBar);
@@ -72,7 +58,7 @@ void CDocOptPage::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CDocOptPage, CCSPropertyPage)
+BEGIN_MESSAGE_MAP(CDocOptPage, CPropertyPage)
 	//{{AFX_MSG_MAP(CDocOptPage)
 		// NOTE: the ClassWizard will add message map macros here
 	//}}AFX_MSG_MAP

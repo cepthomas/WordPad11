@@ -31,6 +31,7 @@ extern UINT AFXAPI AfxGetFileTitle(LPCTSTR lpszPathName, LPTSTR lpszTitle, UINT 
 #ifndef OFN_EXPLORER
 #define OFN_EXPLORER 0x00080000L
 #endif
+
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadDoc
 IMPLEMENT_DYNCREATE(CWordPadDoc, CRichEditDoc)
@@ -77,8 +78,7 @@ BOOL CWordPadDoc::OnNewDocument()
 	return TRUE;
 }
 
-void CWordPadDoc::ReportSaveLoadException(LPCTSTR lpszPathName,
-	CException* e, BOOL bSaving, UINT nIDP)
+void CWordPadDoc::ReportSaveLoadException(LPCTSTR lpszPathName, CException* e, BOOL bSaving, UINT nIDP)
 {
 	if (!m_bDeferErrors && e != NULL)
 	{
@@ -95,8 +95,7 @@ void CWordPadDoc::ReportSaveLoadException(LPCTSTR lpszPathName,
 				nIDP = AFX_IDP_FAILED_DISK_FULL;
 				break;
 			case CFileException::accessDenied:
-				nIDP = bSaving ? AFX_IDP_FAILED_ACCESS_WRITE :
-						AFX_IDP_FAILED_ACCESS_READ;
+				nIDP = bSaving ? AFX_IDP_FAILED_ACCESS_WRITE : AFX_IDP_FAILED_ACCESS_READ;
 				if (((CFileException*)e)->m_lOsError == ERROR_WRITE_PROTECT)
 					nIDP = IDS_WRITEPROTECT;
 				break;
@@ -228,26 +227,19 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 
 	if (m_lpRootStg == NULL && IsTextType(m_nDocType) && !GetView()->IsFormatText())
 	{
-		//// formatting changed in plain old text file
-		//DWORD nHelpIDs[] =
-		//{
-		//	0, IDH_WORDPAD_FORMATTED,
-		//	0, IDH_WORDPAD_TEXTFILE,
-		//	0, 0
-		//};
+		// formatting changed in plain old text file
 		CString str;
 		AfxFormatString1(str, IDS_SAVE_FORMAT_TEXT, GetTitle());
 		INT_PTR nRes = CButtonDialog::DisplayMessageBox(str,
 			MAKEINTRESOURCE(AFX_IDS_APP_TITLE),
-			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3); // , nHelpIDs);
+			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3);
 
 		if (nRes == 3)
 		{
 			return FALSE;
 		}
 
-		int nDocType = (nRes == 0) ? RD_DEFAULT:    //Word 6
-					(nRes == 1) ? RD_RICHTEXT : RD_TEXT;
+		int nDocType = (nRes == 0) ? RD_DEFAULT: (nRes == 1) ? RD_RICHTEXT : RD_TEXT;
 
 		if (IsTextType(m_nDocType) && nDocType != RD_TEXT)
 		{
@@ -463,7 +455,7 @@ CRichEditCntrItem* CWordPadDoc::CreateClientItem(REOBJECT* preo) const
 COleServerItem* CWordPadDoc::OnGetEmbeddedItem()
 {
 	// OnGetEmbeddedItem is called by the framework to get the COleServerItem
-	//  that is associated with the document.  It is only called when necessary.
+	// that is associated with the document.  It is only called when necessary.
 
 	CEmbeddedItem* pItem = new CEmbeddedItem(this);
 	ASSERT_VALID(pItem);

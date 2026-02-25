@@ -11,32 +11,28 @@
 
 #pragma once
 
-#include "chicdial.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CButtonDialog dialog
 
-class CButtonDialog : public CCSDialog
+class CButtonDialog : public CDialog
 {
 // Construction
 public:
-	CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption, LPCTSTR lpszButtons,
-		WORD wStyle, DWORD* pHelpIDs = NULL, CWnd* pParentWnd = NULL);
+	CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption, LPCTSTR lpszButtons, WORD wStyle, CWnd* pParentWnd = NULL);
 	~CButtonDialog();
 
 // Attributes
 	CFont m_font;
+
 // Operations
-	static INT_PTR DisplayMessageBox(LPCTSTR lpszText, LPCTSTR lpszCaption,
-		LPCTSTR lpszButtons, WORD wStyle, int nDef = 0, int nCancel = -1,
-		DWORD* pHelpIDs = NULL, CWnd* pParentWnd = NULL);
+	static INT_PTR DisplayMessageBox(LPCTSTR lpszText, LPCTSTR lpszCaption, LPCTSTR lpszButtons, WORD wStyle,
+		int nDef = 0, int nCancel = -1, CWnd* pParentWnd = NULL);
 
 	void AddButton(CString& strButton) { m_strArray.Add(strButton);}
 	void AddButtons(LPCTSTR lpszButton);
-	void SetCancel(int nCancel)
-		{ ASSERT(nCancel < m_strArray.GetSize()); m_nCancel = nCancel;}
-	void SetDefault(int nDef)
-		{ ASSERT(nDef < m_strArray.GetSize()); m_nDefButton = nDef;}
+	void SetCancel(int nCancel) { ASSERT(nCancel < m_strArray.GetSize()); m_nCancel = nCancel;}
+	void SetDefault(int nDef) { ASSERT(nDef < m_strArray.GetSize()); m_nDefButton = nDef;}
 	void FillInHeader(LPDLGTEMPLATE lpDlgTmp);
 
 // Overridables
@@ -45,8 +41,6 @@ public:
 
 // Implementation
 protected:
-	virtual const DWORD* GetHelpIDs() {return m_pHelpIDs;}
-	DWORD* m_pHelpIDs;
 	int m_nDefButton;
 	int m_nCancel;
 	HGLOBAL m_hDlgTmp;

@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // COptionSheet
 
-class COptionSheet : public CCSPropertySheet
+class COptionSheet : public CPropertySheet
 {
 // Construction
 public:

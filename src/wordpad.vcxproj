@@ -106,7 +106,6 @@
   <ItemGroup>
     <ClInclude Include="about.h" />
     <ClInclude Include="buttondi.h" />
-    <ClInclude Include="chicdial.h" />
     <ClInclude Include="cntritem.h" />
     <ClInclude Include="colorlis.h" />
     <ClInclude Include="datedial.h" />
@@ -118,7 +117,6 @@
     <ClInclude Include="formatpa.h" />
     <ClInclude Include="formatta.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="helpids.h" />
     <ClInclude Include="ipframe.h" />
     <ClInclude Include="key.h" />
     <ClInclude Include="listdlg.h" />
@@ -143,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="about.cpp" />
     <ClCompile Include="buttondi.cpp" />
-    <ClCompile Include="chicdial.cpp" />
     <ClCompile Include="cntritem.cpp" />
     <ClCompile Include="colorlis.cpp" />
     <ClCompile Include="datedial.cpp" />

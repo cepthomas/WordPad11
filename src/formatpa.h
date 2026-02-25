@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CFormatParaDlg dialog
 
-class CFormatParaDlg : public CCSDialog
+class CFormatParaDlg : public CDialog
 {
 // Construction
 public:
@@ -38,9 +38,7 @@ public:
 
 // Implementation
 protected:
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 
 	// Generated message map functions

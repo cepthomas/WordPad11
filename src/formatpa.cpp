@@ -19,19 +19,6 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-const DWORD CFormatParaDlg::m_nHelpIDs[] =
-{
-	//IDC_EDIT_LEFT, IDH_WORDPAD_INDENT_LEFT,
-	//IDC_EDIT_RIGHT, IDH_WORDPAD_INDENT_RIGHT,
-	//IDC_EDIT_FIRST_LINE, IDH_WORDPAD_INDENT_FIRST,
-	//IDC_BOX, IDH_COMM_GROUPBOX,
-	//IDC_COMBO_ALIGNMENT, IDH_WORDPAD_ALIGN,
-	//IDC_TEXT_ALIGNMENT, IDH_WORDPAD_ALIGN,
-	//IDC_EDIT_BEFORE, IDH_WORDPAD_SPACE_BEFORE,
-	//IDC_EDIT_AFTER, IDH_WORDPAD_SPACE_AFTER,
-	//IDC_CHECK_PAGEBREAK, IDH_WORDPAD_PAGEBREAK,
-	0, 0
-};
 
 /////////////////////////////////////////////////////////////////////////////
 // CFormatParaDlg dialog
@@ -44,7 +31,7 @@ static CString FormatAsPoints(int nPoints)
 }
 
 CFormatParaDlg::CFormatParaDlg(PARAFORMAT2& pf, CWnd* pParent /*=NULL*/)
-	: CCSDialog(CFormatParaDlg::IDD, pParent)
+	: CDialog(CFormatParaDlg::IDD, pParent)
 {
 	m_pf = pf;
 	if (m_pf.dwMask & PFM_ALIGNMENT)
@@ -72,7 +59,7 @@ CFormatParaDlg::CFormatParaDlg(PARAFORMAT2& pf, CWnd* pParent /*=NULL*/)
 
 void CFormatParaDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CCSDialog::DoDataExchange(pDX);
+	CDialog::DoDataExchange(pDX);
 
 	// semi-custom formatting for "pt" in the value for
 	// before- and after-paragraph spacing
@@ -107,7 +94,7 @@ void CFormatParaDlg::DoDataExchange(CDataExchange* pDX)
 	//}}AFX_DATA_MAP
 }
 
-BEGIN_MESSAGE_MAP(CFormatParaDlg, CCSDialog)
+BEGIN_MESSAGE_MAP(CFormatParaDlg, CDialog)
 	//{{AFX_MSG_MAP(CFormatParaDlg)
 	ON_NOTIFY(UDN_DELTAPOS, IDC_SPIN_BEFORE, OnDeltaposSpinBefore)
 	ON_NOTIFY(UDN_DELTAPOS, IDC_SPIN_AFTER, OnDeltaposSpinAfter)
@@ -120,7 +107,7 @@ END_MESSAGE_MAP()
 
 void CFormatParaDlg::OnOK()
 {
-	CCSDialog::OnOK();
+	CDialog::OnOK();
 	m_pf.dwMask = 0;
 	if (m_nAlignment >= 0)
 	{
@@ -196,7 +183,7 @@ BOOL CFormatParaDlg::OnInitDialog()
 		m_nAfter = m_pf.dySpaceAfter / 20;
 #endif
 
-	CCSDialog::OnInitDialog();
+	CDialog::OnInitDialog();
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
 }

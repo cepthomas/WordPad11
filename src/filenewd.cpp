@@ -18,17 +18,12 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-DWORD const CFileNewDialog::m_nHelpIDs[] =
-{
-	//IDC_DATEDIALOG_LIST, IDH_WORDPAD_FILENEW_DOC,
-	0, 0
-};
 
 /////////////////////////////////////////////////////////////////////////////
 // CFileNewDialog dialog
 
 CFileNewDialog::CFileNewDialog(CWnd* pParent /*=NULL*/)
-	: CCSDialog(CFileNewDialog::IDD, pParent)
+	: CDialog(CFileNewDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CFileNewDialog)
 	m_nSel = -1;
@@ -38,7 +33,7 @@ CFileNewDialog::CFileNewDialog(CWnd* pParent /*=NULL*/)
 
 void CFileNewDialog::DoDataExchange(CDataExchange* pDX)
 {
-	CCSDialog::DoDataExchange(pDX);
+	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CFileNewDialog)
 	DDX_Control(pDX, IDC_DATEDIALOG_LIST, m_listbox);
 	DDX_LBIndex(pDX, IDC_DATEDIALOG_LIST, m_nSel);
@@ -46,7 +41,7 @@ void CFileNewDialog::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CFileNewDialog, CCSDialog)
+BEGIN_MESSAGE_MAP(CFileNewDialog, CDialog)
 	//{{AFX_MSG_MAP(CFileNewDialog)
 	ON_LBN_DBLCLK(IDC_DATEDIALOG_LIST, OnDblclkDatedialogList)
 	//}}AFX_MSG_MAP
@@ -58,7 +53,7 @@ END_MESSAGE_MAP()
 
 BOOL CFileNewDialog::OnInitDialog()
 {
-	CCSDialog::OnInitDialog();
+	CDialog::OnInitDialog();
 
 	CString str;
 	VERIFY(str.LoadString(IDS_RTF_DOCUMENT));

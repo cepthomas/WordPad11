@@ -14,11 +14,11 @@
 /////////////////////////////////////////////////////////////////////////////
 // CFormatTabDlg dialog
 
-class CFormatTabDlg : public CCSDialog
+class CFormatTabDlg : public CDialog
 {
 // Construction
 public:
-	CFormatTabDlg(PARAFORMAT2& pf, CWnd* pParent = NULL);    // standard constructor
+	CFormatTabDlg(PARAFORMAT2& pf, CWnd* pParent = NULL);
 	~CFormatTabDlg();
 	PARAFORMAT2 m_pf;
 	LONG* m_tabarray;
@@ -35,8 +35,6 @@ public:
 
 // Implementation
 protected:
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
 	void UpdateButton(CButton& button, BOOL b);
 	void UpdateButtons();
 	BOOL Set();
@@ -45,7 +43,7 @@ protected:
 	void RemoveTabFromArrayByIndex(int nIndex);
 	void UpdateListBox();
 	void SetEditFocus();
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 
 	// Generated message map functions

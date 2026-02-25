@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CDocOptPage dialog
 
-class CDocOptPage : public CCSPropertyPage
+class CDocOptPage : public CPropertyPage
 {
 // Construction
 public:
@@ -34,12 +34,10 @@ public:
 
 
 // Overrides
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
 	// ClassWizard generate virtual function overrides
 	//{{AFX_VIRTUAL(CDocOptPage)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -57,6 +55,7 @@ class CEmbeddedOptPage : public CDocOptPage
 // Construction
 public:
 	CEmbeddedOptPage();
-// Overrides
+
+	// Overrides
 	BOOL OnInitDialog();
 };

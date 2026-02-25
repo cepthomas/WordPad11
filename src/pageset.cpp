@@ -21,18 +21,8 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CPageSetupDlg dialog
 
-const DWORD CPageSetupDlg::m_nHelpIDs[] =
-{
-	//IDC_EDIT_TM, IDH_WORDPAD_TOPMARGIN,
-	//IDC_EDIT_BM, IDH_WORDPAD_BOTTOMMARGIN,
-	//IDC_EDIT_LM, IDH_WORDPAD_LEFTMARGIN,
-	//IDC_EDIT_RM, IDH_WORDPAD_RIGHTMARGIN,
-	//IDC_BOX, IDH_COMM_GROUPBOX,
-	0, 0
-};
-
 CPageSetupDlg::CPageSetupDlg(CWnd* pParent /*=NULL*/)
-	: CCSDialog(CPageSetupDlg::IDD, pParent)
+	: CDialog(CPageSetupDlg::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CPageSetupDlg)
 	m_nTopMargin = 0;
@@ -44,7 +34,7 @@ CPageSetupDlg::CPageSetupDlg(CWnd* pParent /*=NULL*/)
 
 void CPageSetupDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CCSDialog::DoDataExchange(pDX);
+	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CPageSetupDlg)
 	DDX_Twips(pDX, IDC_EDIT_TM, m_nTopMargin);
 	DDV_MinMaxTwips(pDX, m_nTopMargin, -31680, 31680);
@@ -57,7 +47,7 @@ void CPageSetupDlg::DoDataExchange(CDataExchange* pDX)
 	//}}AFX_DATA_MAP
 }
 
-BEGIN_MESSAGE_MAP(CPageSetupDlg, CCSDialog)
+BEGIN_MESSAGE_MAP(CPageSetupDlg, CDialog)
 	//{{AFX_MSG_MAP(CPageSetupDlg)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()

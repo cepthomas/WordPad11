@@ -14,17 +14,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // CUnitsPage dialog
 
-class CUnitsPage : public CCSPropertyPage
+class CUnitsPage : public CPropertyPage
 {
 // Construction
 public:
-	CUnitsPage();   // standard constructor
+	CUnitsPage();
 
 // Dialog Data
 	//{{AFX_DATA(CUnitsPage)
 	enum { IDD = IDD_OPTIONS_UNITS };
-	int     m_nUnits;
-	BOOL    m_bWordSel;
+	int m_nUnits;
+	BOOL m_bWordSel;
 	//}}AFX_DATA
 
 
@@ -32,14 +32,11 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CUnitsPage)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
-
 	// Generated message map functions
 	//{{AFX_MSG(CUnitsPage)
 		// NOTE: the ClassWizard will add member functions here

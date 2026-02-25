@@ -14,11 +14,11 @@
 /////////////////////////////////////////////////////////////////////////////
 // CPageSetupDlg dialog
 
-class CPageSetupDlg : public CCSDialog
+class CPageSetupDlg : public CDialog
 {
 // Construction
 public:
-	CPageSetupDlg(CWnd* pParent = NULL);    // standard constructor
+	CPageSetupDlg(CWnd* pParent = NULL);
 
 // Dialog Data
 	//{{AFX_DATA(CPageSetupDlg)
@@ -30,10 +30,8 @@ public:
 	//}}AFX_DATA
 
 // Implementation
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 
 	// Generated message map functions
 	//{{AFX_MSG(CPageSetupDlg)

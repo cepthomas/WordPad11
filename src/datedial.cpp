@@ -28,17 +28,8 @@ CListBox* CDateDialog::m_pListBox = NULL;
 /////////////////////////////////////////////////////////////////////////////
 // CDateDialog dialog
 
-const DWORD CDateDialog::m_nHelpIDs[] =
-{
-	//IDC_DATEDIALOG_LIST, IDH_WORDPAD_TIMEDATE,
-	//IDC_STATIC_HEADING, IDH_WORDPAD_TIMEDATE,
-	//IDOK, IDH_WORDPAD_TIMEDATE,
-	//IDCANCEL, IDH_WORDPAD_TIMEDATE,
-	0 , 0
-};
-
 CDateDialog::CDateDialog(CWnd* pParent /*=NULL*/)
-	: CCSDialog(CDateDialog::IDD, pParent)
+	: CDialog(CDateDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CDateDialog)
 	m_strSel = _T("");
@@ -48,7 +39,7 @@ CDateDialog::CDateDialog(CWnd* pParent /*=NULL*/)
 
 void CDateDialog::DoDataExchange(CDataExchange* pDX)
 {
-	CCSDialog::DoDataExchange(pDX);
+	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CDateDialog)
 	DDX_Control(pDX, IDC_DATEDIALOG_LIST, m_listBox);
 	DDX_LBString(pDX, IDC_DATEDIALOG_LIST, m_strSel);
@@ -56,7 +47,7 @@ void CDateDialog::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CDateDialog, CCSDialog)
+BEGIN_MESSAGE_MAP(CDateDialog, CDialog)
 	//{{AFX_MSG_MAP(CDateDialog)
 	ON_LBN_DBLCLK(IDC_DATEDIALOG_LIST, OnDblclkDatedialogList)
 	//}}AFX_MSG_MAP
@@ -68,7 +59,7 @@ END_MESSAGE_MAP()
 
 BOOL CDateDialog::OnInitDialog()
 {
-	CCSDialog::OnInitDialog();
+	CDialog::OnInitDialog();
 
 	m_pListBox = &m_listBox; // set static member
 	GetLocalTime(&m_time);

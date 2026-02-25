@@ -15,6 +15,7 @@ The project baseline is a copy (not fork) of [WordPad OG](https://github.com/mic
 
 - Cleaned up convoluted includes.
 - Removed string clutter.
+- Many interns in code...
 
 
 # Future?

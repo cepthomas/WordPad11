@@ -14,17 +14,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // CFileNewDialog dialog
 
-class CFileNewDialog : public CCSDialog
+class CFileNewDialog : public CDialog
 {
 // Construction
 public:
-	CFileNewDialog(CWnd* pParent = NULL);   // standard constructor
+	CFileNewDialog(CWnd* pParent = NULL);
 
 // Dialog Data
 	//{{AFX_DATA(CFileNewDialog)
 	enum { IDD = IDD_FILENEWDIALOG };
-	CListBox    m_listbox;
-	int     m_nSel;
+	CListBox m_listbox;
+	int m_nSel;
 	//}}AFX_DATA
 
 
@@ -32,14 +32,11 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CFileNewDialog)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
-
 	// Generated message map functions
 	//{{AFX_MSG(CFileNewDialog)
 	virtual BOOL OnInitDialog();

@@ -33,8 +33,7 @@ int CLocalComboBox::m_nFontHeight = 0;
 class CFontDesc
 {
 public:
-	CFontDesc(LPCTSTR lpszName, LPCTSTR lpszScript, BYTE nCharSet,
-		BYTE nPitchAndFamily, DWORD dwFlags);
+	CFontDesc(LPCTSTR lpszName, LPCTSTR lpszScript, BYTE nCharSet, BYTE nPitchAndFamily, DWORD dwFlags);
 	CString m_strName;
 	CString m_strScript;
 	BYTE m_nCharSet;
@@ -42,8 +41,7 @@ public:
 	DWORD m_dwFlags;
 };
 
-CFontDesc::CFontDesc(LPCTSTR lpszName, LPCTSTR lpszScript, BYTE nCharSet,
-	BYTE nPitchAndFamily, DWORD dwFlags)
+CFontDesc::CFontDesc(LPCTSTR lpszName, LPCTSTR lpszScript, BYTE nCharSet, BYTE nPitchAndFamily, DWORD dwFlags)
 {
 	m_strName = lpszName;
 	m_strScript = lpszScript;
@@ -178,7 +176,7 @@ void CFormatBar::OnFontNameKillFocus()
 	// if a user enters arial, this will cause it to become Arial
 	CString str;
 	m_comboFontName.GetTheText(str);    // returns "arial"
-	m_comboFontName.SetTheText(str);                    // selects "Arial"
+	m_comboFontName.SetTheText(str);    // selects "Arial"
 	m_comboFontName.GetTheText(str);    // returns "Arial"
 
 	// if font name box is not empty

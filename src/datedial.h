@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CDateDialog dialog
 
-class CDateDialog : public CCSDialog
+class CDateDialog : public CDialog
 {
 // Construction
 public:
@@ -39,14 +39,11 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CDateDialog)
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange* pDX);
 	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	static const DWORD m_nHelpIDs[];
-	virtual const DWORD* GetHelpIDs() {return m_nHelpIDs;}
-
 	// Generated message map functions
 	//{{AFX_MSG(CDateDialog)
 	virtual BOOL OnInitDialog();
