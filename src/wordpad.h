@@ -18,11 +18,13 @@
 #define WPM_BARSTATE WM_USER
 const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 
+// Lonely lost items.
+#define HORZ_TEXTOFFSET 15
+#define VERT_TEXTOFFSET 5
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp:
-// See wordpad.cpp for the implementation of this class
-//
 
 class CWordPadCommandLineInfo : public CCommandLineInfo
 {

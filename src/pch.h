@@ -11,5 +11,5 @@
 
 #include "resource.h"
 
-//TODO? #include "wordpad.h", others?
+//TODO #include "wordpad.h", others?
 

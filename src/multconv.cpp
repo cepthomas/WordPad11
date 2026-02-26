@@ -346,11 +346,7 @@ UINT CConverter::Read(void FAR* lpBuf, UINT nCount)
 			VERIFY(ResetEvent(m_hEventFile));
 			if (m_bConvErr)
 			{
-#if _MFC_VER >= 0x700
 				AfxThrowFileException(CFileException::genericException);
-#else
-				AfxThrowFileException(CFileException::generic);
-#endif
 			}
 			if (m_bDone)
 				return nCount - cch;
@@ -379,11 +375,7 @@ void CConverter::Write(const void FAR* lpBuf, UINT nCount)
 		VERIFY(ResetEvent(m_hEventFile));
 		if (m_bConvErr)
 		{
-#if _MFC_VER >= 0x700
 			AfxThrowFileException(CFileException::genericException);
-#else
-			AfxThrowFileException(CFileException::generic);
-#endif
 		}
 		m_nBytesAvail = min(nCount, BUFFSIZE);
 		nCount -= m_nBytesAvail;

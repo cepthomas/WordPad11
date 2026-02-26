@@ -110,11 +110,7 @@ void CWordPadDoc::ReportSaveLoadException(LPCTSTR lpszPathName, CException* e, B
 				break;
 			case CFileException::lockViolation:
 			case CFileException::badSeek:
-#if _MFC_VER >= 0x700
 			case CFileException::genericException:
-#else
-			case CFileException::generic:
-#endif
 			case CFileException::invalidFile:
 			case CFileException::hardIO:
 				nIDP = bSaving ? AFX_IDP_FAILED_IO_ERROR_WRITE :
@@ -273,7 +269,7 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 			OFN_HIDEREADONLY | OFN_PATHMUSTEXIST, FALSE, &nDocType))
 		{
 			SetDocType(nOrigDocType, TRUE);
-			return FALSE;       // don't even try to save
+			return FALSE; // don't even try to save
 		}
 		SetDocType(nDocType, TRUE);
 	}
@@ -284,15 +280,7 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 		if (pszPathName == NULL)
 		{
 			// be sure to delete the file
-			TRY
-			{
-				CFile::Remove(newName);
-			}
-			CATCH_ALL(e)
-			{
-				TRACE0("Warning: failed to delete file after failed SaveAs\n");
-			}
-			END_CATCH_ALL
+			CFile::Remove(newName);
 		}
 		// restore orginal document type
 		SetDocType(nOrigDocType, TRUE);
@@ -308,14 +296,14 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace /*=TRUE*/)
 		SetDocType(nType);
 		// Reset the title and change the document name
 		SetPathName(newName, TRUE);
-		ASSERT(m_strPathName == newName);       // must be set
+		ASSERT(m_strPathName == newName);
 	}
 	else // SaveCopyAs
 	{
 		SetDocType(nOrigDocType, TRUE);
 		SetModifiedFlag(bModified);
 	}
-	return TRUE;        // success
+	return TRUE;
 }
 
 class COIPF : public COleIPFrameWnd

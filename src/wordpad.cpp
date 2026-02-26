@@ -110,7 +110,7 @@ CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),	m_optionsIP(2), 
 	_tsetlocale(LC_ALL, _T(""));
 
 //	m_nFilterIndex = 1;
-//	DWORD dwVersion = ::GetVersion(); TODO??
+//	DWORD dwVersion = ::GetVersion(); TODO old
 //	m_bWin4 = (BYTE)dwVersion >= 4;
 //#ifndef _UNICODE
 //	m_bWin31 = (dwVersion > 0x80000000 && !m_bWin4);
@@ -209,7 +209,7 @@ BOOL CWordPadApp::InitInstance()
 	NotifyPrinterChanged((m_hDevNames == NULL));
 
 	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODOhelp??
+	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODOhelp
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
@@ -220,11 +220,7 @@ BOOL CWordPadApp::InitInstance()
 	RegisterFormats();
 
 	// Initialize RichEdit control
-#if _MFC_VER >= 0x700
 	if (!AfxInitRichEdit2())
-#else
-	if (!AfxInitRichEdit())
-#endif
 	{
 		AfxMessageBox(IDS_RICHED_LOAD_FAIL, MB_OK|MB_ICONEXCLAMATION);
 		return FALSE;
@@ -543,7 +539,7 @@ int CWordPadApp::ExitInstance()
 {
 	m_pszHelpFilePath = NULL;
 
-	//TODO? try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
+	// TODO try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
 	SaveOptions();
 
 	return CWinApp::ExitInstance();

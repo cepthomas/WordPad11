@@ -48,17 +48,13 @@ static BOOL IsLeadMatch(CFile& file, const BYTE* pb, UINT nCount)
 	BOOL b = FALSE;
 	BYTE* buf = new BYTE[nCount];
 
-	TRY
+	file.SeekToBegin();
+	memset(buf, 0, nCount);
+	file.Read(buf, nCount);
+	if (memcmp(buf, pb, nCount) == 0)
 	{
-		file.SeekToBegin();
-		memset(buf, 0, nCount);
-		file.Read(buf, nCount);
-		if (memcmp(buf, pb, nCount) == 0)
-		{
-			b = TRUE;
-		}
+		b = TRUE;
 	}
-	END_TRY
 
 	delete [] buf;
 	return b;

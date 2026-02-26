@@ -12,8 +12,8 @@
 #include "pch.h"
 #include "wordpad.h"
 #include "doctype.h"
-#include "ipframe.h"
 #include "wordpdoc.h"
+#include "ipframe.h"
 #include "colorlis.h"
 
 #ifdef _DEBUG

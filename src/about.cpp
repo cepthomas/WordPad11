@@ -28,155 +28,109 @@ CAboutDialog::CAboutDialog(CWnd* pParent)
 	//}}AFX_DATA_INIT
 }
 
+
 BOOL CAboutDialog::OnInitDialog()
 {
-	CDialog::OnInitDialog();
-	CenterWindow();
+    CDialog::OnInitDialog();
+    CenterWindow();
 
-	//TODOhelp Improve cosmetics of this.
+    // TODO Make this prettier.
+
+    // Collect info to display.
+    CString sError;
+    UINT len;
+    CString str;
+    CString sDescription;
+    CString sVersion;
+    CString sLicense = L"License TODOhelp";
+    BYTE* info = nullptr;
+
+    // Get the file path of the current module
+    TCHAR szFileName[MAX_PATH];
+    if (GetModuleFileName(NULL, szFileName, MAX_PATH) == 0)
+    {
+        sError = "Invalid filename";
+    }
+
+    if (sError.IsEmpty())
+    {
+        DWORD hnd;
+        DWORD size = GetFileVersionInfoSize(szFileName, &hnd);
+        if (size == 0)
+        {
+            sError = "Invalid file version";
+        }
+        else
+        {
+            // Allocate buffer for version information
+            info = (BYTE*)calloc(size, sizeof(BYTE));
+            if (!GetFileVersionInfo(szFileName, hnd, size, info))
+            {
+                sError = "Invalid file version info";
+            }
+        }
+    }
+
+    if (sError.IsEmpty())
+    {
+        // Read the list of languages and code pages.
+        struct LANGANDCODEPAGE
+        {
+            WORD wLanguage;
+            WORD wCodePage;
+        }* lpTranslate;
+
+        VerQueryValue(info, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &len);
+        int numPages = len / sizeof(struct LANGANDCODEPAGE);
+
+        if (numPages == 0)
+        {
+            sError = "No code pages";
+        }
+        else
+        {
+            // Read the parts of interest.
+            LPWSTR buff;
+
+            str.Format(L"\\StringFileInfo\\%04x%04x\\FileDescription", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
+            if (VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len))
+            {
+                sDescription = buff;
+            }
+            else
+            {
+                sError = "Invalid FileDescription";
+            }
+
+            str.Format(L"\\StringFileInfo\\%04x%04x\\ProductVersion", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
+            if (VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len))
+            {
+                sVersion = buff;
+            }
+            else
+            {
+                sError = "Invalid ProductVersion";
+            }
+       }
+    }
+
+    //VS_FIXEDFILEINFO* fixed;
+    //if (VerQueryValue(info, L"\\", (LPVOID*)&fixed, &len))
+
+    // Output what we got.
     CEdit* pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT_TEXT);
-//    CRichEditView* pRichEditBox = (CRichEditView*)GetDlgItem(IDC_RICHEDIT21);
-
-
-	// from splash
-	CString text = CString("TODOhelp\nWarning: This computer program is protected by\r\n\
-copyright law and international treaties.\r\n\
-© 1998 - 2008 Microsoft Corporation.  All rights reserved.\r\n\
-Licensed under the terms of the MIT license.");
-	
-	pEditBox->SetWindowText(text);
-//    pRichEditBox->SetWindowTextW(text);
-
-    /////////////////////////////////////////////////////////////////////
-
-    // Get the file path of the current module
-    TCHAR szFileName[MAX_PATH];
-    GetModuleFileName(NULL, szFileName, MAX_PATH);
-
-    DWORD dwHandle, dwSize;
-    dwSize = GetFileVersionInfoSize(szFileName, &dwHandle);
-
-    if (dwSize == 0)
+    if (sError.IsEmpty())
     {
-        text = "Unknown Version 1";
+        pEditBox->SetWindowText(sDescription + "\r\n\r\nVersion " + sVersion + "\r\n\r\n" + sLicense);
+    }
+    else
+    {
+        pEditBox->SetWindowText(sError + "\r\n\r\n" + sLicense);
     }
 
-    // Allocate buffer for version information
-    //std::unique_ptr<BYTE[]> pVersionInfo(new BYTE[dwSize]);
-    BYTE* pVersionInfo = (BYTE*)calloc(dwSize, sizeof(BYTE));
-
-
-    if (!GetFileVersionInfo(szFileName, dwHandle, dwSize, pVersionInfo))
-    {
-        text = "Unknown Version 2";
-    }
-
-    VS_FIXEDFILEINFO* pFixedInfo;
-    UINT uLen;
-    // Query the fixed-info structure
-    if (VerQueryValue(pVersionInfo, L"\\", (LPVOID*)&pFixedInfo, &uLen))
-    {
-        DWORD dwFileVersionMS = pFixedInfo->dwFileVersionMS;
-        DWORD dwFileVersionLS = pFixedInfo->dwFileVersionLS;
-
-        DWORD dwMajor = HIWORD(dwFileVersionMS);
-        DWORD dwMinor = LOWORD(dwFileVersionMS);
-        DWORD dwBuild = HIWORD(dwFileVersionLS);
-        DWORD dwRevision = LOWORD(dwFileVersionLS);
-
-        // Format the version string
-        //std::wstring version = std::to_wstring(dwMajor) + L"." +
-        //    std::to_wstring(dwMinor) + L"." +
-        //    std::to_wstring(dwBuild) + L"." +
-        //    std::to_wstring(dwRevision);
-        //return version;
-
-        text = "pFixedInfo->TODOhelp";
-    }
-
-    // Fallback to string-based version if fixed-info fails.
-    //https://learn.microsoft.com/en-us/windows/win32/api/winver/nf-winver-verqueryvaluea#varfileinfotranslation
-    LPWSTR pStringInfo;
-    UINT uSLen;
-    //if (VerQueryValue(pVersionInfo, L"\\StringFileInfo\\040904B0\\FileVersion", (LPVOID*)&pStringInfo, &uLen))
-    if (VerQueryValue(pVersionInfo, L"\\VarFileInfo\\Translation", (LPVOID*)&pStringInfo, &uSLen))
-    {
-        //return std::wstring(pStringInfo);
-        text = (char*)pStringInfo;
-    }
-
-    pEditBox->SetWindowText(text);
-
-
-    /////////////////////////////////////////////////////////////////////
-
-	return FALSE;  // ???? return TRUE unless you set the focus to a control
     return TRUE;  // return TRUE  unless you set the focus to a control
-
 }
 
-
-//#include <windows.h>
-//#include <tchar.h>
-//#include <string>
-
-char* GetAppVersion() // TODOhelp
-{
-    // Get the file path of the current module
-    TCHAR szFileName[MAX_PATH];
-    GetModuleFileName(NULL, szFileName, MAX_PATH);
-
-    DWORD dwHandle, dwSize;
-    dwSize = GetFileVersionInfoSize(szFileName, &dwHandle);
-
-    if (dwSize == 0)
-    {
-        return "Unknown Version";
-    }
-
-    // Allocate buffer for version information
-    //std::unique_ptr<BYTE[]> pVersionInfo(new BYTE[dwSize]);
-    BYTE* pVersionInfo = (BYTE * )calloc(dwSize, sizeof(BYTE));
-
-
-    if (!GetFileVersionInfo(szFileName, dwHandle, dwSize, pVersionInfo))
-    {
-        return "Unknown Version";
-    }
-
-    VS_FIXEDFILEINFO* pFixedInfo;
-    UINT uLen;
-    // Query the fixed-info structure
-    if (VerQueryValue(pVersionInfo, L"\\", (LPVOID*)&pFixedInfo, &uLen))
-    {
-        DWORD dwFileVersionMS = pFixedInfo->dwFileVersionMS;
-        DWORD dwFileVersionLS = pFixedInfo->dwFileVersionLS;
-
-        DWORD dwMajor = HIWORD(dwFileVersionMS);
-        DWORD dwMinor = LOWORD(dwFileVersionMS);
-        DWORD dwBuild = HIWORD(dwFileVersionLS);
-        DWORD dwRevision = LOWORD(dwFileVersionLS);
-
-        // Format the version string
-        //std::wstring version = std::to_wstring(dwMajor) + L"." +
-        //    std::to_wstring(dwMinor) + L"." +
-        //    std::to_wstring(dwBuild) + L"." +
-        //    std::to_wstring(dwRevision);
-        //return version;
-
-        return "pFixedInfo->TODOhelp";
-    }
-
-    // Fallback to string-based version if fixed-info fails
-    LPWSTR pStringInfo;
-    if (VerQueryValue(pVersionInfo, L"\\StringFileInfo\\040904B0\\FileVersion", (LPVOID*)&pStringInfo, &uLen))
-    {
-        //return std::wstring(pStringInfo);
-        return (char*)pStringInfo;
-    }
-
-    return "Unknown Version";
-}
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDialog message handlers
