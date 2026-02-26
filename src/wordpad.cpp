@@ -65,7 +65,7 @@ static UINT DoRegistry(LPVOID lpv)
 }
 #endif
 
-// Option names.
+// Option names. TODOopt
 const TCHAR szTextSection[] = _T("Text");
 const TCHAR szRTFSection[] = _T("RTF");
 const TCHAR szIPSection[] = _T("IP");
@@ -163,9 +163,6 @@ BOOL CWordPadApp::InitInstance()
 
 	LoadOptions();
 
-	//CSplashWnd splash;
-	//BOOL bSplash = cmdInfo.m_bShowSplash;
-
 	if (!cmdInfo.m_bRunEmbedded)
 	{
 		switch (m_nCmdShow)
@@ -174,7 +171,6 @@ BOOL CWordPadApp::InitInstance()
 			case SW_SHOWMINIMIZED:
 			case SW_MINIMIZE:
 			case SW_SHOWMINNOACTIVE:
-//				bSplash = FALSE;
 				break;
 			case SW_RESTORE:
 			case SW_SHOW:
@@ -195,21 +191,10 @@ BOOL CWordPadApp::InitInstance()
 	}
 	int nCmdShow = m_nCmdShow;
 
-	//if (bSplash)
-	//{
-	//	// only show splash if not embedded
-	//	splash.Create();
-	//	splash.ShowWindow(SW_SHOW);
-	//	splash.UpdateWindow();
-	//}
-
 	LoadAbbrevStrings();
 
 	m_hDevNames = CreateDevNames();
 	NotifyPrinterChanged((m_hDevNames == NULL));
-
-	free((void*)m_pszHelpFilePath);
-	m_pszHelpFilePath = _T("WORDPAD.HLP");//TODOhelp
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
@@ -246,8 +231,8 @@ BOOL CWordPadApp::InitInstance()
 	//  of requesting OLE containers by using information
 	//  specified in the document template.
 	m_server.ConnectTemplate(clsid, &DocTemplate, TRUE);
-		// Note: SDI applications register server objects only if /Embedding
-		//   or /Automation is present on the command line.
+	// Note: SDI applications register server objects only if /Embedding
+	//   or /Automation is present on the command line.
 
 	// Check to see if launched as OLE server
 	if (cmdInfo.m_bRunEmbedded || cmdInfo.m_bRunAutomated)
@@ -267,21 +252,15 @@ BOOL CWordPadApp::InitInstance()
 	OnFileNew();
 	m_bPromptForType = TRUE;
 
-
-	//// destroy splash window
-	//if (cmdInfo.m_bShowSplash)
-	//	splash.DestroyWindow();
-
-
 	m_nCmdShow = -1;
 	if (m_pMainWnd == NULL) // i.e. OnFileNew failed
 		return FALSE;
 
 	if (!cmdInfo.m_strFileName.IsEmpty())   // open an existing document
 		m_nCmdShow = nCmdShow;
+
 	// Dispatch commands specified on the command line
-	if (cmdInfo.m_nShellCommand != CCommandLineInfo::FileNew &&
-		!ProcessShellCommand(cmdInfo))
+	if (cmdInfo.m_nShellCommand != CCommandLineInfo::FileNew && !ProcessShellCommand(cmdInfo))
 	{
 		return FALSE;
 	}
@@ -297,6 +276,7 @@ BOOL CWordPadApp::InitInstance()
 		UpdateRegistry();
 	else
 #endif
+		
 #ifdef _REGISTER_APP
 		AfxBeginThread(DoRegistry, this, THREAD_PRIORITY_IDLE);
 #endif
@@ -331,8 +311,7 @@ BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
 	ATOM* pAtom = (ATOM*)lParam;
 	ENSURE(pAtom != NULL);
 	DWORD_PTR dw = NULL;
-	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom,
-		SMTO_ABORTIFHUNG, 500, &dw);
+	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom, SMTO_ABORTIFHUNG, 500, &dw);
 	if (dw)
 	{
 		::SetForegroundWindow(hWnd);
@@ -371,7 +350,7 @@ CDockState& CWordPadApp::GetDockState(LONG_PTR nDocType, BOOL bPrimary)
 	return GetDocOptions(nDocType).GetDockState(bPrimary);
 }
 
-void CWordPadApp::SaveOptions()
+void CWordPadApp::SaveOptions() // TODOopt
 {
 	WriteProfileInt(szSection, szWordSel, m_bWordSel);
 	WriteProfileInt(szSection, szUnits, GetUnits());
@@ -383,7 +362,7 @@ void CWordPadApp::SaveOptions()
 	m_optionsIP.SaveOptions(szIPSection);
 }
 
-void CWordPadApp::LoadOptions()
+void CWordPadApp::LoadOptions() // TODOopt
 {
 	BYTE* pb = NULL;
 	UINT nLen = 0;
@@ -444,7 +423,7 @@ void CWordPadApp::LoadOptions()
 
 void CWordPadApp::LoadAbbrevStrings()
 {
-	for (int i=0;i<m_nNumUnits;i++)
+	for (int i = 0; i < m_nNumUnits; i++)
 	{
 		m_units[i].m_strAbbrev.LoadString(m_units[i].m_nAbbrevID);
 	}
@@ -498,14 +477,14 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nSize, int nValue, int nDec)
 	}
 
 	int i;
-	for (i=0;i<=nDec;i++)
+	for (i = 0; i <= nDec; i++)
 	{
 		pVal[i] = lval/div; //integer number
 		lval -= pVal[i]*div;
 		lval *= 10;
 	}
 	i--;
-	if (lval >= div/2)
+	if (lval >= div / 2)
 		pVal[i]++;
 
 	while ((pVal[i] == 10) && (i != 0))
@@ -517,7 +496,7 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nSize, int nValue, int nDec)
 	while (nDec && pVal[nDec] == 0)
 		nDec--;
 
-	_stprintf_s(buf, nSize, _T("%.*f"), nDec, (float)nValue/(float)div);
+	_stprintf_s(buf, nSize, _T("%.*f"), nDec, (float)nValue / (float)div);
 
 	if (m_units[m_nUnits].m_bSpaceAbbrev)
 		_tcscat_s(buf, nSize, _T(" "));
@@ -537,8 +516,6 @@ void CWordPadApp::OnAppAbout()
 
 int CWordPadApp::ExitInstance()
 {
-	m_pszHelpFilePath = NULL;
-
 	// TODO try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
 	SaveOptions();
 
@@ -931,8 +908,7 @@ BOOL CWordPadApp::IsIdleMessage(MSG* pMsg)
 HGLOBAL CWordPadApp::CreateDevNames()
 {
 	HGLOBAL hDev = NULL;
-	if (!cmdInfo.m_strDriverName.IsEmpty() && !cmdInfo.m_strPrinterName.IsEmpty() &&
-		!cmdInfo.m_strPortName.IsEmpty())
+	if (!cmdInfo.m_strDriverName.IsEmpty() && !cmdInfo.m_strPrinterName.IsEmpty() && !cmdInfo.m_strPortName.IsEmpty())
 	{
 		int nAllocSize = 4 * sizeof(WORD) +
 			cmdInfo.m_strDriverName.GetLength() + 1 +
