@@ -69,7 +69,6 @@ protected:
 	//{{AFX_MSG(CInPlaceFrame)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
-	afx_msg void OnHelpFinder();
 	afx_msg void OnCharColor();
 	afx_msg void OnPenToggle();
 	//}}AFX_MSG

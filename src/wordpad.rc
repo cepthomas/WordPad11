@@ -742,7 +742,6 @@ END
 STRINGTABLE
 BEGIN
     AFX_IDS_APP_TITLE       "WordPad"
-    AFX_IDS_HELPMODEMESSAGE "Select an object you want to get Help on."
 END
 
 STRINGTABLE
@@ -776,10 +775,6 @@ STRINGTABLE
 BEGIN
     ID_APP_ABOUT            "Displays program information, version number, and copyright\nAbout"
     ID_APP_EXIT             "Quits the application; prompts you to save documents\nExit"
-    ID_HELP_INDEX           "Lists Help topics\nHelp Index"
-    ID_HELP_USING           "Displays instructions about how to use help\nHelp"
-    ID_CONTEXT_HELP         "Displays Help for the button, menu, or window you click\nHelp"
-    ID_HELP                 "Displays Help for current task or command\nHelp"
 END
 
 STRINGTABLE

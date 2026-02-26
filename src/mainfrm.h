@@ -63,7 +63,6 @@ protected:
 	afx_msg void OnSysColorChange();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMove(int x, int y);
-	afx_msg void OnHelpFinder();
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg void OnCharColor();
 	afx_msg void OnPenToggle();

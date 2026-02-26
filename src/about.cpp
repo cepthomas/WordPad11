@@ -132,6 +132,9 @@ BOOL CAboutDialog::OnInitDialog()
 
     pEditBox->SetSel(0, 0);
 
+    //pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT2_TEXT);
+    //pEditBox->ShowWindow(SW_HIDE); TODO
+
     return TRUE;  // return TRUE  unless you set the focus to a control
 }
 

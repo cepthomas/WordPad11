@@ -809,8 +809,7 @@ void CWordPadApp::UpdateRegistry()
 	CoTaskMemFree(lpszClassID);
 }
 
-BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
-	BOOL bReplace)
+BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols, BOOL bReplace)
 {
 	ENSURE(rglpszRegister != NULL);
 	ASSERT(rglpszSymbols != NULL);
@@ -870,13 +869,6 @@ BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols,
 	return bResult;
 }
 #endif
-
-void CWordPadApp::WinHelp(DWORD dwData, UINT nCmd)
-{
-	if (nCmd == HELP_INDEX)
-		nCmd = HELP_FINDER;
-	CWinApp::WinHelp(dwData, nCmd);
-}
 
 BOOL CWordPadApp::PreTranslateMessage(MSG* pMsg)
 {

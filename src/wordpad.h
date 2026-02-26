@@ -62,7 +62,7 @@ public:
 	int m_nNewDocType;
 	CDocOptions m_optionsText;
 	CDocOptions m_optionsRTF;
-	CDocOptions m_optionsIP;    //wrap to ruler
+	CDocOptions m_optionsIP;
 	CDocOptions m_optionsNull;
 	CList<HWND, HWND> m_listPrinterNotify;
 
@@ -104,13 +104,12 @@ public:
 	virtual BOOL InitInstance();
 	virtual int ExitInstance();
 	virtual BOOL OnDDECommand(LPTSTR lpszCommand);
-	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	//}}AFX_VIRTUAL
 
 // Implementation
 	COleTemplateServer m_server;
-		// Server object for document creation
+	// Server object for document creation
 
 	//{{AFX_MSG(CWordPadApp)
 	afx_msg void OnAppAbout();
