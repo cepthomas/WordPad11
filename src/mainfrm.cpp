@@ -155,10 +155,8 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	{
 		// make sure window will be visible
 		CDisplayIC dc;
-		CRect rectDisplay(0, 0, dc.GetDeviceCaps(HORZRES),
-			dc.GetDeviceCaps(VERTRES));
-		if (rectDisplay.PtInRect(rect.TopLeft()) &&
-			rectDisplay.PtInRect(rect.BottomRight()))
+		CRect rectDisplay(0, 0, dc.GetDeviceCaps(HORZRES), dc.GetDeviceCaps(VERTRES));
+		if (rectDisplay.PtInRect(rect.TopLeft()) && rectDisplay.PtInRect(rect.BottomRight()))
 		{
 			cs.x = rect.left;
 			cs.y = rect.top;
@@ -196,8 +194,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CWnd* pView = GetDlgItem(AFX_IDW_PANE_FIRST);
 	if (pView != NULL)
 	{
-		pView->SetWindowPos(&wndBottom, 0, 0, 0, 0,
-			SWP_NOSIZE|SWP_NOMOVE|SWP_NOACTIVATE);
+		pView->SetWindowPos(&wndBottom, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE|SWP_NOACTIVATE);
 	}
 
 	return 0;
@@ -205,10 +202,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 BOOL CMainFrame::CreateToolBar()
 {
-	int nPen = GetSystemMetrics(SM_PENWINDOWS) ? NUM_PEN_TOGGLE :
-		NUM_PEN_ITEMS;
-	UINT nID = theApp.m_bLargeIcons ? IDR_MAINFRAME1_BIG :
-		IDR_MAINFRAME1;
+	int nPen = GetSystemMetrics(SM_PENWINDOWS) ? NUM_PEN_TOGGLE : NUM_PEN_ITEMS;
+	UINT nID = theApp.m_bLargeIcons ? IDR_MAINFRAME1_BIG : IDR_MAINFRAME1;
 	if (!m_wndToolBar.Create(this,
 		WS_CHILD|WS_VISIBLE|CBRS_TOP|CBRS_TOOLTIPS|CBRS_FLYBY|CBRS_SIZE_DYNAMIC)||
 		!m_wndToolBar.LoadBitmap(nID) ||
@@ -253,23 +248,20 @@ BOOL CMainFrame::CreateFormatBar()
 
 BOOL CMainFrame::CreateRulerBar()
 {
-	if (!m_wndRulerBar.Create(this,
-		WS_CHILD|WS_VISIBLE|CBRS_TOP|CBRS_HIDE_INPLACE, ID_VIEW_RULER))
+	if (!m_wndRulerBar.Create(this, WS_CHILD|WS_VISIBLE|CBRS_TOP|CBRS_HIDE_INPLACE, ID_VIEW_RULER))
 	{
 		TRACE0("Failed to create ruler\n");
-		return FALSE;      // fail to create
+		return FALSE;
 	}
 	return TRUE;
 }
 
 BOOL CMainFrame::CreateStatusBar()
 {
-	if (!m_wndStatusBar.Create(this) ||
-		!m_wndStatusBar.SetIndicators(indicators,
-		  sizeof(indicators)/sizeof(UINT)))
+	if (!m_wndStatusBar.Create(this) || !m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT)))
 	{
 		TRACE0("Failed to create status bar\n");
-		return FALSE;      // fail to create
+		return FALSE;
 	}
 	return TRUE;
 }

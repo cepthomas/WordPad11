@@ -118,6 +118,7 @@
 #define IDS_TEXT_DOCUMENT               189
 #define IDS_RTF_DOCUMENT                190
 #define IDS_WRITEPROTECT                192
+#define IDS_LICENSE                     193
 #define IDC_EDIT_LEFT                   1000
 #define IDC_EDIT_RIGHT                  1001
 #define IDC_EDIT_FIRST_LINE             1002
@@ -159,6 +160,8 @@
 #define IDC_SPIN_AFTER                  1039
 #define IDC_LIDENSE_TEXT                1040
 #define IDC_LICENSE_TEXT                1041
+#define IDC_EDIT1                       1041
+#define IDC_ABOUT2_TEXT                 1041
 #define IDC_ABOUT_TEXT                  1042
 #define ID_CANCEL_EDIT_CNTR             32768
 #define ID_CANCEL_EDIT_SRVR             32769
@@ -209,7 +212,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        172
 #define _APS_NEXT_COMMAND_VALUE         32816
-#define _APS_NEXT_CONTROL_VALUE         1041
+#define _APS_NEXT_CONTROL_VALUE         1042
 #define _APS_NEXT_SYMED_VALUE           103
 #endif
 #endif

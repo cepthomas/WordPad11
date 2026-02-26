@@ -290,7 +290,7 @@ BOOL CWordPadApp::InitInstance()
 	m_pMainWnd->DragAcceptFiles();
 
 	// When a server application is launched stand-alone, it is a good idea
-	//  to update the system registry in case it has been damaged.
+	// to update the system registry in case it has been damaged.
 	// do registry stuff in separate thread
 #ifndef _UNICODE
 	if (m_bWin31) // no threads on Win32s

@@ -42,7 +42,8 @@ BOOL CAboutDialog::OnInitDialog()
     CString str;
     CString sDescription;
     CString sVersion;
-    CString sLicense = L"License TODOhelp";
+    CString sLicense;
+    sLicense.LoadString(IDS_LICENSE);
     BYTE* info = nullptr;
 
     // Get the file path of the current module
@@ -54,7 +55,7 @@ BOOL CAboutDialog::OnInitDialog()
 
     if (sError.IsEmpty())
     {
-        DWORD hnd;
+        DWORD hnd = 0;
         DWORD size = GetFileVersionInfoSize(szFileName, &hnd);
         if (size == 0)
         {
@@ -111,9 +112,10 @@ BOOL CAboutDialog::OnInitDialog()
             {
                 sError = "Invalid ProductVersion";
             }
-       }
+        }
     }
 
+    // Fixed info:
     //VS_FIXEDFILEINFO* fixed;
     //if (VerQueryValue(info, L"\\", (LPVOID*)&fixed, &len))
 
@@ -127,6 +129,8 @@ BOOL CAboutDialog::OnInitDialog()
     {
         pEditBox->SetWindowText(sError + "\r\n\r\n" + sLicense);
     }
+
+    pEditBox->SetSel(0, 0);
 
     return TRUE;  // return TRUE  unless you set the focus to a control
 }

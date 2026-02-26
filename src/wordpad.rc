@@ -610,8 +610,8 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "About WordPad"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    EDITTEXT        IDC_LICENSE_TEXT,21,184,375,40,ES_MULTILINE | ES_NOHIDESEL | ES_READONLY | NOT WS_TABSTOP
-    EDITTEXT        IDC_ABOUT_TEXT,25,17,375,156,ES_MULTILINE | ES_NOHIDESEL | ES_READONLY | NOT WS_TABSTOP
+    EDITTEXT        IDC_ABOUT_TEXT,8,7,402,232,ES_MULTILINE | ES_NOHIDESEL | ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
+    EDITTEXT        IDC_ABOUT2_TEXT,305,217,40,14,ES_AUTOHSCROLL
 END
 
 
@@ -690,7 +690,7 @@ BEGIN
 
     IDD_ABOUT, DIALOG
     BEGIN
-        RIGHTMARGIN, 410
+        RIGHTMARGIN, 418
         BOTTOMMARGIN, 239
     END
 END
@@ -972,6 +972,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_WRITEPROTECT        "Unable to write to %1.\nThe disk is write-protected.\nA file cannot be saved on a write-protected disk."
+    IDS_LICENSE             "Copyright (c) 2026-now Ephemera\r\nCopyright (c) Microsoft Corporation\r\nVCSamples\r\n\r\nAll rights reserved.\r\n\r\nMIT License\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
 END
 
 #endif    // English (United States) resources
