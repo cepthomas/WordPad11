@@ -78,6 +78,12 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /Y $(OutputPath)wordpad.exe $(ProjectPath)install</Command>
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(TOOLS_PATH)' != ''">
+      <Command>copy /Y $(OutputPath)wordpad.exe $(TOOLS_PATH)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -106,6 +112,12 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /Y $(OutputPath)wordpad.exe $(ProjectPath)install</Command>
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(TOOLS_PATH)' != ''">
+      <Command>copy /Y $(OutputPath)wordpad.exe $(TOOLS_PATH)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="about.h" />

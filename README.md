@@ -6,7 +6,7 @@ github for them if interested.
 
 Main aspects and changes from the original:
 - Windows 11 and later
-- x64 static portable executable
+- x64 static portable executable in install directory
 - No registry access, persistence to ini file
 
 
