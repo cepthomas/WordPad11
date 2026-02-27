@@ -19,8 +19,8 @@
 const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 
 // Lonely lost items.
-#define HORZ_TEXTOFFSET 15
-#define VERT_TEXTOFFSET 5
+const int HORZ_TEXTOFFSET = 15;
+const int VERT_TEXTOFFSET = 5;
 
 
 /////////////////////////////////////////////////////////////////////////////

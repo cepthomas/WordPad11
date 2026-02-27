@@ -25,11 +25,11 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CDocOptPage)
 	enum { IDD = IDD_OPTIONS_WRAP };
-	int     m_nWordWrap;
-	BOOL    m_bFormatBar;
-	BOOL    m_bRulerBar;
-	BOOL    m_bStatusBar;
-	BOOL    m_bToolBar;
+	int     m_nWordWrap = 0;
+	BOOL    m_bFormatBar = FALSE;
+	BOOL    m_bRulerBar = FALSE;
+	BOOL    m_bStatusBar = FALSE;
+	BOOL    m_bToolBar = FALSE;
 	//}}AFX_DATA
 
 

@@ -24,7 +24,23 @@
 #include <winnls.h>
 #include <winreg.h>
 
-extern BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn);
+
+// Turn a file, relative path or other into an absolute path. TODO From mysterious extern AfxFullPath();
+BOOL _AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn)
+{
+	ASSERT(AfxIsValidAddress(lpszPathOut, _MAX_PATH));
+
+	// first, fully qualify the path name
+	LPTSTR lpszFilePart;
+	if (!GetFullPathName(lpszFileIn, _MAX_PATH, lpszPathOut, &lpszFilePart))
+	{
+		lstrcpyn(lpszPathOut, lpszFileIn, _MAX_PATH); // take it literally
+		return FALSE;
+	}
+	return FALSE; // TRUE??
+}
+
+
 #ifdef _REGISTER_APP
 static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols, BOOL bReplace);
 #endif
@@ -279,7 +295,7 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 	if (lpszFileName[0] == NULL)
 		return FALSE;
 	TCHAR szPath[_MAX_PATH];
-	AfxFullPath(szPath, lpszFileName);
+	_AfxFullPath(szPath, lpszFileName);
 	ATOM atom = GlobalAddAtom(szPath);
 	ASSERT(atom != NULL);
 	if (atom == NULL)
@@ -364,7 +380,7 @@ void CWordPadApp::LoadOptions()
 	VERIFY(GetObject(hFont, sizeof(LOGFONT), &m_lf));
 
 	m_bWordSel = GetProfileInt(szSection, szWordSel, TRUE);
-	TCHAR buf[2];
+	TCHAR buf[2] = { 0 };
 	buf[0] = NULL;
 	GetLocaleInfo(GetUserDefaultLCID(), LOCALE_IMEASURE, buf, 2);
 	int nDefUnits = buf[0] == '1' ? 0 : 1;
@@ -420,7 +436,7 @@ void CWordPadApp::LoadAbbrevStrings()
 	}
 }
 
-BOOL CWordPadApp::ParseMeasurement(LPTSTR buf, int& lVal)
+BOOL CWordPadApp::ParseMeasurement(TCHAR* buf, int& lVal)
 {
 	TCHAR* pch;
 	if (buf[0] == NULL)
@@ -891,21 +907,25 @@ BOOL CWordPadApp::IsIdleMessage(MSG* pMsg)
 HGLOBAL CWordPadApp::CreateDevNames()
 {
 	HGLOBAL hDev = NULL;
+#pragma warning(disable: 6305)
+
 	if (!cmdInfo.m_strDriverName.IsEmpty() && !cmdInfo.m_strPrinterName.IsEmpty() && !cmdInfo.m_strPortName.IsEmpty())
 	{
 		int nAllocSize = 4 * sizeof(WORD) +
 			cmdInfo.m_strDriverName.GetLength() + 1 +
 			cmdInfo.m_strPrinterName.GetLength() + 1 +
 			cmdInfo.m_strPortName.GetLength() + 1;
+
 		hDev = GlobalAlloc(GPTR, nAllocSize);
 		LPDEVNAMES lpDev = (LPDEVNAMES)GlobalLock(hDev);
-		lpDev->wDriverOffset = sizeof(WORD)*4;
+
+		lpDev->wDriverOffset = sizeof(WORD) * 4;
 		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strDriverName);
 
-		lpDev->wDeviceOffset = (WORD)(lpDev->wDriverOffset + cmdInfo.m_strDriverName.GetLength()+1);
+		lpDev->wDeviceOffset = (WORD)(lpDev->wDriverOffset + cmdInfo.m_strDriverName.GetLength() + 1);
 		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strPrinterName);
 
-		lpDev->wOutputOffset = (WORD)(lpDev->wDeviceOffset + cmdInfo.m_strPrinterName.GetLength()+1);
+		lpDev->wOutputOffset = (WORD)(lpDev->wDeviceOffset + cmdInfo.m_strPrinterName.GetLength() +1);
 		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strPortName);
 
 		lpDev->wDefault = 0;

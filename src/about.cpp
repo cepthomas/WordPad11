@@ -77,7 +77,7 @@ BOOL CAboutDialog::OnInitDialog()
         {
             WORD wLanguage;
             WORD wCodePage;
-        }* lpTranslate;
+        }* lpTranslate = nullptr;
 
         VerQueryValue(info, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &len);
         int numPages = len / sizeof(struct LANGANDCODEPAGE);
@@ -89,7 +89,7 @@ BOOL CAboutDialog::OnInitDialog()
         else
         {
             // Read the parts of interest.
-            LPWSTR buff;
+            LPWSTR buff = nullptr;
 
             str.Format(L"\\StringFileInfo\\%04x%04x\\FileDescription", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
             if (VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len))
