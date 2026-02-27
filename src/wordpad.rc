@@ -104,8 +104,6 @@ IDR_MAINFRAME1_BIG      BITMAP                  "res\\main1b.bmp"
 
 IDR_SRVR_INPLACE_BIG    BITMAP                  "res\\srvrbig.bmp"
 
-IDB_BITMAP48            BITMAP                  "res\\wordp48.bmp"
-
 IDB_FONTTYPE            BITMAP                  "res\\font.bmp"
 
 IDB_RULER_BLOCKM        BITMAP                  "res\\rulerblm.bmp"

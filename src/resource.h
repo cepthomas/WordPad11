@@ -57,7 +57,6 @@
 #define IDR_MAINFRAME1                  140
 #define IDB_FORMATBAR_BIG               141
 #define IDR_COLOR_MENU                  142
-#define IDR_MAINFRAME_BIG               142
 #define IDD_FORMAT_PARA                 143
 #define IDR_MAINFRAME1_BIG              143
 #define IDR_SRVR_INPLACE_BIG            144
@@ -87,7 +86,6 @@
 #define IDD_FILENEWDIALOG               160
 #define IDS_DT13                        161
 #define IDD_ABOUT                       161
-#define IDB_BITMAP48                    162
 #define IDB_BITMAP_PRINTER              163
 #define IDS_FINISHED_SEARCH             164
 #define IDC_FONTNAME                    165
