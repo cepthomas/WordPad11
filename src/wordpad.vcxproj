@@ -79,10 +79,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /Y $(OutputPath)wordpad.exe $(ProjectPath)install</Command>
-    </PostBuildEvent>
-    <PostBuildEvent Condition="'$(TOOLS_PATH)' != ''">
-      <Command>copy /Y $(OutputPath)wordpad.exe $(TOOLS_PATH)</Command>
+      <Command>call "$(SolutionDir)post_build.cmd"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -113,10 +110,7 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /Y $(OutputPath)wordpad.exe $(ProjectPath)install</Command>
-    </PostBuildEvent>
-    <PostBuildEvent Condition="'$(TOOLS_PATH)' != ''">
-      <Command>copy /Y $(OutputPath)wordpad.exe $(TOOLS_PATH)</Command>
+      <Command>call "$(SolutionDir)post_build.cmd"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
