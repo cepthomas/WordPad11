@@ -65,7 +65,7 @@ static UINT DoRegistry(LPVOID lpv)
 }
 #endif
 
-// Option names. TODOopt
+// Option names.
 const TCHAR szTextSection[] = _T("Text");
 const TCHAR szRTFSection[] = _T("RTF");
 const TCHAR szIPSection[] = _T("IP");
@@ -89,7 +89,7 @@ BEGIN_MESSAGE_MAP(CWordPadApp, CWinApp)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-void CWordPadCommandLineInfo::ParseParam(const char* pszParam,BOOL bFlag,BOOL bLast)
+void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast)
 {
 	if (bFlag)
 	{
@@ -108,19 +108,9 @@ void CWordPadCommandLineInfo::ParseParam(const char* pszParam,BOOL bFlag,BOOL bL
 CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),	m_optionsIP(2), m_optionsNull(0)
 {
 	_tsetlocale(LC_ALL, _T(""));
-
-//	m_nFilterIndex = 1;
-//	DWORD dwVersion = ::GetVersion(); TODO old
-//	m_bWin4 = (BYTE)dwVersion >= 4;
-//#ifndef _UNICODE
-//	m_bWin31 = (dwVersion > 0x80000000 && !m_bWin4);
-//#endif
-//	m_nDefFont = (m_bWin4) ? DEFAULT_GUI_FONT : ANSI_VAR_FONT;
-
 	m_nDefFont = DEFAULT_GUI_FONT; // : ANSI_VAR_FONT;
 	m_dcScreen.Attach(::GetDC(NULL));
 	m_bLargeIcons = m_dcScreen.GetDeviceCaps(LOGPIXELSX) >= 120;
-	//m_bForceOEM = FALSE;
 }
 
 CWordPadApp::~CWordPadApp()
@@ -129,9 +119,7 @@ CWordPadApp::~CWordPadApp()
 		::ReleaseDC(NULL, m_dcScreen.Detach());
 }
 
-/////////////////////////////////////////////////////////////////////////////
 // The one and only CWordPadApp object
-
 CWordPadApp theApp;
 
 // Register the application's document templates.  Document templates
@@ -146,9 +134,7 @@ static CSingleDocTemplate DocTemplate(
 // You may change it if you prefer to choose a specific identifier.
 static const CLSID BASED_CODE clsid = { 0x73FDDC80L, 0xAEA9, 0x101A, { 0x98, 0xA7, 0x00, 0xAA, 0x00, 0x37, 0x49, 0x59} };
 
-/////////////////////////////////////////////////////////////////////////////
 // CWordPadApp initialization
-
 BOOL CWordPadApp::InitInstance()
 {
 	ParseCommandLine(cmdInfo);
@@ -159,6 +145,10 @@ BOOL CWordPadApp::InitInstance()
 #ifdef _REGISTER_APP
 	const TCHAR szRegKey[] = _T("Microsoft\\Windows\\CurrentVersion\\Applets");
 	SetRegistryKey(szRegKey);
+#else // use ini file
+	// stackoverflow.com/questions/3995679/save-file-settings-in-ini-instead-of-registry
+	free((void*)m_pszProfileName); // Free the existing default name
+	m_pszProfileName = _tcsdup(_T(".\\wordpad.ini")); // Set new path in exe dir
 #endif
 
 	LoadOptions();
@@ -186,7 +176,7 @@ BOOL CWordPadApp::InitInstance()
 	}
 	else
 	{
-		//Excel 4 will start OLE servers minimized
+		// Excel 4 will start OLE servers minimized
 		m_nCmdShow = SW_SHOWNORMAL;
 	}
 	int nCmdShow = m_nCmdShow;
@@ -350,19 +340,20 @@ CDockState& CWordPadApp::GetDockState(LONG_PTR nDocType, BOOL bPrimary)
 	return GetDocOptions(nDocType).GetDockState(bPrimary);
 }
 
-void CWordPadApp::SaveOptions() // TODOopt
+void CWordPadApp::SaveOptions()
 {
-	WriteProfileInt(szSection, szWordSel, m_bWordSel);
-	WriteProfileInt(szSection, szUnits, GetUnits());
-	WriteProfileInt(szSection, szMaximized, m_bMaximized);
-	WriteProfileBinary(szSection, szFrameRect, (BYTE*)&m_rectInitialFrame, sizeof(CRect));
-	WriteProfileBinary(szSection, szPageMargin, (BYTE*)&m_rectPageMargin, sizeof(CRect));
+	BOOL res = FALSE;
+	res = WriteProfileInt(szSection, szWordSel, m_bWordSel);
+	res = WriteProfileInt(szSection, szUnits, GetUnits());
+	res = WriteProfileInt(szSection, szMaximized, m_bMaximized);
+	res = WriteProfileBinary(szSection, szFrameRect, (BYTE*)&m_rectInitialFrame, sizeof(CRect));
+	res = WriteProfileBinary(szSection, szPageMargin, (BYTE*)&m_rectPageMargin, sizeof(CRect));
 	m_optionsText.SaveOptions(szTextSection);
 	m_optionsRTF.SaveOptions(szRTFSection);
 	m_optionsIP.SaveOptions(szIPSection);
 }
 
-void CWordPadApp::LoadOptions() // TODOopt
+void CWordPadApp::LoadOptions()
 {
 	BYTE* pb = NULL;
 	UINT nLen = 0;
@@ -447,7 +438,7 @@ BOOL CWordPadApp::ParseMeasurement(LPTSTR buf, int& lVal)
 
 	if (pch[0] == NULL) // default
 	{
-		lVal = (f < 0.f) ? (int)(f*GetTPU()-0.5f) : (int)(f*GetTPU()+0.5f);
+		lVal = (f < 0.f) ? (int)(f * GetTPU() - 0.5f) : (int)(f * GetTPU() + 0.5f);
 		return TRUE;
 	}
 	for (int i = 0; i < m_nNumUnits; i++)
@@ -516,7 +507,7 @@ void CWordPadApp::OnAppAbout()
 
 int CWordPadApp::ExitInstance()
 {
-	// TODO try this FreeLibrary(GetModuleHandle(_T("RICHED32.DLL")));
+	FreeLibrary(GetModuleHandle(_T("riched32.dll")));
 	SaveOptions();
 
 	return CWinApp::ExitInstance();

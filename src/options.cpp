@@ -41,7 +41,7 @@ void CDocOptions::SaveDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 	delete [] p;
 }
 
-void CDocOptions::SaveOptions(LPCTSTR lpszProfileName) //  TODOopt	WriteProfileXXX can support ini files
+void CDocOptions::SaveOptions(LPCTSTR lpszProfileName)
 {
 	SaveDockState(m_ds1, lpszProfileName, szLayout1);
 	SaveDockState(m_ds2, lpszProfileName, szLayout2);
@@ -65,7 +65,7 @@ void CDocOptions::LoadDockState(CDockState& ds, LPCTSTR lpszProfileName, LPCTSTR
 	}
 }
 
-void CDocOptions::LoadOptions(LPCTSTR lpszProfileName) //  TODOopt	GetProfileXXX can support ini files
+void CDocOptions::LoadOptions(LPCTSTR lpszProfileName)
 {
 	LoadDockState(m_ds1, lpszProfileName, szLayout1);
 	LoadDockState(m_ds2, lpszProfileName, szLayout2);

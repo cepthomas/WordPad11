@@ -8,8 +8,4 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
-
 #include "resource.h"
-
-//TODO #include "wordpad.h", others?
-

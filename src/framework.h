@@ -33,6 +33,9 @@
 // MFC support for ribbons and control bars
 #include <afxcontrolbars.h>     
 
+#include <afxrich.h>
+//#include <afxpriv.h>
+
 
 // Enable version 6.0 of the Windows Common Controls for a modern look and feel: 
 #ifdef _UNICODE
@@ -45,11 +48,12 @@
 #endif
 #endif
 
+// If defined, turns on writing OS associations etc and state persistence to the registry - the original way.
+// If not, no OS associations and persistence is to an INI file in the executable dir - portable version.
+//#define _REGISTER_APP
 
-//#pragma warning(disable: 4996) // Function declared deprecated TODO all #pragma warning
 
-#include <afxrich.h>
-//#include <afxpriv.h>
+
 
 class CDisplayIC : public CDC
 {
@@ -60,7 +64,7 @@ public:
 struct CCharFormat : public CHARFORMAT2
 {
     CCharFormat() { cbSize = sizeof(CHARFORMAT2); }
-    BOOL operator==(CCharFormat& cf);
+    BOOL operator == (CCharFormat& cf);
 };
 
 struct CParaFormat : public PARAFORMAT2
@@ -69,9 +73,6 @@ struct CParaFormat : public PARAFORMAT2
     BOOL operator == (PARAFORMAT2& pf);
 };
 
-// Turns on writing associations etc to the registry - the original way.
-// Default doesn't write - portable/standalone.
-//#define _REGISTER_APP
 
 // Check version mins for building - Basically standard VS2022.
 #if _MSC_VER < 1900 // major:19 minor:0

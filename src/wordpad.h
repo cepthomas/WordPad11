@@ -40,7 +40,7 @@ public:
 	CWordPadApp();
 	~CWordPadApp();
 
-//Attributes
+// Attributes
 	CWordPadCommandLineInfo cmdInfo;
 	CDC m_dcScreen;
 	LOGFONT m_lf;
@@ -69,18 +69,17 @@ public:
 	BOOL IsDocOpen(LPCTSTR lpszFileName);
 
 // Get
-	int GetUnits() {return m_nUnits;}
-	int GetTPU() { return GetTPU(m_nUnits);}
-	int GetTPU(int n) { return m_units[n].m_nTPU;}
-	LPCTSTR GetAbbrev() { return m_units[m_nUnits].m_strAbbrev;}
-	LPCTSTR GetAbbrev(int n) { return m_units[n].m_strAbbrev;}
-	const CUnit& GetUnit() {return m_units[m_nUnits];}
+	int GetUnits() { return m_nUnits; }
+	int GetTPU() { return GetTPU(m_nUnits); }
+	int GetTPU(int n) { return m_units[n].m_nTPU; }
+	LPCTSTR GetAbbrev() { return m_units[m_nUnits].m_strAbbrev; }
+	LPCTSTR GetAbbrev(int n) { return m_units[n].m_strAbbrev; }
+	const CUnit& GetUnit() { return m_units[m_nUnits]; }
 	CDockState& GetDockState(LONG_PTR nDocType, BOOL bPrimary = TRUE);
 	CDocOptions& GetDocOptions(LONG_PTR nDocType);
 
 // Set
-	void SetUnits(int n)
-	{ ASSERT(n>=0 && n <m_nPrimaryNumUnits); m_nUnits = n; }
+	void SetUnits(int n) { ASSERT(n >= 0 && n < m_nPrimaryNumUnits); m_nUnits = n; }
 
 // Operations
 	void RegisterFormats();

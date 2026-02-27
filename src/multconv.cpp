@@ -267,7 +267,7 @@ void CConverter::LoadFunctions()
 BOOL CConverter::Open(LPCTSTR pszFileName, UINT nOpenFlags, CFileException* pException)
 {
 	USES_CONVERSION;
-	// TODO? we convert to oem and back because of the following case
+	// we convert to oem and back because of the following case
 	// test(c).txt becomes testc.txt in OEM and stays testc.txt to Ansi
 	char buf[_MAX_PATH];
 	strncpy_s(buf, _MAX_PATH, T2CA(pszFileName), _TRUNCATE);

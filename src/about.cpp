@@ -34,8 +34,6 @@ BOOL CAboutDialog::OnInitDialog()
     CDialog::OnInitDialog();
     CenterWindow();
 
-    // TODO Make this prettier.
-
     // Collect info to display.
     CString sError;
     UINT len;
@@ -120,20 +118,16 @@ BOOL CAboutDialog::OnInitDialog()
     //if (VerQueryValue(info, L"\\", (LPVOID*)&fixed, &len))
 
     // Output what we got.
-    CEdit* pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT_TEXT);
+    CStatic* pStat = (CStatic * )GetDlgItem(IDC_STATIC);
+
     if (sError.IsEmpty())
     {
-        pEditBox->SetWindowText(sDescription + "\r\n\r\nVersion " + sVersion + "\r\n\r\n" + sLicense);
+        pStat->SetWindowText(sDescription + "\r\n\r\nVersion " + sVersion + "\r\n\r\n" + sLicense);
     }
     else
     {
-        pEditBox->SetWindowText(sError + "\r\n\r\n" + sLicense);
+        pStat->SetWindowText(sError + "\r\n\r\n" + sLicense);
     }
-
-    pEditBox->SetSel(0, 0);
-
-    //pEditBox = (CEdit*)GetDlgItem(IDC_ABOUT2_TEXT);
-    //pEditBox->ShowWindow(SW_HIDE); TODO
 
     return TRUE;  // return TRUE  unless you set the focus to a control
 }
