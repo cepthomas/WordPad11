@@ -12,6 +12,8 @@
 #include "pch.h"
 #include "doctype.h"
 
+//TODO Refactor doctype, maybe with wordpdoc.
+
 #ifdef _DEBUG
 #undef THIS_FILE	
 static char BASED_CODE THIS_FILE[] = __FILE__;
