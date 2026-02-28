@@ -20,6 +20,14 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 static const BYTE byteRTFPrefix[5] = {'{', '\\', 'r', 't', 'f'};
 static const BYTE byteExePrefix[2] = {0x4D, 0x5A};
 
+#define DOCTYPE_DOCTYPE 0
+#define DOCTYPE_DESC 1
+#define DOCTYPE_EXT 2
+//#define DOCTYPE_PROGID 3
+
+#define DECLARE_DOCTYPE(name, b1, b2, b3, p) {RD_##name, IDS_##name##_DOC, b1, b2, b3, p}
+#define DECLARE_DOCTYPE_NULL(name, b1, b2, b3, p) {RD_##name, NULL, b1, b2, b3, p}
+
 /////////////////////////////////////////////////////////////////////////////
 
 

@@ -5,9 +5,10 @@ handed over the keys as MIT licensed open source. There are several re-interpret
 github for them if interested.
 
 Main aspects and changes from the original:
-- Windows 11 and later
-- x64 static portable executable in install directory
-- No registry access, persistence to ini file
+- Windows 11 and later.
+- Build (and debug) with Visual Studio.
+- x64 static portable executable in install directory.
+- No registry access, persistence to ini file.
 
 
 # Tech Notes
@@ -16,7 +17,8 @@ Main aspects and changes from the original:
 - The project baseline is a copy (not fork) of [WordPad OG](https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/ole/wordpad).
 - If you want all the original registry stuff back, uncomment `_REGISTER_APP` in `framework.h`.
 - Historical cruft removed:
-- Splash gone, replaced with about.
-- Cleaned up convoluted includes.
-- Removed string clutter.
-- General code cleanup. Too many cooks in this broth.
+    - Splash gone, replaced with `about`.
+    - All vestiges of outdated MFC help. You know how to use this, right?
+    - Clean up convoluted includes.
+    - Remove string clutter.
+    - General code cleanup. Too many cooks in this broth.

@@ -10,7 +10,6 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "framework.h"
 #include "formatta.h"
 #include "wordpad.h"
 #include "ddxm.h"

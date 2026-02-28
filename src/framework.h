@@ -48,30 +48,14 @@
 #endif
 #endif
 
+// Custom for this application.
 // If defined, turns on writing OS associations etc and state persistence to the registry - the original way.
 // If not, no OS associations and persistence is to an INI file in the executable dir - portable version.
 //#define _REGISTER_APP
 
+// If using multconv file converters. Currently only obsolete file types: Word 2/6, Write.
+//#define _CONVERTERS
 
-
-
-class CDisplayIC : public CDC
-{
-public:
-    CDisplayIC() { CreateIC(_T("DISPLAY"), NULL, NULL, NULL); }
-};
-
-struct CCharFormat : public CHARFORMAT2
-{
-    CCharFormat() { cbSize = sizeof(CHARFORMAT2); }
-    BOOL operator == (CCharFormat& cf);
-};
-
-struct CParaFormat : public PARAFORMAT2
-{
-    CParaFormat() {cbSize = sizeof(_paraformat);}
-    BOOL operator == (PARAFORMAT2& pf);
-};
 
 
 // Check version mins for building - Basically standard VS2022.

@@ -10,10 +10,10 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
+#include "ipframe.h"
 #include "wordpad.h"
 #include "doctype.h"
 #include "wordpdoc.h"
-#include "ipframe.h"
 #include "colorlis.h"
 
 #ifdef _DEBUG

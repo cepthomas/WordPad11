@@ -25,12 +25,6 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-extern BOOL AFXAPI AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn);
-extern UINT AFXAPI AfxGetFileTitle(LPCTSTR lpszPathName, LPTSTR lpszTitle, UINT nMax);
-
-#ifndef OFN_EXPLORER
-#define OFN_EXPLORER 0x00080000L
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadDoc
@@ -157,7 +151,7 @@ BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 		if (!doctypes[m_nNewDocType].bRead)
 		{
 			CString str;
-			CString strName = doctypes[m_nNewDocType].GetString(DOCTYPE_DOCTYPE);
+			CString strName = doctypes[m_nNewDocType].GetString(0);// DOCTYPE_DOCTYPE);
 			AfxFormatString1(str, IDS_CANT_LOAD, strName);
 			AfxMessageBox(str, MB_OK|MB_ICONINFORMATION);
 			return FALSE;
@@ -398,7 +392,7 @@ CFile* CWordPadDoc::GetFile(LPCTSTR pszPathName, UINT nOpenFlags, CFileException
 	CTrackFile* pFile = NULL;
 	CFrameWnd* pWnd = GetView()->GetParentFrame();
 
-#ifdef CONVERTERS
+#ifdef _CONVERTERS
 	ScanForConverters();
 
 	// if writing use current doc type otherwise use new doc type

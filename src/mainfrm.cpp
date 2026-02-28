@@ -10,8 +10,8 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "doctype.h"
 #include "mainfrm.h"
+#include "doctype.h"
 #include "wordpad.h"
 #include "wordpdoc.h"
 #include "colorlis.h"

@@ -29,8 +29,7 @@ public:
 	int m_nBeg;
 	int m_nEnd;
 	LPDATAOBJECT m_lpRichDataObj;
-	CWordPadDoc* GetDocument() const
-		{ return (CWordPadDoc*) COleServerItem::GetDocument(); }
+	CWordPadDoc* GetDocument() const { return (CWordPadDoc*) COleServerItem::GetDocument(); }
 	CWordPadView* GetView() const;
 
 // Implementation

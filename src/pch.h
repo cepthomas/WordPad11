@@ -9,3 +9,4 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 #include "resource.h"
+#include "common.h"

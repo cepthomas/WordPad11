@@ -12,6 +12,9 @@
 
 #pragma once
 
+class CWordPadDoc;
+
+
 class CWordPadView : public CRichEditView
 {
 protected: // create from serialization only
@@ -66,7 +69,6 @@ protected:
 	BOOL m_bOnBar;
 
 	// OLE Container support
-
 	virtual void DeleteContents();
 	virtual void OnTextNotFound(LPCTSTR);
 

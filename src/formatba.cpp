@@ -10,8 +10,8 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "wordpad.h"
 #include "formatba.h"
+#include "wordpad.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -26,8 +26,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #define BMW 16
 #define BMH 15
 
-static int nFontSizes[] =
-	{8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72};
+static int nFontSizes[] = {8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72};
 int CLocalComboBox::m_nFontHeight = 0;
 
 class CFontDesc

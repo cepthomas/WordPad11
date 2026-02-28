@@ -11,25 +11,6 @@
 
 #pragma once
 
-class CWordPadView;
-
-/*
-typedef struct tagNMHDR
-{
-	HWND  hwndFrom;
-	UINT  idFrom;
-	UINT  code;         // NM_ code
-}   NMHDR;
-*/
-
-struct CHARHDR : public tagNMHDR
-{
-	CHARFORMAT2 cf;
-	CHARHDR() {cf.cbSize = sizeof(CHARFORMAT2);}
-};
-
-#define FN_SETFORMAT    0x1000
-#define FN_GETFORMAT    0x1001
 
 /////////////////////////////////////////////////////////////////////////////
 // CLocalComboBox
@@ -48,7 +29,7 @@ public:
 		return (hWnd == m_hWnd || ::IsChild(m_hWnd, hWnd));
 	}
 	void GetTheText(CString& str);
-	void SetTheText(LPCTSTR lpszText,BOOL bMatchExact = FALSE);
+	void SetTheText(LPCTSTR lpszText, BOOL bMatchExact = FALSE);
 
 //Operations
 	BOOL LimitText(int nMaxChars);

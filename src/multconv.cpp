@@ -10,8 +10,10 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
-#include "trackfil.h"
+
+#ifdef _CONVERTERS
 #include "multconv.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -437,3 +439,4 @@ void CConverter::SetLength(ULONGLONG)
 {
 	AfxThrowNotSupportedException();
 }
+#endif

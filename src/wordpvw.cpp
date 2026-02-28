@@ -10,11 +10,11 @@
 // Microsoft Foundation Classes product.
 
 #include "pch.h"
+#include "wordpvw.h"
 #include "doctype.h"
 #include "wordpad.h"
 #include "srvritem.h"
 #include "wordpdoc.h"
-#include "wordpvw.h"
 #include "formatta.h"
 #include "datedial.h"
 #include "formatpa.h"

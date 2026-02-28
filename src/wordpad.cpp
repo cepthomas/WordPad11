@@ -25,29 +25,13 @@
 #include <winreg.h>
 
 
-// Turn a file, relative path or other into an absolute path. TODO From mysterious extern AfxFullPath();
-BOOL _AfxFullPath(LPTSTR lpszPathOut, LPCTSTR lpszFileIn)
-{
-	ASSERT(AfxIsValidAddress(lpszPathOut, _MAX_PATH));
-
-	// first, fully qualify the path name
-	LPTSTR lpszFilePart;
-	if (!GetFullPathName(lpszFileIn, _MAX_PATH, lpszPathOut, &lpszFilePart))
-	{
-		lstrcpyn(lpszPathOut, lpszFileIn, _MAX_PATH); // take it literally
-		return FALSE;
-	}
-	return FALSE; // TRUE??
-}
-
-
-#ifdef _REGISTER_APP
-static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols, BOOL bReplace);
-#endif
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char BASED_CODE THIS_FILE[] = __FILE__;
+#endif
+
+#ifdef _REGISTER_APP
+static BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols, BOOL bReplace);
 #endif
 
 CLIPFORMAT cfEmbeddedObject;
@@ -294,15 +278,24 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 {
 	if (lpszFileName[0] == NULL)
 		return FALSE;
+
 	TCHAR szPath[_MAX_PATH];
-	_AfxFullPath(szPath, lpszFileName);
+	LPTSTR lpszFilePart;
+	if (!GetFullPathName(lpszFileName, _MAX_PATH, szPath, &lpszFilePart))
+	{
+		lstrcpyn(szPath, lpszFileName, _MAX_PATH); // take it literally
+		return FALSE;
+	}
+
 	ATOM atom = GlobalAddAtom(szPath);
 	ASSERT(atom != NULL);
 	if (atom == NULL)
 		return FALSE;
+
 	EnumWindows(StaticEnumProc, (LPARAM)&atom);
 	if (atom == NULL)
 		return TRUE;
+
 	DeleteAtom(atom);
 	return FALSE;
 }
@@ -523,7 +516,12 @@ void CWordPadApp::OnAppAbout()
 
 int CWordPadApp::ExitInstance()
 {
-	FreeLibrary(GetModuleHandle(_T("riched32.dll")));
+	HMODULE hnd = GetModuleHandle(_T("riched32.dll"));
+	if (hnd > 0)
+	{
+		FreeLibrary(hnd);
+	}
+
 	SaveOptions();
 
 	return CWinApp::ExitInstance();
@@ -907,7 +905,7 @@ BOOL CWordPadApp::IsIdleMessage(MSG* pMsg)
 HGLOBAL CWordPadApp::CreateDevNames()
 {
 	HGLOBAL hDev = NULL;
-#pragma warning(disable: 6305)
+#pragma warning(disable: 6305 6011 28183)
 
 	if (!cmdInfo.m_strDriverName.IsEmpty() && !cmdInfo.m_strPrinterName.IsEmpty() && !cmdInfo.m_strPortName.IsEmpty())
 	{
