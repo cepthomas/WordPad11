@@ -122,4 +122,4 @@ private:
 /////////////////////////////////////////////////////////////////////////////
 
 extern CWordPadApp theApp;
-//inline CWordPadApp* GetWordPadApp() {return (CWordPadApp*)AfxGetApp();}
+//inline CWordPadApp* GetWordPadApp() { return (CWordPadApp*)AfxGetApp(); }
