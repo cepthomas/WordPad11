@@ -17,8 +17,6 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-// TODO Some old help: http://hs.windows.microsoft.com/hhweb/content/m-en-us/p-6.2/id-7479c387-8dc4-40b6-9506-cc7a58c61f0a/
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDialog dialog
