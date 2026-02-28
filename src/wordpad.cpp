@@ -10,6 +10,9 @@
 // Microsoft Foundation Classes product.
 
 
+// TODO Some old help: http://hs.windows.microsoft.com/hhweb/content/m-en-us/p-6.2/id-7479c387-8dc4-40b6-9506-cc7a58c61f0a/
+
+
 #include "pch.h"
 #include "wordpad.h"
 #include "mainfrm.h"
