@@ -1,5 +1,13 @@
-
 #include "pch.h"
+
+
+// TODO:
+// ddxm.*
+
+// clean up doctype.*
+// remove all extern -> better api
+// remove IsTextType
+
 
 
 // C:\Dev\Apps\WordPad11\src\mainfrm.cpp:
