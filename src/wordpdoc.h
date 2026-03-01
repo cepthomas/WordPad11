@@ -11,9 +11,11 @@
 
 #pragma once
 
+#include "doctype.h"
 #include "formatba.h"
 #include "srvritem.h"
 #include "wordpvw.h"
+
 
 class CWordPadDoc : public CRichEditDoc
 {
@@ -26,21 +28,20 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	int m_nDocType;
-	int m_nNewDocType;
-	void SetDocType(int nDocType, BOOL bNoOptionChange = FALSE);
+	DocType m_nDocType;
+	DocType m_nNewDocType;
+	void SetDocType(DocType nDocType, BOOL bNoOptionChange = FALSE);
 	CWordPadView* GetView();
 	CLSID GetClassID();
 	LPCTSTR GetSection();
 
 // Operations
 public:
-	void SaveState(int nType);
-	void RestoreState(int nType);
-	virtual CFile* GetFile(LPCTSTR pszPathName, UINT nOpenFlags,
-		CFileException* pException);
+	void SaveState(DocType nType);
+	void RestoreState(DocType nType);
+	virtual CFile* GetFile(LPCTSTR pszPathName, UINT nOpenFlags, CFileException* pException);
 	virtual BOOL DoSave(LPCTSTR pszPathName, BOOL bReplace = TRUE);
-	int MapType(int nType);
+	DocType MapType(DocType nType);
 	void ForceDelayed(CFrameWnd* pFrameWnd);
 
 // Overrides
@@ -72,7 +73,7 @@ protected:
 	//{{AFX_MSG(CWordPadDoc)
 	afx_msg void OnViewOptions();
 	afx_msg void OnUpdateOleVerbPopup(CCmdUI* pCmdUI);
-	afx_msg void OnFileSendMail();
+	//afx_msg void OnFileSendMail();
 	afx_msg void OnUpdateIfEmbedded(CCmdUI* pCmdUI);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()

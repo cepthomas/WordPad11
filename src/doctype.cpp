@@ -22,36 +22,88 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 static const BYTE byteRTFPrefix[5] = {'{', '\\', 'r', 't', 'f'};
 static const BYTE byteExePrefix[2] = {0x4D, 0x5A};
 
-#define DOCTYPE_DOCTYPE 0
-#define DOCTYPE_DESC 1
-#define DOCTYPE_EXT 2
+//#define DOCTYPE_DOCTYPE 0
+//#define DOCTYPE_DESC 1
+//#define DOCTYPE_EXT 2
 //#define DOCTYPE_PROGID 3
 
-#define DECLARE_DOCTYPE(name, b1, b2, b3, p) {RD_##name, IDS_##name##_DOC, b1, b2, b3, p}
-#define DECLARE_DOCTYPE_NULL(name, b1, b2, b3, p) {RD_##name, NULL, b1, b2, b3, p}
+//#define DECLARE_DOCTYPE(name, b1, b2, b3, p) { RD_##name, IDS_##name##_DOC, b1, b2, b3, p }
+//#define DECLARE_DOCTYPE_NULL(name, b1, b2, b3, p) { RD_##name, NULL, b1, b2, b3, p }
 
 /////////////////////////////////////////////////////////////////////////////
 
-
-DocType doctypes[NUM_DOC_TYPES] =
+struct DocTypeDesc
 {
-	DECLARE_DOCTYPE(RICHTEXT, TRUE, TRUE, FALSE, NULL),
-	DECLARE_DOCTYPE(TEXT, TRUE, TRUE, FALSE, NULL),
-	DECLARE_DOCTYPE(ALL, TRUE, FALSE, FALSE, NULL),
-	DECLARE_DOCTYPE(EXE, FALSE, FALSE, FALSE, NULL),
-	DECLARE_DOCTYPE_NULL(EMBEDDED, FALSE, FALSE, FALSE, NULL)
+public:
+	DocType eID;
+	int idStr;
+	BOOL bRead;
+	BOOL bWrite;
+	BOOL bDup;
+	LPCSTR pszConverterName;
+	//CString GetString(int nID);
 };
 
-CString DocType::GetString(int nID)
+DocTypeDesc doctypes [] =//(int)DocType::NUM_DOC_TYPES] =
 {
-	ASSERT(idStr != NULL);
-	CString str;
-	VERIFY(str.LoadString(idStr));
-	CString strSub;
-	AfxExtractSubString(strSub, str, nID);
-	return strSub;
+	{ DocType::RD_RTF, IDS_RTF_DOC, TRUE, TRUE, FALSE, NULL },
+	{ DocType::RD_TEXT, IDS_TEXT_DOC, TRUE, TRUE, FALSE, NULL },
+	{ DocType::RD_ALL, IDS_ALL_DOC, TRUE, TRUE, FALSE, NULL },
+	//{ DocType::RD_EXE, IDS_EXE_DOC, TRUE, TRUE, FALSE, NULL },
+	{ DocType::RD_EMBEDDED, -1, TRUE, TRUE, FALSE, NULL },
+};
+
+const int NUM_DOC_TYPES = sizeof(doctypes) / sizeof(DocTypeDesc);
+
+DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
+{
+	return DocType::RD_INVALID;
 }
 
+
+//void ScanForConverters()
+//{
+//	int i = 999;
+//}
+
+
+
+
+
+//struct DocTypeDesc
+//{
+//public:
+//	int nID;
+//	int idStr;
+//	BOOL bRead;
+//	BOOL bWrite;
+//	BOOL bDup;
+//	LPCSTR pszConverterName;
+//	CString GetString(int nID);
+//};
+//
+//DocTypeDesc doctypes[NUM_DOC_TYPES] =
+//{
+//	DECLARE_DOCTYPE(RTF, TRUE, TRUE, FALSE, NULL),
+//	DECLARE_DOCTYPE(TEXT, TRUE, TRUE, FALSE, NULL),
+//	DECLARE_DOCTYPE(ALL, TRUE, FALSE, FALSE, NULL),
+//	DECLARE_DOCTYPE(EXE, FALSE, FALSE, FALSE, NULL),
+//	DECLARE_DOCTYPE_NULL(EMBEDDED, FALSE, FALSE, FALSE, NULL)
+//};
+
+
+
+//CString DocType::GetString(int nID)
+//{
+//	ASSERT(idStr != NULL);
+//	CString str;
+//	VERIFY(str.LoadString(idStr));
+//	CString strSub;
+//	AfxExtractSubString(strSub, str, nID);
+//	return strSub;
+//}
+
+/*
 static BOOL IsLeadMatch(CFile& file, const BYTE* pb, UINT nCount)
 {
 	// check for match at beginning of file
@@ -70,14 +122,14 @@ static BOOL IsLeadMatch(CFile& file, const BYTE* pb, UINT nCount)
 	return b;
 }
 
-int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
+DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 {
 	CFile file;
 	ASSERT(pszPathName != NULL);
 
 	if (!file.Open(pszPathName, CFile::modeRead | CFile::shareDenyWrite, &fe))
 	{
-		return -1;
+		return DocType::RD_INVALID;
 	}
 
 	CFileStatus stat;
@@ -88,31 +140,32 @@ int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 		CString ext = CString(pszPathName).Right(4);
 		if (ext[0] != '.')
 		{
-			return RD_TEXT;
+			return DocType::RD_TEXT;
 		}
 		if (lstrcmpi(ext, _T(".rtf"))==0)
 		{
-			return RD_RICHTEXT;
+			return DocType::RD_RTF;
 		}
-		return RD_TEXT;
+		return DocType::RD_TEXT;
 	}
 
 	// RTF
 	if (IsLeadMatch(file, byteRTFPrefix, sizeof(byteRTFPrefix)))
 	{
-		return RD_RICHTEXT;
+		return DocType::RD_RTF;
 	}
 
 	// EXE
 	if (IsLeadMatch(file, byteExePrefix, sizeof(byteExePrefix)))
 	{
-		return RD_EXE;
+		return DocType::RD_EXE;
 	}
 
 	// default
-	return RD_TEXT;
+	return DocType::RD_TEXT;
 }
 
+#ifdef _CONVERTERS
 void ScanForConverters()
 {
 	static BOOL bScanned = FALSE;
@@ -140,6 +193,7 @@ BOOL IsDLLInPath(LPCSTR lpszName)
 	OFSTRUCT ofs;
 	return (OpenFile(lpszName, &ofs, OF_EXIST) != HFILE_ERROR);
 }
+#endif
 
 CString GetExtFromType(int nDocType)
 {
@@ -156,7 +210,7 @@ CString GetExtFromType(int nDocType)
 }
 
 // returns an RD_* from an index into the openfile dialog types
-int GetTypeFromIndex(int nIndex, BOOL bOpen)
+DocType GetTypeFromIndex(int nIndex, BOOL bOpen)
 {
 	ScanForConverters();
 
@@ -178,7 +232,7 @@ int GetTypeFromIndex(int nIndex, BOOL bOpen)
 }
 
 // returns an index into the openfile dialog types for the RD_* type
-int GetIndexFromType(int nType, BOOL bOpen)
+int GetIndexFromType(DocType nType, BOOL bOpen)
 {
 	ScanForConverters();
 
@@ -206,18 +260,19 @@ CString GetFileTypes(BOOL bOpen)
 	{
 		if (bOpen && doctypes[i].bRead && !doctypes[i].bDup)
 		{
-			str += doctypes[i].GetString(DOCTYPE_DESC);
+			str += doctypes[i].GetString(DOCTYPE_DESC); 1
 			str += (TCHAR)NULL;
-			str += doctypes[i].GetString(DOCTYPE_EXT);
+			str += doctypes[i].GetString(DOCTYPE_EXT); 2
 			str += (TCHAR)NULL;
 		}
 		else if (!bOpen && doctypes[i].bWrite && !doctypes[i].bDup)
 		{
-			str += doctypes[i].GetString(DOCTYPE_DOCTYPE);
+			str += doctypes[i].GetString(DOCTYPE_DOCTYPE); 0
 			str += (TCHAR)NULL;
-			str += doctypes[i].GetString(DOCTYPE_EXT);
+			str += doctypes[i].GetString(DOCTYPE_EXT); 2
 			str += (TCHAR)NULL;
 		}
 	}
 	return str;
 }
+*/

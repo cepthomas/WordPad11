@@ -24,7 +24,7 @@ protected: // create from serialization only
 public:
 	HICON m_hIconDoc;
 	HICON m_hIconText;
-	HICON GetIcon(int nDocType);
+	HICON GetIcon(DocType nDocType);
 
 // Operations
 public:

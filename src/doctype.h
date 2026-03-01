@@ -11,36 +11,55 @@
 
 #pragma once
 
-#define RD_RICHTEXT 0
-#define RD_TEXT 1
-#define RD_ALL 2
-#define RD_EXE 3
-#define RD_EMBEDDED 4
-#define NUM_DOC_TYPES 5
-#define RD_DEFAULT RD_RICHTEXT
-#define RD_NATIVE RD_RICHTEXT
+//#define RD_RTF 0
+//#define RD_TEXT 1
+//#define RD_ALL 2
+//#define RD_EXE 3
+//#define RD_EMBEDDED 4
+//#define NUM_DOC_TYPES 5
+//#define RD_DEFAULT RD_RTF
+//#define RD_NATIVE RD_RTF
 
-typedef BOOL (*PISFORMATFUNC)(LPCSTR pszConverter, LPCSTR pszPathName);
-inline BOOL IsTextType(LONG_PTR nType) {return nType == RD_TEXT;}
-
-struct DocType
+enum class DocType // TODO => common
 {
-public:
-	int nID;
-	int idStr;
-	BOOL bRead;
-	BOOL bWrite;
-	BOOL bDup;
-	LPCSTR pszConverterName;
-	CString GetString(int nID);
+    RD_RTF,
+    RD_TEXT,
+    RD_ALL,
+    //RD_EXE,
+    RD_EMBEDDED,
+   // NUM_DOC_TYPES,
+    RD_DEFAULT = RD_RTF,
+    RD_NATIVE = RD_RTF,
+    RD_INVALID = -1
 };
 
-extern DocType doctypes[NUM_DOC_TYPES];
-extern int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
-extern void ScanForConverters();
-extern BOOL IsDLLInPath(LPCSTR lpszName);
 
-int GetIndexFromType(int nType, BOOL bOpen);
-int GetTypeFromIndex(int nType, BOOL bOpen);
-CString GetExtFromType(int nDocType);
-CString GetFileTypes(BOOL bOpen);
+// TODO these
+extern DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
+//extern DocType doctypes[NUM_DOC_TYPES];
+
+
+// XX typedef BOOL (*PISFORMATFUNC)(LPCSTR pszConverter, LPCSTR pszPathName);
+// XX inline BOOL IsTextType(LONG_PTR nType) {return nType == RD_TEXT;}
+//
+//struct DocType
+//{
+//public:
+//	int nID;
+//	int idStr;
+//	BOOL bRead;
+//	BOOL bWrite;
+//	BOOL bDup;
+//	LPCSTR pszConverterName;
+//	CString GetString(int nID);
+//};
+//
+//extern DocType doctypes[NUM_DOC_TYPES];
+//extern int GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
+//extern void ScanForConverters();
+//extern BOOL IsDLLInPath(LPCSTR lpszName);
+//
+//int GetIndexFromType(int nType, BOOL bOpen);
+//int GetTypeFromIndex(int nType, BOOL bOpen);
+//CString GetExtFromType(int nDocType);
+//CString GetFileTypes(BOOL bOpen);

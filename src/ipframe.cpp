@@ -137,7 +137,7 @@ BOOL CInPlaceFrame::OnCreateControlBars(CFrameWnd* pWndFrame, CFrameWnd* /*pWndD
 	m_wndToolBar.SetOwner(this);
 	m_wndFormatBar.SetOwner(this);
 	m_wndRulerBar.SetOwner(this);
-	OnBarState(1, RD_EMBEDDED); //load bar state
+	OnBarState(1, (int)DocType::RD_EMBEDDED); //load bar state
 	return TRUE;
 }
 
@@ -326,14 +326,14 @@ LONG_PTR CInPlaceFrame::OnBarState(UINT_PTR wParam, LONG_PTR lParam)
 		return 0L;
 	if (wParam == 0)
 	{
-		GetDockState(theApp.GetDockState(RD_EMBEDDED));
+		GetDockState(theApp.GetDockState(DocType::RD_EMBEDDED));
 		ENSURE(m_pMainFrame != NULL);
-		m_pMainFrame->GetDockState(theApp.GetDockState(RD_EMBEDDED, FALSE));
+		m_pMainFrame->GetDockState(theApp.GetDockState(DocType::RD_EMBEDDED, FALSE));
 	}
 	else
 	{
-		SetDockState(theApp.GetDockState(RD_EMBEDDED));
-		m_pMainFrame->SetDockState(theApp.GetDockState(RD_EMBEDDED, FALSE));
+		SetDockState(theApp.GetDockState(DocType::RD_EMBEDDED));
+		m_pMainFrame->SetDockState(theApp.GetDockState(DocType::RD_EMBEDDED, FALSE));
 	}
 	return 0L;
 }

@@ -30,13 +30,13 @@ COptionSheet::COptionSheet(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)
 {
 	units.m_nUnits = theApp.GetUnits();
 	units.m_bWordSel = theApp.m_bWordSel;
-	pageText.m_nWordWrap = theApp.GetDocOptions(RD_TEXT).m_nWordWrap;
-	pageRTF.m_nWordWrap = theApp.GetDocOptions(RD_RICHTEXT).m_nWordWrap;
-	pageEmbedded.m_nWordWrap = theApp.GetDocOptions(RD_EMBEDDED).m_nWordWrap;
-	SetPageButtons(pageText, theApp.GetDockState(RD_TEXT));
-	SetPageButtons(pageRTF, theApp.GetDockState(RD_RICHTEXT));
-	SetPageButtons(pageEmbedded, theApp.GetDockState(RD_EMBEDDED));
-	SetPageButtons(pageEmbedded, theApp.GetDockState(RD_EMBEDDED, FALSE));
+	pageText.m_nWordWrap = theApp.GetDocOptions(DocType::RD_TEXT).m_nWordWrap;
+	pageRTF.m_nWordWrap = theApp.GetDocOptions(DocType::RD_RTF).m_nWordWrap;
+	pageEmbedded.m_nWordWrap = theApp.GetDocOptions(DocType::RD_EMBEDDED).m_nWordWrap;
+	SetPageButtons(pageText, theApp.GetDockState(DocType::RD_TEXT));
+	SetPageButtons(pageRTF, theApp.GetDockState(DocType::RD_RTF));
+	SetPageButtons(pageEmbedded, theApp.GetDockState(DocType::RD_EMBEDDED));
+	SetPageButtons(pageEmbedded, theApp.GetDockState(DocType::RD_EMBEDDED, FALSE));
 	AddPage(&units);
 	AddPage(&pageText);
 	AddPage(&pageRTF);
@@ -114,15 +114,15 @@ INT_PTR COptionSheet::DoModal()
 	INT_PTR nRes = CPropertySheet::DoModal();
 	if (nRes == IDOK)
 	{
-		SetState(pageText, theApp.GetDockState(RD_TEXT));
-		SetState(pageRTF, theApp.GetDockState(RD_RICHTEXT));
-		SetState(pageEmbedded, theApp.GetDockState(RD_EMBEDDED));
-		SetState(pageEmbedded, theApp.GetDockState(RD_EMBEDDED, FALSE));
+		SetState(pageText, theApp.GetDockState(DocType::RD_TEXT));
+		SetState(pageRTF, theApp.GetDockState(DocType::RD_RTF));
+		SetState(pageEmbedded, theApp.GetDockState(DocType::RD_EMBEDDED));
+		SetState(pageEmbedded, theApp.GetDockState(DocType::RD_EMBEDDED, FALSE));
 		theApp.SetUnits(units.m_nUnits);
 		theApp.m_bWordSel = units.m_bWordSel;
-		theApp.GetDocOptions(RD_TEXT).m_nWordWrap = pageText.m_nWordWrap;
-		theApp.GetDocOptions(RD_RICHTEXT).m_nWordWrap = pageRTF.m_nWordWrap;
-		theApp.GetDocOptions(RD_EMBEDDED).m_nWordWrap = pageEmbedded.m_nWordWrap;
+		theApp.GetDocOptions(DocType::RD_TEXT).m_nWordWrap = pageText.m_nWordWrap;
+		theApp.GetDocOptions(DocType::RD_RTF).m_nWordWrap = pageRTF.m_nWordWrap;
+		theApp.GetDocOptions(DocType::RD_EMBEDDED).m_nWordWrap = pageEmbedded.m_nWordWrap;
 	}
 	return nRes;
 }

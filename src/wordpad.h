@@ -13,7 +13,7 @@
 
 #include "resource.h"
 #include "options.h"
-#include "afxtempl.h"
+#include "doctype.h"
 
 #define WPM_BARSTATE WM_USER
 const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
@@ -25,9 +25,9 @@ const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 class CWordPadCommandLineInfo : public CCommandLineInfo
 {
 public:
-	CWordPadCommandLineInfo() {m_bForceTextMode = FALSE;}
+	CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
 	BOOL m_bForceTextMode;
-	virtual void ParseParam(const char* pszParam,BOOL bFlag,BOOL bLast);
+	virtual void ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast);
 };
 
 class CWordPadApp : public CWinApp
@@ -41,8 +41,6 @@ public:
 	CDC m_dcScreen;
 	LOGFONT m_lf;
 	int m_nDefFont;
-	static int m_nOpenMsg;
-	static int m_nPrinterChangedMsg;
 	CRect m_rectPageMargin;
 	CRect m_rectInitialFrame;
 	BOOL m_bMaximized;
@@ -55,12 +53,17 @@ public:
 	BOOL m_bForceTextMode;
 	BOOL m_bWordSel;
 	int m_nFilterIndex;
-	int m_nNewDocType;
+	DocType m_nNewDocType;
 	CDocOptions m_optionsText;
 	CDocOptions m_optionsRTF;
 	CDocOptions m_optionsIP;
 	CDocOptions m_optionsNull;
 	CList<HWND, HWND> m_listPrinterNotify;
+
+
+	//TODO:
+	static int m_nOpenMsg;
+	static int m_nPrinterChangedMsg;
 
 	BOOL IsDocOpen(LPCTSTR lpszFileName);
 
@@ -71,19 +74,21 @@ public:
 	LPCTSTR GetAbbrev() { return m_units[m_nUnits].m_strAbbrev; }
 	LPCTSTR GetAbbrev(int n) { return m_units[n].m_strAbbrev; }
 	const CUnit& GetUnit() { return m_units[m_nUnits]; }
-	CDockState& GetDockState(LONG_PTR nDocType, BOOL bPrimary = TRUE);
-	CDocOptions& GetDocOptions(LONG_PTR nDocType);
+	CDockState& GetDockState(DocType nDocType, BOOL bPrimary = TRUE);
+	CDocOptions& GetDocOptions(DocType nDocType);
 
 // Set
 	void SetUnits(int n) { ASSERT(n >= 0 && n < m_nPrimaryNumUnits); m_nUnits = n; }
 
 // Operations
-	void RegisterFormats();
-	static BOOL CALLBACK StaticEnumProc(HWND hWnd, LPARAM lParam);
+#ifdef _REGISTER_APP
 	void UpdateRegistry();
-	void NotifyPrinterChanged(BOOL bUpdatePrinterSelection = FALSE);
-	BOOL PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, int* pType = NULL);
+#endif
+	void RegisterClipboardFormats();
 
+	static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam);
+	void NotifyPrinterChanged(BOOL bUpdatePrinterSelection = FALSE);
+	BOOL PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, DocType* pType = NULL);
 	BOOL ParseMeasurement(TCHAR* buf, int& lVal);
 	void PrintTwips(TCHAR* buf, int nSize, int nValue, int nDecimal);
 	void SaveOptions();
@@ -112,6 +117,7 @@ public:
 	afx_msg void OnFileOpen();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+
 private:
 	int m_nUnits;
 	static const int m_nPrimaryNumUnits;

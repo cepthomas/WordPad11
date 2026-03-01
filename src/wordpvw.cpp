@@ -249,7 +249,8 @@ void CWordPadView::DeleteContents()
 	ASSERT_VALID(this);
 	ASSERT(m_hWnd != NULL);
 	CRichEditView::DeleteContents();
-	SetDefaultFont(IsTextType(GetDocument()->m_nNewDocType));
+	//SetDefaultFont(IsTextType(GetDocument()->m_nNewDocType));
+	SetDefaultFont(GetDocument()->m_nNewDocType == DocType::RD_TEXT);
 }
 
 void CWordPadView::SetDefaultFont(BOOL bText)

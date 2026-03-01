@@ -15,11 +15,11 @@
 
 #include "pch.h"
 #include "wordpad.h"
-#include "mainfrm.h"
-#include "ipframe.h"
 #include "wordpdoc.h"
 #include "wordpvw.h"
 #include "doctype.h"
+#include "mainfrm.h"
+#include "ipframe.h"
 #include "about.h"
 #include "filenewd.h"
 
@@ -49,14 +49,14 @@ const int CWordPadApp::m_nNumUnits = 7;
 
 CUnit CWordPadApp::m_units[7] =
 {
-//  TPU,    SmallDiv,   MedDiv, LargeDiv,   MinMove,    szAbbrev,           bSpace
-CUnit(1440, 180,        720,    1440,       90,         IDS_INCH1_ABBREV,   FALSE),//inches
-CUnit(568,  142,        284,    568,        142,        IDS_CM_ABBREV,      TRUE),//centimeters
-CUnit(20,   120,        720,    720,        100,        IDS_POINT_ABBREV,   TRUE),//points
-CUnit(240,  240,        1440,   1440,       120,        IDS_PICA_ABBREV,    TRUE),//picas
-CUnit(1440, 180,        720,    1440,       90,         IDS_INCH2_ABBREV,   FALSE),//in
-CUnit(1440, 180,        720,    1440,       90,         IDS_INCH3_ABBREV,   FALSE),//inch
-CUnit(1440, 180,        720,    1440,       90,         IDS_INCH4_ABBREV,   FALSE)//inches
+	//  TPU,    SmallDiv,   MedDiv, LargeDiv,   MinMove,    szAbbrev,           bSpace
+	CUnit(1440, 180,        720,    1440,       90,         IDS_INCH1_ABBREV,   FALSE),//inches
+	CUnit(568,  142,        284,    568,        142,        IDS_CM_ABBREV,      TRUE),//centimeters
+	CUnit(20,   120,        720,    720,        100,        IDS_POINT_ABBREV,   TRUE),//points
+	CUnit(240,  240,        1440,   1440,       120,        IDS_PICA_ABBREV,    TRUE),//picas
+	CUnit(1440, 180,        720,    1440,       90,         IDS_INCH2_ABBREV,   FALSE),//in
+	CUnit(1440, 180,        720,    1440,       90,         IDS_INCH3_ABBREV,   FALSE),//inch
+	CUnit(1440, 180,        720,    1440,       90,         IDS_INCH4_ABBREV,   FALSE)//inches
 };
 
 #ifdef _REGISTER_APP
@@ -195,7 +195,8 @@ BOOL CWordPadApp::InitInstance()
 		AfxMessageBox(IDP_OLE_INIT_FAILED);
 		return FALSE;
 	}
-	RegisterFormats();
+
+	RegisterClipboardFormats();
 
 	// Initialize RichEdit control
 	if (!AfxInitRichEdit2())
@@ -295,7 +296,8 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 	if (atom == NULL)
 		return FALSE;
 
-	EnumWindows(StaticEnumProc, (LPARAM)&atom);
+	EnumWindows(EnumWindowsProc, (LPARAM)&atom);
+
 	if (atom == NULL)
 		return TRUE;
 
@@ -303,7 +305,7 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 	return FALSE;
 }
 
-BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
+BOOL CALLBACK CWordPadApp::EnumWindowsProc(HWND hWnd, LPARAM lParam) // TODO used for?
 {
 	TCHAR szClassName[30];
 	GetClassName(hWnd, szClassName, 30);
@@ -313,7 +315,7 @@ BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
 	ATOM* pAtom = (ATOM*)lParam;
 	ENSURE(pAtom != NULL);
 	DWORD_PTR dw = NULL;
-	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom, SMTO_ABORTIFHUNG, 500, &dw);
+//	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom, SMTO_ABORTIFHUNG, 500, &dw);
 	if (dw)
 	{
 		::SetForegroundWindow(hWnd);
@@ -324,7 +326,7 @@ BOOL CALLBACK CWordPadApp::StaticEnumProc(HWND hWnd, LPARAM lParam)
 	return TRUE;
 }
 
-void CWordPadApp::RegisterFormats()
+void CWordPadApp::RegisterClipboardFormats()
 {
 	// Registers a new clipboard format. This format can then be used as a valid clipboard format.
 	cfEmbeddedObject = (CLIPFORMAT)::RegisterClipboardFormat(_T("Embedded Object"));
@@ -332,22 +334,22 @@ void CWordPadApp::RegisterFormats()
 	cfRTO = (CLIPFORMAT)::RegisterClipboardFormat(CF_RETEXTOBJ);
 }
 
-CDocOptions& CWordPadApp::GetDocOptions(LONG_PTR nDocType)
+CDocOptions& CWordPadApp::GetDocOptions(DocType nDocType)
 {
 	switch (nDocType)
 	{
-		case RD_RICHTEXT:
+		case DocType::RD_RTF:
 			return m_optionsRTF;
-		case RD_TEXT:
+		case DocType::RD_TEXT:
 			return m_optionsText;
-		case RD_EMBEDDED:
+		case DocType::RD_EMBEDDED:
 			return m_optionsIP;
 	}
 	ASSERT(FALSE);
 	return m_optionsNull;
 }
 
-CDockState& CWordPadApp::GetDockState(LONG_PTR nDocType, BOOL bPrimary)
+CDockState& CWordPadApp::GetDockState(DocType nDocType, BOOL bPrimary)
 {
 	return GetDocOptions(nDocType).GetDockState(bPrimary);
 }
@@ -530,14 +532,26 @@ int CWordPadApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
+void CWordPadApp::OnFileOpen()
+{
+	CString newName;
+	DocType nType = DocType::RD_DEFAULT;
+
+	if (PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
+	{
+		OpenDocumentFile(newName);
+	}
+}
+
 void CWordPadApp::OnFileNew()
 {
-	int nDocType = -1;
+	DocType nDocType = DocType::RD_INVALID;
+
 	if (!m_bPromptForType)
 	{
 		if (cmdInfo.m_bForceTextMode)
 		{
-			nDocType = RD_TEXT;
+			nDocType = DocType::RD_TEXT;
 		}
 		else if (!cmdInfo.m_strFileName.IsEmpty())
 		{
@@ -545,9 +559,9 @@ void CWordPadApp::OnFileNew()
 			nDocType = GetDocTypeFromName(cmdInfo.m_strFileName, fe);
 		}
 
-		if (nDocType == -1)
+		if (nDocType == DocType::RD_INVALID)
 		{
-			nDocType = RD_DEFAULT;
+			nDocType = DocType::RD_DEFAULT;
 		}
 	}
 	else
@@ -558,45 +572,101 @@ void CWordPadApp::OnFileNew()
 			return;
 		}
 
-		nDocType = (dlg.m_nSel == 0) ? RD_DEFAULT: (dlg.m_nSel == 1) ? RD_RICHTEXT : RD_TEXT;
+		nDocType = (dlg.m_nSel == 0) ? DocType::RD_DEFAULT: (dlg.m_nSel == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
 
-		if (nDocType != RD_TEXT)
+		if (nDocType != DocType::RD_TEXT)
 		{
 			cmdInfo.m_bForceTextMode = FALSE;
 		}
 	}
 	m_nNewDocType = nDocType;
 	DocTemplate.OpenDocumentFile(NULL);
-	// if returns NULL, the user has already been alerted
 }
 
-// prompt for file name - used for open and save as
+// Prompt for file name - used for open and save as. TODO fix all -> put somewhere else?
 // static function called from app
-BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, int* pType)
+BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL open, DocType* pType)
+{
+	BOOL ret = FALSE;
+
+	CString title;
+	title.LoadString(nIDSTitle);
+
+	const TCHAR szFilter[] = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|All Files (*.*)|*.*||");
+	// TODO these?:
+	//IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
+	//IDS_RTF_DOC             "Rich Text Format (RTF)\nRich Text Format (*.rtf)\n*.rtf\nRich Text Document"
+	//IDS_ALL_DOC             "All\nAll Documents (*.*)\n*.*"
+
+
+	// Create a CFileDialog object.
+	// The first parameter (TRUE) indicates an "Open" dialog box.
+	//CFileDialog dlg(TRUE, // bOpenFileDialog: TRUE for Open, FALSE for Save As
+	//	_T("txt"), // lpszDefExt: Default file extension
+	//	NULL, // lpszFileName: Initial file name (NULL for none)
+	//	OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, // dwFlags: Various flags
+	//	szFilter, // lpszFilter: File type filter string
+	//	NULL); // pParentWnd: Parent window pointer
+
+
+	if (open) // 	if (PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
+	{
+		CFileDialog dlg(TRUE, _T("rtf"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
+		dlg.m_ofn.lpstrTitle = title;
+
+		// Display the dialog box
+		if (dlg.DoModal() == IDOK)
+		{
+			// Get the full path of the selected file
+			fileName = dlg.GetPathName();
+			ret = TRUE;
+		}
+	}
+	else // save as
+	{
+		CFileDialog dlg(FALSE, _T("rtf"), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
+		dlg.m_ofn.lpstrTitle = title;
+
+		// Display the dialog box
+		if (dlg.DoModal() == IDOK)
+		{
+			// Get the full path of the selected file
+			fileName = dlg.GetPathName();
+			ret = TRUE;
+		}
+	}
+
+	return ret;
+}
+
+
+/*  original
+// Prompt for file name - used for open and save as.
+// static function called from app
+BOOL CWordPadApp::PromptForFileName(CString & fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, DocType * pType)
 {
 	ScanForConverters();
+
 	CFileDialog dlgFile(bOpenFileDialog);
 	CString title;
-
-	VERIFY(title.LoadString(nIDSTitle));
-
+	title.LoadString(nIDSTitle);
 	dlgFile.m_ofn.Flags |= dwFlags;
-//  dlgFile.m_ofn.Flags &= ~OFN_SHOWHELP;
-
 	int nIndex = m_nFilterIndex;
+
 	if (!bOpenFileDialog)
 	{
-		int nDocType = (pType != NULL) ? *pType : RD_DEFAULT;
+		DocType nDocType = pType != NULL ? *pType : DocType::RD_DEFAULT;
+
 		nIndex = GetIndexFromType(nDocType, bOpenFileDialog);
 
 		if (nIndex == -1)
 		{
-			nIndex = GetIndexFromType(RD_DEFAULT, bOpenFileDialog);
+			nIndex = GetIndexFromType(DocType::RD_DEFAULT, bOpenFileDialog);
 		}
 
 		if (nIndex == -1)
 		{
-			nIndex = GetIndexFromType(RD_NATIVE, bOpenFileDialog);
+			nIndex = GetIndexFromType(DocType::RD_NATIVE, bOpenFileDialog);
 		}
 
 		ASSERT(nIndex != -1);
@@ -632,23 +702,10 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	}
 	return bRet;
 }
+*/
 
-void CWordPadApp::OnFileOpen()
-{
-	// prompt the user (with all document templates)
-	CString newName;
-	int nType = RD_DEFAULT;
-	if (!PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
-	{
-		return; // open cancelled
-	}
 
-	OpenDocumentFile(newName);
-
-	// if returns NULL, the user has already been alerted
-}
-
-BOOL CWordPadApp::OnDDECommand(LPTSTR /*lpszCommand*/)
+BOOL CWordPadApp::OnDDECommand(LPTSTR lpszCommand)
 {
 	return FALSE;
 }
@@ -809,7 +866,7 @@ void CWordPadApp::UpdateRegistry()
 
 	// RegisterExt(_T(".txt"), _T("txtfile"), IDS_TEXT_DOC, rglpszSymbols,
 	//     (LPCTSTR*)rglpszTxtExtRegister, (LPCTSTR*)rglpszTxtRegister, 3);
-	RegisterExt(_T(".rtf"), _T("rtffile"), IDS_RICHTEXT_DOC, rglpszSymbols,
+	RegisterExt(_T(".rtf"), _T("rtffile"), IDS_RTF_DOC, rglpszSymbols,
 		(LPCTSTR*)rglpszRtfExtRegister, (LPCTSTR*)rglpszRtfRegister, 1);
 
 	// free memory for class ID

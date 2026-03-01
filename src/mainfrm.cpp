@@ -265,14 +265,14 @@ BOOL CMainFrame::CreateStatusBar()
 /////////////////////////////////////////////////////////////////////////////
 // CMainFrame Operations
 
-HICON CMainFrame::GetIcon(int nDocType)
+HICON CMainFrame::GetIcon(DocType nDocType)
 {
 	switch (nDocType)
 	{
-		case RD_EMBEDDED:
-		case RD_RICHTEXT:
+		case DocType::RD_EMBEDDED:
+		case DocType::RD_RTF:
 			return m_hIconDoc;
-		case RD_TEXT:
+		case DocType::RD_TEXT:
 			return m_hIconText;
 	}
 	return m_hIconDoc;
@@ -334,16 +334,20 @@ LONG_PTR CMainFrame::OnBarState(UINT_PTR wParam, LONG_PTR lParam)
 {
 	if (lParam == -1)
 		return 0L;
-	ASSERT(lParam != RD_EMBEDDED);
+
+	DocType dt = (DocType)lParam;
+	ASSERT(dt != DocType::RD_EMBEDDED);
+
 	if (wParam == 0)
 	{
-		CDockState& ds = theApp.GetDockState(lParam);
+		CDockState& ds = theApp.GetDockState(dt);
 		ds.Clear(); // empty out the dock state
 		GetDockState(ds);
 	}
 	else
 	{
-		if (IsTextType(lParam))
+		//if (IsTextType(lParam))
+		if (dt == DocType::RD_TEXT)
 		{
 			// in text mode hide the ruler and format bar so that it is the default
 			CControlBar* pBar = GetControlBar(ID_VIEW_FORMATBAR);
@@ -353,9 +357,9 @@ LONG_PTR CMainFrame::OnBarState(UINT_PTR wParam, LONG_PTR lParam)
 			if (pBar != NULL)
 				pBar->ShowWindow(SW_HIDE);
 		}
-		HICON hIcon = GetIcon((int)lParam);
+		HICON hIcon = GetIcon(dt);
 		SendMessage(WM_SETICON, TRUE, (LPARAM)hIcon);
-		SetDockState(theApp.GetDockState(lParam));
+		SetDockState(theApp.GetDockState(dt));
 	}
 	return 0L;
 }

@@ -37,7 +37,7 @@
 #define IDS_PICAS                       125
 #define IDR_MAINFRAME                   128
 #define IDS_TEXT_DOC                    129
-#define IDS_RICHTEXT_DOC                130
+#define IDS_RTF_DOC                     130
 #define IDB_BITMAP_TT                   130
 #define IDB_RULER_BLOCK                 131
 #define IDS_ALL_DOC                     132
