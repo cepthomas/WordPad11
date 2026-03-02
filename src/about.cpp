@@ -38,96 +38,61 @@ BOOL CAboutDialog::OnInitDialog()
     CString sError;
     UINT len;
     CString str;
-    CString sDescription;
-    CString sVersion;
-    CString sLicense;
-    sLicense.LoadString(IDS_LICENSE);
+    CString description;
+    CString version;
     BYTE* info = nullptr;
 
     // Get the file path of the current module
     TCHAR szFileName[MAX_PATH];
-    if (GetModuleFileName(NULL, szFileName, MAX_PATH) == 0)
-    {
-        sError = "Invalid filename";
-    }
+    if (GetModuleFileName(NULL, szFileName, MAX_PATH) == 0) { sError = "Invalid filename"; goto done; }
 
-    if (sError.IsEmpty())
-    {
-        DWORD hnd = 0;
-        DWORD size = GetFileVersionInfoSize(szFileName, &hnd);
-        if (size == 0)
-        {
-            sError = "Invalid file version";
-        }
-        else
-        {
-            // Allocate buffer for version information
-            info = (BYTE*)calloc(size, sizeof(BYTE));
-            if (!GetFileVersionInfo(szFileName, hnd, size, info))
-            {
-                sError = "Invalid file version info";
-            }
-        }
-    }
+    DWORD hnd = 0;
+    DWORD size = GetFileVersionInfoSize(szFileName, &hnd);
+    if (size == 0) { sError = "Invalid file version"; goto done; }
 
-    if (sError.IsEmpty())
-    {
-        // Read the list of languages and code pages.
-        struct LANGANDCODEPAGE
-        {
-            WORD wLanguage;
-            WORD wCodePage;
-        }* lpTranslate = nullptr;
+    // Get version information
+    info = (BYTE*)calloc(size, sizeof(BYTE));
+    if (info == nullptr) { sError = "Failed to allocate buffer"; goto done; }
+    if (!GetFileVersionInfo(szFileName, hnd, size, info)) { sError = "Invalid file version info"; goto done; }
 
-        VerQueryValue(info, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &len);
-        int numPages = len / sizeof(struct LANGANDCODEPAGE);
+    // Read the list of languages and code pages.
+    struct LANGANDCODEPAGE { WORD wLanguage; WORD wCodePage; }* lpTranslate = nullptr;
 
-        if (numPages == 0)
-        {
-            sError = "No code pages";
-        }
-        else
-        {
-            // Read the parts of interest.
-            LPWSTR buff = nullptr;
+    VerQueryValue(info, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &len);
+    int numPages = len / sizeof(struct LANGANDCODEPAGE);
+    if (numPages == 0) { sError = "No code pages"; goto done; }
 
-            str.Format(L"\\StringFileInfo\\%04x%04x\\FileDescription", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
-            if (VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len))
-            {
-                sDescription = buff;
-            }
-            else
-            {
-                sError = "Invalid FileDescription";
-            }
+    // Read the parts of interest.
+    LPWSTR buff = nullptr;
 
-            str.Format(L"\\StringFileInfo\\%04x%04x\\ProductVersion", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
-            if (VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len))
-            {
-                sVersion = buff;
-            }
-            else
-            {
-                sError = "Invalid ProductVersion";
-            }
-        }
-    }
+    str.Format(L"\\StringFileInfo\\%04x%04x\\ProductName", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
+    if (!VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len)) { sError = "Invalid ProductName"; goto done; }
+    description = buff;
+
+    str.Format(L"\\StringFileInfo\\%04x%04x\\ProductVersion", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
+    if (!VerQueryValue(info, str.GetString(), (LPVOID*)&buff, &len)) { sError = "Invalid ProductVersion"; goto done; }
+    version = buff;
 
     // Fixed info:
     //VS_FIXEDFILEINFO* fixed;
     //if (VerQueryValue(info, L"\\", (LPVOID*)&fixed, &len))
 
+done:
     // Output what we got.
-    CStatic* pStat = (CStatic * )GetDlgItem(IDC_STATIC);
+    CStatic* pStat = (CStatic*)GetDlgItem(IDC_STATIC);
+    CString license;
+    license.LoadString(IDS_LICENSE);
 
     if (sError.IsEmpty())
     {
-        pStat->SetWindowText(sDescription + "\r\n\r\nVersion " + sVersion + "\r\n\r\n" + sLicense);
+        pStat->SetWindowText(description + "\r\n\r\nVersion " + version + "\r\n\r\n" + license);
     }
     else
     {
-        pStat->SetWindowText(sError + "\r\n\r\n" + sLicense);
+        pStat->SetWindowText(sError + "\r\n\r\n" + license);
     }
+
+    if (info != nullptr) free(info);
 
     return TRUE;  // return TRUE  unless you set the focus to a control
 }

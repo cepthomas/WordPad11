@@ -113,8 +113,6 @@
 #define IDS_RTF_OPTIONS                 184
 #define IDS_OPTIONS                     186
 #define IDS_EMBEDDED_OPTIONS            188
-#define IDS_TEXT_DOCUMENT               189
-#define IDS_RTF_DOCUMENT                190
 #define IDS_WRITEPROTECT                192
 #define IDS_LICENSE                     193
 #define IDC_EDIT_LEFT                   1000

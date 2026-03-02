@@ -172,7 +172,7 @@ BOOL CWordPadView::IsFormatText()
 	GetRichEditCtrl().HideSelection(TRUE, FALSE);
 	GetRichEditCtrl().SetSel(0,-1);
 
-	if (!(GetRichEditCtrl().GetSelectionType() & (SEL_OBJECT|SEL_MULTIOBJECT)))
+	if (!(GetRichEditCtrl().GetSelectionType() & (SEL_OBJECT | SEL_MULTIOBJECT)))
 	{
 		GetRichEditCtrl().GetSelectionCharFormat(cf);
 		if (cf == m_defTextCharFormat)

@@ -10,8 +10,6 @@
 // Microsoft Foundation Classes product.
 
 
-// TODO Some old help: http://hs.windows.microsoft.com/hhweb/content/m-en-us/p-6.2/id-7479c387-8dc4-40b6-9506-cc7a58c61f0a/
-
 
 #include "pch.h"
 #include "wordpad.h"
@@ -125,7 +123,7 @@ CWordPadApp::~CWordPadApp()
 // The one and only CWordPadApp object
 CWordPadApp theApp;
 
-// Register the application's document templates.  Document templates
+// Register the application's document templates.  Document templatesNe
 //  serve as the connection between documents, frame windows and views.
 static CSingleDocTemplate DocTemplate(
 		IDR_MAINFRAME,
@@ -545,43 +543,50 @@ void CWordPadApp::OnFileOpen()
 
 void CWordPadApp::OnFileNew()
 {
-	DocType nDocType = DocType::RD_INVALID;
-
-	if (!m_bPromptForType)
-	{
-		if (cmdInfo.m_bForceTextMode)
-		{
-			nDocType = DocType::RD_TEXT;
-		}
-		else if (!cmdInfo.m_strFileName.IsEmpty())
-		{
-			CFileException fe;
-			nDocType = GetDocTypeFromName(cmdInfo.m_strFileName, fe);
-		}
-
-		if (nDocType == DocType::RD_INVALID)
-		{
-			nDocType = DocType::RD_DEFAULT;
-		}
-	}
-	else
-	{
-		CFileNewDialog dlg;
-		if (dlg.DoModal() == IDCANCEL)
-		{
-			return;
-		}
-
-		nDocType = (dlg.m_nSel == 0) ? DocType::RD_DEFAULT: (dlg.m_nSel == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
-
-		if (nDocType != DocType::RD_TEXT)
-		{
-			cmdInfo.m_bForceTextMode = FALSE;
-		}
-	}
-	m_nNewDocType = nDocType;
+	// Assume default for now.
+	m_nNewDocType = DocType::RD_DEFAULT;
 	DocTemplate.OpenDocumentFile(NULL);
 }
+
+//void CWordPadApp::OnFileNew()
+//{
+//	DocType nDocType = DocType::RD_INVALID;
+//
+//	if (!m_bPromptForType)
+//	{
+//		if (cmdInfo.m_bForceTextMode)
+//		{
+//			nDocType = DocType::RD_TEXT;
+//		}
+//		else if (!cmdInfo.m_strFileName.IsEmpty())
+//		{
+//			CFileException fe;
+//			nDocType = GetDocTypeFromName(cmdInfo.m_strFileName, fe);
+//		}
+//
+//		if (nDocType == DocType::RD_INVALID)
+//		{
+//			nDocType = DocType::RD_DEFAULT;
+//		}
+//	}
+//	else
+//	{
+//		CFileNewDialog dlg;
+//		if (dlg.DoModal() == IDCANCEL)
+//		{
+//			return;
+//		}
+//
+//		nDocType = (dlg.m_nSel == 0) ? DocType::RD_DEFAULT: (dlg.m_nSel == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
+//
+//		if (nDocType != DocType::RD_TEXT)
+//		{
+//			cmdInfo.m_bForceTextMode = FALSE;
+//		}
+//	}
+//	m_nNewDocType = nDocType;
+//	DocTemplate.OpenDocumentFile(NULL);
+//}
 
 
 
@@ -590,11 +595,6 @@ void CWordPadApp::OnFileNew()
 #define DOCTYPE_DESC 1
 #define DOCTYPE_EXT 2
 //#define DOCTYPE_PROGID 3
-
-// TODO these?:
-//IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
-//IDS_RTF_DOC             "Rich Text Format (RTF)\nRich Text Format (*.rtf)\n*.rtf\nRich Text Document"
-//IDS_ALL_DOC             "All\nAll Documents (*.*)\n*.*"
 
 if (open) // && doctypes[i].bRead && !doctypes[i].bDup)
 {
@@ -628,22 +628,35 @@ save  = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|");
 */
 
 
-void GetDocTypeInfo(int nID, CArray<CString>& res)
+//void GetDocTypeInfo(int nID, CArray<CString>& res)
+//{
+//	res.RemoveAll();
+//	CString str;
+//	str.LoadString(nID);
+//	CString strSub;
+//	AfxExtractSubString(strSub, str, 0);
+//	res.Add(strSub);
+//	AfxExtractSubString(strSub, str, 1);
+//	res.Add(strSub);
+//	AfxExtractSubString(strSub, str, 2);
+//	res.Add(strSub);
+//
+//	//while (AfxExtractSubString(str, strButtons, i++, '\n'))
+//	//	AddButton(str);
+//
+//}
+
+CString FormatForFileDialog(int nID)
 {
-	res.RemoveAll();
+	CArray<CString> parts;
+	GetMultipartResource(nID, parts);
 	CString str;
-	str.LoadString(nID);
-	CString strSub;
-	AfxExtractSubString(strSub, str, 0);
-	res.Add(strSub);
-	AfxExtractSubString(strSub, str, 1);
-	res.Add(strSub);
-	AfxExtractSubString(strSub, str, 2);
-	res.Add(strSub);
+	str.Format(_T("%s (%s)|%s|"), parts.GetAt(0), parts.GetAt(1), parts.GetAt(1));
+	return str;
+
 }
 
-
-// Prompt for file name - used for open and save as. TODO fix all -> put somewhere else?
+// Prompt for file name - used for open and save as. TODO put somewhere else?
 // static function called from app
 BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL open, DocType* pType)
 {
@@ -659,12 +672,12 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 
 	//Text File\nText File (*.txt)\n*.txt
 
-	CArray<CString> txtParts;
-	GetDocTypeInfo(IDS_TEXT_DOC, txtParts);
-	CArray<CString> rtfParts;
-	GetDocTypeInfo(IDS_RTF_DOC, rtfParts);
-	CArray<CString> allParts;
-	GetDocTypeInfo(IDS_ALL_DOC, allParts);
+	// CArray<CString> txtParts;
+	// GetMultipartResource(IDS_TEXT_DOC, txtParts);
+	// CArray<CString> rtfParts;
+	// GetMultipartResource(IDS_RTF_DOC, rtfParts);
+	// CArray<CString> allParts;
+	// GetMultipartResource(IDS_ALL_DOC, allParts);
 
 	//str += doctypes[i].GetString(DOCTYPE_DESC);  Text Documents (*.txt)
 	//str += (TCHAR)NULL;
@@ -674,19 +687,33 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	//const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
 	//CFileDialog dlg(TRUE, _T("rtf"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
 
+	// CString filter;
+	// filter.Format(_T("%s (%s)|%s|%s (%s)|%s|%s (%s)|%s|"),
+	// 	rtfParts.GetAt(0), rtfParts.GetAt(1), rtfParts.GetAt(1),
+	// 	txtParts.GetAt(0), txtParts.GetAt(1), txtParts.GetAt(1),
+	// 	allParts.GetAt(0), allParts.GetAt(1), allParts.GetAt(1));
+
 
 	if (open) // 	if (PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
 	{
 		CString filter;
-		filter += rtfParts.GetAt(1);
-		filter += "|";
-		filter += rtfParts.GetAt(2);
-		filter += "|";
+		//filter.Format(_T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|"));
+		//filter.Format(_T("%s (%s)|%s|%s (%s)|%s|%s (%s)|%s|"),
+		//	rtfParts.GetAt(0), rtfParts.GetAt(1), rtfParts.GetAt(1),
+		//	txtParts.GetAt(0), txtParts.GetAt(1), txtParts.GetAt(1),
+		//	allParts.GetAt(0), allParts.GetAt(1), allParts.GetAt(1));
+
+		//CArray<CString> parts;
+		//CString ss;
+		//GetMultipartResource(IDS_TEXT_DOC, parts);
+		//ss.Format(_T("%s (%s)|%s|"), parts.GetAt(0), parts.GetAt(1), parts.GetAt(1));
+		//filter += ss;
+
+		filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC) + FormatForFileDialog(IDS_ALL_DOC);
 
 
-
-		const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
-		CFileDialog dlg(TRUE, _T("rtf"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
+		//const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
+		CFileDialog dlg(TRUE, rtfParts.GetAt(1), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 
 		// Display the dialog box
@@ -699,8 +726,16 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	}
 	else // save as
 	{
-		const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|");
-		CFileDialog dlg(FALSE, _T("rtf"), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
+		CString filter;
+		////filter.Format(_T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|"));
+		//filter.Format(_T("%s (%s)|%s|%s (%s)|%s|"),
+		//	rtfParts.GetAt(0), rtfParts.GetAt(1), rtfParts.GetAt(1),
+		//	txtParts.GetAt(0), txtParts.GetAt(1), txtParts.GetAt(1));
+
+		filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC);
+
+	//	const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|");
+		CFileDialog dlg(FALSE, rtfParts.GetAt(1), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 
 		// Display the dialog box

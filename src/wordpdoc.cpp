@@ -184,6 +184,8 @@ void CWordPadDoc::Serialize(CArchive& ar)
 
 BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace)
 {
+	// TODO if type to save is txt and doc has rtf content, do something - below GetView()->IsFormatText()
+	
 	// Save the document data to a file
 	// pszPathName = path name where to save document file
 	// if pszPathName is NULL then the user will be prompted (SaveAs)

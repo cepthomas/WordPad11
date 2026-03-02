@@ -46,11 +46,11 @@ public:
 	BOOL m_bMaximized;
 	BOOL m_bPromptForType;
 	BOOL m_bWin4;
-#ifndef _UNICODE
+#ifndef _UNICODE // TODO remove
 	BOOL m_bWin31;
 #endif
 	BOOL m_bLargeIcons;
-	BOOL m_bForceTextMode;
+	BOOL m_bForceTextMode; // TODO remove
 	BOOL m_bWordSel;
 	int m_nFilterIndex;
 	DocType m_nNewDocType;
