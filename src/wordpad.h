@@ -35,7 +35,7 @@ public:
 	CWordPadApp();
 	~CWordPadApp();
 
-// Attributes
+// Attributes TODO so.much.public.... and other headers
 	CWordPadCommandLineInfo cmdInfo;
 	CDC m_dcScreen;
 	LOGFONT m_lf;
@@ -45,11 +45,7 @@ public:
 	BOOL m_bMaximized;
 	BOOL m_bPromptForType;
 	BOOL m_bWin4;
-#ifndef _UNICODE // TODO remove
-	BOOL m_bWin31;
-#endif
 	BOOL m_bLargeIcons;
-	BOOL m_bForceTextMode; // TODO remove when handling default type better.
 	BOOL m_bWordSel;
 	int m_nFilterIndex;
 	DocType m_nNewDocType;
@@ -60,7 +56,7 @@ public:
 	CList<HWND, HWND> m_listPrinterNotify;
 
 
-	//TODO infrastructure stuff + MainFrame handlers
+	//TODO ?? infrastructure stuff + MainFrame handlers
 	static int m_nOpenMsg;
 	static int m_nPrinterChangedMsg;
 
@@ -99,7 +95,7 @@ public:
 	BOOL IsIdleMessage(MSG* pMsg);
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CWordPadApp)
-	public:
+public:
 	virtual BOOL InitInstance();
 	virtual int ExitInstance();
 	virtual BOOL OnDDECommand(LPTSTR lpszCommand);

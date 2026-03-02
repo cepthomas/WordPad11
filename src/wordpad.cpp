@@ -267,15 +267,8 @@ BOOL CWordPadApp::InitInstance()
 	// Enable File Manager drag/drop open
 	m_pMainWnd->DragAcceptFiles();
 
-	// When a server application is launched stand-alone, it is a good idea
-	// to update the system registry in case it has been damaged.
-	// do registry stuff in separate thread
-#ifndef _UNICODE
-	if (m_bWin31) // no threads on Win32s
-		UpdateRegistry();
-	else
-#endif
-		
+	// When a server application is launched stand-alone, it is a good idea to update the system registry
+	// in case it has been damaged. do registry stuff in separate thread.
 #ifdef _REGISTER_APP
 		AfxBeginThread(DoRegistry, this, THREAD_PRIORITY_IDLE);
 #endif
@@ -310,7 +303,7 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 	return FALSE;
 }
 
-BOOL CALLBACK CWordPadApp::EnumWindowsProc(HWND hWnd, LPARAM lParam) // TODO used for?
+BOOL CALLBACK CWordPadApp::EnumWindowsProc(HWND hWnd, LPARAM lParam)
 {
 	TCHAR szClassName[30];
 	GetClassName(hWnd, szClassName, 30);
@@ -320,7 +313,7 @@ BOOL CALLBACK CWordPadApp::EnumWindowsProc(HWND hWnd, LPARAM lParam) // TODO use
 	ATOM* pAtom = (ATOM*)lParam;
 	ENSURE(pAtom != NULL);
 	DWORD_PTR dw = NULL;
-//	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom, SMTO_ABORTIFHUNG, 500, &dw);
+	::SendMessageTimeout(hWnd, m_nOpenMsg, NULL, (LPARAM)*pAtom, SMTO_ABORTIFHUNG, 500, &dw);
 	if (dw)
 	{
 		::SetForegroundWindow(hWnd);
