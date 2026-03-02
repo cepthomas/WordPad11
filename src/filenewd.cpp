@@ -1,4 +1,4 @@
-// filenewd.cpp : implementation file
+// filenewd.cpp : implementation file  TODO prob delete these
 //
 // This is a part of the Microsoft Foundation Classes C++ library.
 // Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -55,15 +55,16 @@ BOOL CFileNewDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	CString str;
-	VERIFY(str.LoadString(IDS_RTF_DOCUMENT));
-	m_listbox.AddString(str);
-	VERIFY(str.LoadString(IDS_TEXT_DOCUMENT));
-	m_listbox.AddString(str);
+	CArray<CString> parts;
+	GetMultipartResource(IDS_RTF_DOC, parts);
+	m_listbox.AddString(parts.GetAt(0));
+	GetMultipartResource(IDS_TEXT_DOC, parts);
+	m_listbox.AddString(parts.GetAt(0));
+
 	m_listbox.SetCurSel(0);
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-				  // EXCEPTION: OCX Property Pages should return FALSE
+	// return TRUE unless you set the focus to a control EXCEPTION: OCX Property Pages should return FALSE
+	return TRUE;
 }
 
 void CFileNewDialog::OnDblclkDatedialogList()
