@@ -4,8 +4,7 @@
 // TODO ddxm.*
 // TODO remove all extern -> better api
 // TODO remove IsTextType
-// TODO inline CWordPadApp* GetWordPadApp() {return (CWordPadApp*)AfxGetApp();}
-// TODO AfxGetApp()->CreatePrinterDC(dc);
+// TODO inline CWordPadApp* GetWordPadApp() {return (CWordPadApp*)AfxGetApp();} and AfxGetApp()->CreatePrinterDC(dc);
 
 
 void GetMultipartResource(int nID, CArray<CString>& res)
@@ -32,7 +31,7 @@ DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 		{
 			CString ext = CString(pszPathName).Right(4);
 
-			if (lstrcmpi(ext, _T(".rtf")) == 0) // TODO get from resources, prob
+			if (lstrcmpi(ext, _T(".rtf")) == 0) // TODO get from resources
 			{
 				ret = DocType::RD_RTF;
 			}

@@ -12,7 +12,6 @@
 #include "pch.h"
 #include "optionsh.h"
 #include "wordpad.h"
-#include "doctype.h"
 #include "docopt.h"
 
 

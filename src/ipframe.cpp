@@ -12,7 +12,6 @@
 #include "pch.h"
 #include "ipframe.h"
 #include "wordpad.h"
-#include "doctype.h"
 #include "wordpdoc.h"
 #include "colorlis.h"
 

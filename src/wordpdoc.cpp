@@ -13,7 +13,6 @@
 #include "wordpdoc.h"
 #include "wordpad.h"
 #include "wordpvw.h"
-#include "doctype.h"
 #include "cntritem.h"
 #include "srvritem.h"
 #include "buttondi.h"

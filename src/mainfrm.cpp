@@ -11,7 +11,6 @@
 
 #include "pch.h"
 #include "mainfrm.h"
-#include "doctype.h"
 #include "wordpad.h"
 #include "wordpdoc.h"
 #include "colorlis.h"

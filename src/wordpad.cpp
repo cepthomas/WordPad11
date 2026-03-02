@@ -10,16 +10,13 @@
 // Microsoft Foundation Classes product.
 
 
-
 #include "pch.h"
 #include "wordpad.h"
 #include "wordpdoc.h"
 #include "wordpvw.h"
-#include "doctype.h"
 #include "mainfrm.h"
 #include "ipframe.h"
 #include "about.h"
-#include "filenewd.h"
 
 #include <locale.h>
 #include <winnls.h>
@@ -77,6 +74,23 @@ const TCHAR szUnits[] = _T("Units");
 const TCHAR szFrameRect[] = _T("FrameRect");
 const TCHAR szMaximized[] = _T("Maximized");
 const TCHAR szSumInfo[] = _T("\005SummaryInformation");
+
+// TODO put these somewhere
+CString FormatForFileDialog(int nID)
+{
+	CArray<CString> parts;
+	GetMultipartResource(nID, parts);
+	CString str;
+	str.Format(_T("%s (%s)|%s|"), parts.GetAt(0), parts.GetAt(1), parts.GetAt(1));
+	return str;
+}
+
+CString GetFileExt(int nID)
+{
+	CArray<CString> parts;
+	GetMultipartResource(nID, parts);
+	return parts.GetAt(1);
+}
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -203,16 +217,9 @@ BOOL CWordPadApp::InitInstance()
 		return FALSE;
 	}
 
-	// Standard initialization
-	// If you are not using these features and wish to reduce the size
-	//  of your final executable, you should remove from the following
-	//  the specific initialization routines you do not need.
-
 	LoadStdProfileSettings();  // Load standard INI file options (including MRU)
 
-	// Register the application's document templates.  Document templates
-	//  serve as the connection between documents, frame windows and views.
-
+	// Register the application's document templates.
 	DocTemplate.SetContainerInfo(IDR_CNTR_INPLACE);
 	DocTemplate.SetServerInfo(
 		IDR_SRVR_EMBEDDED, IDR_SRVR_INPLACE,
@@ -548,116 +555,7 @@ void CWordPadApp::OnFileNew()
 	DocTemplate.OpenDocumentFile(NULL);
 }
 
-//void CWordPadApp::OnFileNew()
-//{
-//	DocType nDocType = DocType::RD_INVALID;
-//
-//	if (!m_bPromptForType)
-//	{
-//		if (cmdInfo.m_bForceTextMode)
-//		{
-//			nDocType = DocType::RD_TEXT;
-//		}
-//		else if (!cmdInfo.m_strFileName.IsEmpty())
-//		{
-//			CFileException fe;
-//			nDocType = GetDocTypeFromName(cmdInfo.m_strFileName, fe);
-//		}
-//
-//		if (nDocType == DocType::RD_INVALID)
-//		{
-//			nDocType = DocType::RD_DEFAULT;
-//		}
-//	}
-//	else
-//	{
-//		CFileNewDialog dlg;
-//		if (dlg.DoModal() == IDCANCEL)
-//		{
-//			return;
-//		}
-//
-//		nDocType = (dlg.m_nSel == 0) ? DocType::RD_DEFAULT: (dlg.m_nSel == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
-//
-//		if (nDocType != DocType::RD_TEXT)
-//		{
-//			cmdInfo.m_bForceTextMode = FALSE;
-//		}
-//	}
-//	m_nNewDocType = nDocType;
-//	DocTemplate.OpenDocumentFile(NULL);
-//}
-
-
-
-/*
-#define DOCTYPE_DOCTYPE 0
-#define DOCTYPE_DESC 1
-#define DOCTYPE_EXT 2
-//#define DOCTYPE_PROGID 3
-
-if (open) // && doctypes[i].bRead && !doctypes[i].bDup)
-{
-	str += doctypes[i].GetString(DOCTYPE_DESC);  Text Documents (*.txt)
-	str += (TCHAR)NULL;
-	str += doctypes[i].GetString(DOCTYPE_EXT);  *.txt
-	str += (TCHAR)NULL;
-}
-else // if (!bOpen && doctypes[i].bWrite && !doctypes[i].bDup)
-{
-	str += doctypes[i].GetString(DOCTYPE_DOCTYPE);  Text Document
-	str += (TCHAR)NULL;
-	str += doctypes[i].GetString(DOCTYPE_EXT);  *.txt
-	str += (TCHAR)NULL;
-}
-
-
-open  = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|All Files (*.*)|*.*||");
-save  = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|");
-
-
-//CString DocType::GetString(int nID)
-//{
-//  ASSERT(idStr != NULL);
-//  CString str;
-//  VERIFY(str.LoadString(idStr));
-//  CString strSub;
-//  AfxExtractSubString(strSub, str, nID);
-//  return strSub;
-//}
-*/
-
-
-//void GetDocTypeInfo(int nID, CArray<CString>& res)
-//{
-//	res.RemoveAll();
-//	CString str;
-//	str.LoadString(nID);
-//	CString strSub;
-//	AfxExtractSubString(strSub, str, 0);
-//	res.Add(strSub);
-//	AfxExtractSubString(strSub, str, 1);
-//	res.Add(strSub);
-//	AfxExtractSubString(strSub, str, 2);
-//	res.Add(strSub);
-//
-//	//while (AfxExtractSubString(str, strButtons, i++, '\n'))
-//	//	AddButton(str);
-//
-//}
-
-CString FormatForFileDialog(int nID)
-{
-	CArray<CString> parts;
-	GetMultipartResource(nID, parts);
-	CString str;
-	str.Format(_T("%s (%s)|%s|"), parts.GetAt(0), parts.GetAt(1), parts.GetAt(1));
-	return str;
-
-}
-
 // Prompt for file name - used for open and save as. TODO put somewhere else?
-// static function called from app
 BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL open, DocType* pType)
 {
 	BOOL ret = FALSE;
@@ -665,55 +563,10 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	CString title;
 	title.LoadString(nIDSTitle);
 
-	// TODO these?:
-	//IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
-	//IDS_RTF_DOC             "Rich Text Format (RTF)\nRich Text Format (*.rtf)\n*.rtf\nRich Text Document"
-	//IDS_ALL_DOC             "All\nAll Documents (*.*)\n*.*"
-
-	//Text File\nText File (*.txt)\n*.txt
-
-	// CArray<CString> txtParts;
-	// GetMultipartResource(IDS_TEXT_DOC, txtParts);
-	// CArray<CString> rtfParts;
-	// GetMultipartResource(IDS_RTF_DOC, rtfParts);
-	// CArray<CString> allParts;
-	// GetMultipartResource(IDS_ALL_DOC, allParts);
-
-	//str += doctypes[i].GetString(DOCTYPE_DESC);  Text Documents (*.txt)
-	//str += (TCHAR)NULL;
-	//str += doctypes[i].GetString(DOCTYPE_EXT);  *.txt
-	//str += (TCHAR)NULL;
-
-	//const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
-	//CFileDialog dlg(TRUE, _T("rtf"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
-
-	// CString filter;
-	// filter.Format(_T("%s (%s)|%s|%s (%s)|%s|%s (%s)|%s|"),
-	// 	rtfParts.GetAt(0), rtfParts.GetAt(1), rtfParts.GetAt(1),
-	// 	txtParts.GetAt(0), txtParts.GetAt(1), txtParts.GetAt(1),
-	// 	allParts.GetAt(0), allParts.GetAt(1), allParts.GetAt(1));
-
-
-	if (open) // 	if (PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
+	if (open)
 	{
-		CString filter;
-		//filter.Format(_T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|"));
-		//filter.Format(_T("%s (%s)|%s|%s (%s)|%s|%s (%s)|%s|"),
-		//	rtfParts.GetAt(0), rtfParts.GetAt(1), rtfParts.GetAt(1),
-		//	txtParts.GetAt(0), txtParts.GetAt(1), txtParts.GetAt(1),
-		//	allParts.GetAt(0), allParts.GetAt(1), allParts.GetAt(1));
-
-		//CArray<CString> parts;
-		//CString ss;
-		//GetMultipartResource(IDS_TEXT_DOC, parts);
-		//ss.Format(_T("%s (%s)|%s|"), parts.GetAt(0), parts.GetAt(1), parts.GetAt(1));
-		//filter += ss;
-
-		filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC) + FormatForFileDialog(IDS_ALL_DOC);
-
-
-		//const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
-		CFileDialog dlg(TRUE, rtfParts.GetAt(1), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
+		CString filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC) + FormatForFileDialog(IDS_ALL_DOC);
+		CFileDialog dlg(TRUE, GetFileExt(IDS_RTF_DOC), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 
 		// Display the dialog box
@@ -726,16 +579,8 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	}
 	else // save as
 	{
-		CString filter;
-		////filter.Format(_T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|"));
-		//filter.Format(_T("%s (%s)|%s|%s (%s)|%s|"),
-		//	rtfParts.GetAt(0), rtfParts.GetAt(1), rtfParts.GetAt(1),
-		//	txtParts.GetAt(0), txtParts.GetAt(1), txtParts.GetAt(1));
-
-		filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC);
-
-	//	const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|");
-		CFileDialog dlg(FALSE, rtfParts.GetAt(1), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
+		CString filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC);
+		CFileDialog dlg(FALSE, GetFileExt(IDS_RTF_DOC), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 
 		// Display the dialog box
@@ -750,75 +595,65 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	return ret;
 }
 
-
-/*  original
-// Prompt for file name - used for open and save as.
-// static function called from app
-BOOL CWordPadApp::PromptForFileName(CString & fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, DocType * pType)
-{
-	ScanForConverters();
-
-	CFileDialog dlgFile(bOpenFileDialog);
-	CString title;
-	title.LoadString(nIDSTitle);
-	dlgFile.m_ofn.Flags |= dwFlags;
-	int nIndex = m_nFilterIndex;
-
-	if (!bOpenFileDialog)
-	{
-		DocType nDocType = pType != NULL ? *pType : DocType::RD_DEFAULT;
-
-		nIndex = GetIndexFromType(nDocType, bOpenFileDialog);
-
-		if (nIndex == -1)
-		{
-			nIndex = GetIndexFromType(DocType::RD_DEFAULT, bOpenFileDialog);
-		}
-
-		if (nIndex == -1)
-		{
-			nIndex = GetIndexFromType(DocType::RD_NATIVE, bOpenFileDialog);
-		}
-
-		ASSERT(nIndex != -1);
-		nIndex++;
-	}
-
-	dlgFile.m_ofn.nFilterIndex = nIndex;
-	// strDefExt is necessary to hold onto the memory from GetExtFromType
-	int tfi = GetTypeFromIndex(nIndex, bOpenFileDialog);
-	CString strDefExt = GetExtFromType(tfi);
-	dlgFile.m_ofn.lpstrDefExt = strDefExt;
-
-	CString strFilter = GetFileTypes(bOpenFileDialog);
-	dlgFile.m_ofn.lpstrFilter = strFilter;
-	dlgFile.m_ofn.lpstrTitle = title;
-	dlgFile.m_ofn.lpstrFile = fileName.GetBuffer(_MAX_PATH);
-
-	BOOL bRet = (dlgFile.DoModal() == IDOK) ? TRUE : FALSE;
-	fileName.ReleaseBuffer();
-	if (bRet)
-	{
-		if (bOpenFileDialog)
-		{
-			m_nFilterIndex = dlgFile.m_ofn.nFilterIndex;
-		}
-
-		if (pType != NULL)
-		{
-			nIndex = (int)dlgFile.m_ofn.nFilterIndex - 1;
-			ASSERT(nIndex >= 0);
-			*pType = GetTypeFromIndex(nIndex, bOpenFileDialog);
-		}
-	}
-	return bRet;
-}
-*/
-
-
 BOOL CWordPadApp::OnDDECommand(LPTSTR lpszCommand)
 {
 	return FALSE;
+}
+
+BOOL CWordPadApp::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_PAINT)
+		return FALSE;
+	// CWinApp::PreTranslateMessage does nothing but call base
+	return CWinThread::PreTranslateMessage(pMsg);
+}
+
+void CWordPadApp::NotifyPrinterChanged(BOOL bUpdatePrinterSelection)
+{
+	if (bUpdatePrinterSelection)
+		UpdatePrinterSelection(FALSE);
+	POSITION pos = m_listPrinterNotify.GetHeadPosition();
+	while (pos != NULL)
+	{
+		HWND hWnd = m_listPrinterNotify.GetNext(pos);
+		::SendMessage(hWnd, m_nPrinterChangedMsg, 0, 0);
+	}
+}
+
+BOOL CWordPadApp::IsIdleMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_MOUSEMOVE || pMsg->message == WM_NCMOUSEMOVE)
+		return FALSE;
+	return CWinApp::IsIdleMessage(pMsg);
+}
+
+HGLOBAL CWordPadApp::CreateDevNames()
+{
+	HGLOBAL hDev = NULL;
+#pragma warning(disable: 6305 6011 28183)
+
+	if (!cmdInfo.m_strDriverName.IsEmpty() && !cmdInfo.m_strPrinterName.IsEmpty() && !cmdInfo.m_strPortName.IsEmpty())
+	{
+		int nAllocSize = 4 * sizeof(WORD) +
+			cmdInfo.m_strDriverName.GetLength() + 1 +
+			cmdInfo.m_strPrinterName.GetLength() + 1 +
+			cmdInfo.m_strPortName.GetLength() + 1;
+
+		hDev = GlobalAlloc(GPTR, nAllocSize);
+		LPDEVNAMES lpDev = (LPDEVNAMES)GlobalLock(hDev);
+
+		lpDev->wDriverOffset = sizeof(WORD) * 4;
+		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strDriverName);
+
+		lpDev->wDeviceOffset = (WORD)(lpDev->wDriverOffset + cmdInfo.m_strDriverName.GetLength() + 1);
+		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strPrinterName);
+
+		lpDev->wOutputOffset = (WORD)(lpDev->wDeviceOffset + cmdInfo.m_strPrinterName.GetLength() +1);
+		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strPortName);
+
+		lpDev->wDefault = 0;
+	}
+	return hDev;
 }
 
 #ifdef _REGISTER_APP
@@ -1045,59 +880,3 @@ BOOL RegisterHelper(LPCTSTR* rglpszRegister, LPCTSTR* rglpszSymbols, BOOL bRepla
 	return bResult;
 }
 #endif
-
-BOOL CWordPadApp::PreTranslateMessage(MSG* pMsg)
-{
-	if (pMsg->message == WM_PAINT)
-		return FALSE;
-	// CWinApp::PreTranslateMessage does nothing but call base
-	return CWinThread::PreTranslateMessage(pMsg);
-}
-
-void CWordPadApp::NotifyPrinterChanged(BOOL bUpdatePrinterSelection)
-{
-	if (bUpdatePrinterSelection)
-		UpdatePrinterSelection(FALSE);
-	POSITION pos = m_listPrinterNotify.GetHeadPosition();
-	while (pos != NULL)
-	{
-		HWND hWnd = m_listPrinterNotify.GetNext(pos);
-		::SendMessage(hWnd, m_nPrinterChangedMsg, 0, 0);
-	}
-}
-
-BOOL CWordPadApp::IsIdleMessage(MSG* pMsg)
-{
-	if (pMsg->message == WM_MOUSEMOVE || pMsg->message == WM_NCMOUSEMOVE)
-		return FALSE;
-	return CWinApp::IsIdleMessage(pMsg);
-}
-
-HGLOBAL CWordPadApp::CreateDevNames()
-{
-	HGLOBAL hDev = NULL;
-#pragma warning(disable: 6305 6011 28183)
-
-	if (!cmdInfo.m_strDriverName.IsEmpty() && !cmdInfo.m_strPrinterName.IsEmpty() && !cmdInfo.m_strPortName.IsEmpty())
-	{
-		int nAllocSize = 4 * sizeof(WORD) +
-			cmdInfo.m_strDriverName.GetLength() + 1 +
-			cmdInfo.m_strPrinterName.GetLength() + 1 +
-			cmdInfo.m_strPortName.GetLength() + 1;
-
-		hDev = GlobalAlloc(GPTR, nAllocSize);
-		LPDEVNAMES lpDev = (LPDEVNAMES)GlobalLock(hDev);
-
-		lpDev->wDriverOffset = sizeof(WORD) * 4;
-		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strDriverName);
-
-		lpDev->wDeviceOffset = (WORD)(lpDev->wDriverOffset + cmdInfo.m_strDriverName.GetLength() + 1);
-		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strPrinterName);
-
-		lpDev->wOutputOffset = (WORD)(lpDev->wDeviceOffset + cmdInfo.m_strPrinterName.GetLength() +1);
-		_tcscpy_s((TCHAR*)lpDev + lpDev->wDriverOffset, nAllocSize - lpDev->wDriverOffset, cmdInfo.m_strPortName);
-
-		lpDev->wDefault = 0;
-	}
-	return hDev;
-}

@@ -13,7 +13,6 @@
 
 #include "resource.h"
 #include "options.h"
-#include "doctype.h"
 
 #define WPM_BARSTATE WM_USER
 const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
@@ -50,7 +49,7 @@ public:
 	BOOL m_bWin31;
 #endif
 	BOOL m_bLargeIcons;
-	BOOL m_bForceTextMode; // TODO remove
+	BOOL m_bForceTextMode; // TODO remove when handling default type better.
 	BOOL m_bWordSel;
 	int m_nFilterIndex;
 	DocType m_nNewDocType;
@@ -61,7 +60,7 @@ public:
 	CList<HWND, HWND> m_listPrinterNotify;
 
 
-	//TODO:
+	//TODO infrastructure stuff + MainFrame handlers
 	static int m_nOpenMsg;
 	static int m_nPrinterChangedMsg;
 

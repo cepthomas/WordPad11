@@ -124,8 +124,6 @@
     <ClInclude Include="datedial.h" />
     <ClInclude Include="ddxm.h" />
     <ClInclude Include="docopt.h" />
-    <ClInclude Include="doctype.h" />
-    <ClInclude Include="filenewd.h" />
     <ClInclude Include="formatba.h" />
     <ClInclude Include="formatpa.h" />
     <ClInclude Include="formatta.h" />
@@ -159,8 +157,6 @@
     <ClCompile Include="datedial.cpp" />
     <ClCompile Include="ddxm.cpp" />
     <ClCompile Include="docopt.cpp" />
-    <ClCompile Include="doctype.cpp" />
-    <ClCompile Include="filenewd.cpp" />
     <ClCompile Include="formatba.cpp" />
     <ClCompile Include="formatpa.cpp" />
     <ClCompile Include="formatta.cpp" />
@@ -210,7 +206,6 @@
     <Image Include="res\srvr.bmp" />
     <Image Include="res\srvrbig.bmp" />
     <Image Include="res\textdoc.ico" />
-    <Image Include="res\wordp48.bmp" />
     <Image Include="res\wordpad.ico" />
     <Image Include="res\write.ico" />
   </ItemGroup>

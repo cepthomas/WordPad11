@@ -11,7 +11,6 @@
 
 #include "pch.h"
 #include "wordpvw.h"
-#include "doctype.h"
 #include "wordpad.h"
 #include "srvritem.h"
 #include "wordpdoc.h"

@@ -33,12 +33,6 @@
     <ClCompile Include="docopt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="doctype.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="filenewd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="formatba.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -117,12 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="docopt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="doctype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filenewd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="formatba.h">
@@ -259,9 +247,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\textdoc.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\wordp48.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\wordpad.ico">
