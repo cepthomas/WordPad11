@@ -20,22 +20,9 @@
 //#define RD_DEFAULT RD_RTF
 //#define RD_NATIVE RD_RTF
 
-enum class DocType // TODO => common
-{
-    RD_RTF,
-    RD_TEXT,
-    RD_ALL,
-    //RD_EXE,
-    RD_EMBEDDED,
-   // NUM_DOC_TYPES,
-    RD_DEFAULT = RD_RTF,
-    RD_NATIVE = RD_RTF,
-    RD_INVALID = -1
-};
-
 
 // TODO these
-extern DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
+//extern DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
 //extern DocType doctypes[NUM_DOC_TYPES];
 
 

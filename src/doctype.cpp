@@ -32,60 +32,33 @@ static const BYTE byteExePrefix[2] = {0x4D, 0x5A};
 
 /////////////////////////////////////////////////////////////////////////////
 
-struct DocTypeDesc
-{
-public:
-	DocType eID;
-	int idStr;
-	BOOL bRead;
-	BOOL bWrite;
-	BOOL bDup;
-	LPCSTR pszConverterName;
-	//CString GetString(int nID);
-};
-
-DocTypeDesc doctypes [] =//(int)DocType::NUM_DOC_TYPES] =
-{
-	{ DocType::RD_RTF, IDS_RTF_DOC, TRUE, TRUE, FALSE, NULL },
-	{ DocType::RD_TEXT, IDS_TEXT_DOC, TRUE, TRUE, FALSE, NULL },
-	{ DocType::RD_ALL, IDS_ALL_DOC, TRUE, TRUE, FALSE, NULL },
-	//{ DocType::RD_EXE, IDS_EXE_DOC, TRUE, TRUE, FALSE, NULL },
-	{ DocType::RD_EMBEDDED, -1, TRUE, TRUE, FALSE, NULL },
-};
-
-const int NUM_DOC_TYPES = sizeof(doctypes) / sizeof(DocTypeDesc);
+//struct DocTypeDesc
+//{
+//public:
+//	DocType eID;
+//	int idStr;
+//	BOOL bRead;
+//	BOOL bWrite;
+//	BOOL bDup;
+//	LPCSTR pszConverterName;
+//	//CString GetString(int nID);
+//};
+//
+//DocTypeDesc doctypes [] =//(int)DocType::NUM_DOC_TYPES] =
+//{
+//	{ DocType::RD_RTF, IDS_RTF_DOC, TRUE, TRUE, FALSE, NULL },
+//	{ DocType::RD_TEXT, IDS_TEXT_DOC, TRUE, TRUE, FALSE, NULL },
+//	{ DocType::RD_ALL, IDS_ALL_DOC, TRUE, TRUE, FALSE, NULL },
+//	//{ DocType::RD_EXE, IDS_EXE_DOC, TRUE, TRUE, FALSE, NULL },
+//	{ DocType::RD_EMBEDDED, -1, TRUE, TRUE, FALSE, NULL },
+//};
+//
+//const int NUM_DOC_TYPES = sizeof(doctypes) / sizeof(DocTypeDesc);
 
 //DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 //{
 //	return DocType::RD_INVALID;
 //}
-DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
-{
-	ASSERT(pszPathName != NULL);
-	DocType ret = DocType::RD_INVALID;
-
-	CFileStatus status;
-	if (CFile::GetStatus(pszPathName, status))
-	{
-
-		CString sfn = CString(pszPathName);
-		if (sfn.GetLength() >= 4)
-		{
-			CString ext = CString(pszPathName).Right(4);
-
-			if (lstrcmpi(ext, _T(".rtf")) == 0)
-			{
-				ret = DocType::RD_RTF;
-			}
-			else
-			{
-				ret = DocType::RD_TEXT;
-			}
-		}
-	}
-
-	return ret;
-}
 
 
 //void ScanForConverters()
