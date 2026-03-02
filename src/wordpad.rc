@@ -728,9 +728,9 @@ END
 STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "WordPad\n\nWordPad\n\n\nWordPad.Document\nWordPad.Document"
-    IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
-    IDS_RTF_DOC             "Rich Text Format (RTF)\nRich Text Format (*.rtf)\n*.rtf\nRich Text Document"
-    IDS_ALL_DOC             "All\nAll Documents (*.*)\n*.*"
+    IDS_TEXT_DOC            "Text File\nText File (*.txt)\n*.txt"
+    IDS_RTF_DOC             "RTF File\nRTF File (*.rtf)\n*.rtf"
+    IDS_ALL_DOC             "All Files\nAll Files (*.*)\n*.*"
     IDS_FILE_EXISTS         "%1 already exists.\nDo you want to replace it?"
     IDS_CLIP_TEXT           "Unformatted Text\ntext without any formatting"
 END
@@ -956,8 +956,6 @@ BEGIN
     IDS_RTF_OPTIONS         "Rich Text"
     IDS_OPTIONS             "Options"
     IDS_EMBEDDED_OPTIONS    "Embedded"
-    IDS_TEXT_DOCUMENT       "Text Document"
-    IDS_RTF_DOCUMENT        "Rich Text Document"
 END
 
 STRINGTABLE

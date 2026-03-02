@@ -583,6 +583,66 @@ void CWordPadApp::OnFileNew()
 	DocTemplate.OpenDocumentFile(NULL);
 }
 
+
+
+/*
+#define DOCTYPE_DOCTYPE 0
+#define DOCTYPE_DESC 1
+#define DOCTYPE_EXT 2
+//#define DOCTYPE_PROGID 3
+
+// TODO these?:
+//IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
+//IDS_RTF_DOC             "Rich Text Format (RTF)\nRich Text Format (*.rtf)\n*.rtf\nRich Text Document"
+//IDS_ALL_DOC             "All\nAll Documents (*.*)\n*.*"
+
+if (open) // && doctypes[i].bRead && !doctypes[i].bDup)
+{
+	str += doctypes[i].GetString(DOCTYPE_DESC);  Text Documents (*.txt)
+	str += (TCHAR)NULL;
+	str += doctypes[i].GetString(DOCTYPE_EXT);  *.txt
+	str += (TCHAR)NULL;
+}
+else // if (!bOpen && doctypes[i].bWrite && !doctypes[i].bDup)
+{
+	str += doctypes[i].GetString(DOCTYPE_DOCTYPE);  Text Document
+	str += (TCHAR)NULL;
+	str += doctypes[i].GetString(DOCTYPE_EXT);  *.txt
+	str += (TCHAR)NULL;
+}
+
+
+open  = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|All Files (*.*)|*.*||");
+save  = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|");
+
+
+//CString DocType::GetString(int nID)
+//{
+//  ASSERT(idStr != NULL);
+//  CString str;
+//  VERIFY(str.LoadString(idStr));
+//  CString strSub;
+//  AfxExtractSubString(strSub, str, nID);
+//  return strSub;
+//}
+*/
+
+
+void GetDocTypeInfo(int nID, CArray<CString>& res)
+{
+	res.RemoveAll();
+	CString str;
+	str.LoadString(nID);
+	CString strSub;
+	AfxExtractSubString(strSub, str, 0);
+	res.Add(strSub);
+	AfxExtractSubString(strSub, str, 1);
+	res.Add(strSub);
+	AfxExtractSubString(strSub, str, 2);
+	res.Add(strSub);
+}
+
+
 // Prompt for file name - used for open and save as. TODO fix all -> put somewhere else?
 // static function called from app
 BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL open, DocType* pType)
@@ -592,25 +652,40 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	CString title;
 	title.LoadString(nIDSTitle);
 
-	const TCHAR szFilter[] = _T("RTF Files (*.rtf)|*.rtf|Text Files (*.txt)|*.txt|All Files (*.*)|*.*||");
 	// TODO these?:
 	//IDS_TEXT_DOC            "Text Document\nText Documents (*.txt)\n*.txt\nText Document"
 	//IDS_RTF_DOC             "Rich Text Format (RTF)\nRich Text Format (*.rtf)\n*.rtf\nRich Text Document"
 	//IDS_ALL_DOC             "All\nAll Documents (*.*)\n*.*"
 
+	//Text File\nText File (*.txt)\n*.txt
 
-	// Create a CFileDialog object.
-	// The first parameter (TRUE) indicates an "Open" dialog box.
-	//CFileDialog dlg(TRUE, // bOpenFileDialog: TRUE for Open, FALSE for Save As
-	//	_T("txt"), // lpszDefExt: Default file extension
-	//	NULL, // lpszFileName: Initial file name (NULL for none)
-	//	OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, // dwFlags: Various flags
-	//	szFilter, // lpszFilter: File type filter string
-	//	NULL); // pParentWnd: Parent window pointer
+	CArray<CString> txtParts;
+	GetDocTypeInfo(IDS_TEXT_DOC, txtParts);
+	CArray<CString> rtfParts;
+	GetDocTypeInfo(IDS_RTF_DOC, rtfParts);
+	CArray<CString> allParts;
+	GetDocTypeInfo(IDS_ALL_DOC, allParts);
+
+	//str += doctypes[i].GetString(DOCTYPE_DESC);  Text Documents (*.txt)
+	//str += (TCHAR)NULL;
+	//str += doctypes[i].GetString(DOCTYPE_EXT);  *.txt
+	//str += (TCHAR)NULL;
+
+	//const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
+	//CFileDialog dlg(TRUE, _T("rtf"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
 
 
 	if (open) // 	if (PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
 	{
+		CString filter;
+		filter += rtfParts.GetAt(1);
+		filter += "|";
+		filter += rtfParts.GetAt(2);
+		filter += "|";
+
+
+
+		const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|All Files (*.*)|*.*|");
 		CFileDialog dlg(TRUE, _T("rtf"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 
@@ -624,6 +699,7 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	}
 	else // save as
 	{
+		const TCHAR szFilter[] = _T("RTF File (*.rtf)|*.rtf|Text File (*.txt)|*.txt|");
 		CFileDialog dlg(FALSE, _T("rtf"), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, szFilter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 

@@ -123,6 +123,8 @@ private:
 	static const int m_nPrimaryNumUnits;
 	static const int m_nNumUnits;
 	static CUnit m_units[7];
+
+	//CList<CString> GetDocTypeInfo(int nID);
 };
 
 /////////////////////////////////////////////////////////////////////////////

@@ -55,9 +55,36 @@ DocTypeDesc doctypes [] =//(int)DocType::NUM_DOC_TYPES] =
 
 const int NUM_DOC_TYPES = sizeof(doctypes) / sizeof(DocTypeDesc);
 
+//DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
+//{
+//	return DocType::RD_INVALID;
+//}
 DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 {
-	return DocType::RD_INVALID;
+	ASSERT(pszPathName != NULL);
+	DocType ret = DocType::RD_INVALID;
+
+	CFileStatus status;
+	if (CFile::GetStatus(pszPathName, status))
+	{
+
+		CString sfn = CString(pszPathName);
+		if (sfn.GetLength() >= 4)
+		{
+			CString ext = CString(pszPathName).Right(4);
+
+			if (lstrcmpi(ext, _T(".rtf")) == 0)
+			{
+				ret = DocType::RD_RTF;
+			}
+			else
+			{
+				ret = DocType::RD_TEXT;
+			}
+		}
+	}
+
+	return ret;
 }
 
 
