@@ -535,9 +535,9 @@ int CWordPadApp::ExitInstance()
 void CWordPadApp::OnFileOpen()
 {
 	CString newName;
-	DocType nType = DocType::RD_DEFAULT;
+	DocType nType = DocType::RD_RTF; //RD_DEFAULT;
 
-	if (PromptForFileName(newName, AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, &nType))
+	if (PromptForFileName(newName));// , AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, & nType))
 	{
 		OpenDocumentFile(newName);
 	}
@@ -546,20 +546,19 @@ void CWordPadApp::OnFileOpen()
 void CWordPadApp::OnFileNew()
 {
 	// Assume default for now.
-	m_nNewDocType = DocType::RD_DEFAULT;
+	m_nNewDocType = DocType::RD_RTF; // RD_DEFAULT;
 	DocTemplate.OpenDocumentFile(NULL);
 }
 
 // Prompt for file name - used for open and save as. TODO put somewhere else?
-BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL open, DocType* pType)
+BOOL CWordPadApp::PromptForFileName(CString& fileName)
 {
 	BOOL ret = FALSE;
 
-	CString title;
-	title.LoadString(nIDSTitle);
-
-	if (open)
+	if (fileName.GetLength() == 0)
 	{
+		CString title;
+		title.LoadString(AFX_IDS_OPENFILE);
 		CString filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC) + FormatForFileDialog(IDS_ALL_DOC);
 		CFileDialog dlg(TRUE, GetFileExt(IDS_RTF_DOC), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
@@ -574,8 +573,10 @@ BOOL CWordPadApp::PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwF
 	}
 	else // save as
 	{
+		CString title;
+		title.LoadString(AFX_IDS_SAVEFILE);
 		CString filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC);
-		CFileDialog dlg(FALSE, GetFileExt(IDS_RTF_DOC), NULL, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
+		CFileDialog dlg(FALSE, GetFileExt(IDS_RTF_DOC), fileName, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
 		dlg.m_ofn.lpstrTitle = title;
 
 		// Display the dialog box

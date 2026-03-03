@@ -81,7 +81,7 @@ public:
 
 	static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam);
 	void NotifyPrinterChanged(BOOL bUpdatePrinterSelection = FALSE);
-	BOOL PromptForFileName(CString& fileName, UINT nIDSTitle, DWORD dwFlags, BOOL bOpenFileDialog, DocType* pType = NULL);
+	BOOL PromptForFileName(CString& fileName);
 	BOOL ParseMeasurement(TCHAR* buf, int& lVal);
 	void PrintTwips(TCHAR* buf, int nSize, int nValue, int nDecimal);
 	void SaveOptions();

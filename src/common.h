@@ -15,7 +15,7 @@ enum class DocType
     RD_RTF,
     RD_TEXT,
     RD_EMBEDDED,
-    RD_DEFAULT = RD_RTF,
+    //RD_DEFAULT = RD_RTF,
     RD_INVALID = -1  // bad file/name/etc
 };
 

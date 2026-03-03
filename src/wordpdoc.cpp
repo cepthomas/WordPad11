@@ -212,32 +212,32 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace) // TODO if type to 
 	//	}
 	//}
 
-	if (m_lpRootStg == NULL && m_nDocType == DocType::RD_TEXT && !GetView()->IsFormatText())
-	{
-		// formatting changed in plain old text file
-		CString str;
-		AfxFormatString1(str, IDS_SAVE_FORMAT_TEXT, GetTitle());
-		INT_PTR nRes = CButtonDialog::DisplayMessageBox(str,
-			MAKEINTRESOURCE(AFX_IDS_APP_TITLE),
-			MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3);
+	//if (m_lpRootStg == NULL && m_nDocType == DocType::RD_TEXT && !GetView()->IsFormatText())
+	//{
+	//	// formatting changed in plain old text file
+	//	CString str;
+	//	AfxFormatString1(str, IDS_SAVE_FORMAT_TEXT, GetTitle());
+	//	INT_PTR nRes = CButtonDialog::DisplayMessageBox(str,
+	//		MAKEINTRESOURCE(AFX_IDS_APP_TITLE),
+	//		MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3);
 
-		if (nRes == 3)
-		{
-			return FALSE;
-		}
+	//	if (nRes == 3)
+	//	{
+	//		return FALSE;
+	//	}
 
-		DocType nDocType = (nRes == 0) ? DocType::RD_DEFAULT: (nRes == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
+	//	DocType nDocType = (nRes == 0) ? DocType::RD_DEFAULT: (nRes == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
 
-		if (m_nDocType == DocType::RD_TEXT && nDocType != DocType::RD_TEXT)
-		{
-			SetDocType(nDocType, TRUE);
-		}
+	//	if (m_nDocType == DocType::RD_TEXT && nDocType != DocType::RD_TEXT)
+	//	{
+	//		SetDocType(nDocType, TRUE);
+	//	}
 
-		if (nDocType != DocType::RD_TEXT)
-		{
-			bSaveAs = TRUE;
-		}
-	}
+	//	if (nDocType != DocType::RD_TEXT)
+	//	{
+	//		bSaveAs = TRUE;
+	//	}
+	//}
 
 	GetView()->GetParentFrame()->RecalcLayout();
 	if (bSaveAs)
@@ -256,8 +256,7 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace) // TODO if type to 
 		}
 
 		DocType nDocType = m_nDocType;
-		if (!theApp.PromptForFileName(newName, bReplace ? AFX_IDS_SAVEFILE : AFX_IDS_SAVEFILECOPY,
-				OFN_HIDEREADONLY | OFN_PATHMUSTEXIST, FALSE, &nDocType))
+		if (!theApp.PromptForFileName(newName));
 		{
 			SetDocType(nOrigDocType, TRUE);
 			return FALSE; // don't even try to save
