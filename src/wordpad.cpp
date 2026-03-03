@@ -111,7 +111,7 @@ void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL 
 	{
 		if (lstrcmpA(pszParam, "t") == 0)
 		{
-			m_bForceTextMode = TRUE;
+			//m_bForceTextMode = TRUE;
 			return;
 		}
 	}
@@ -121,18 +121,18 @@ void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp construction
 
-CWordPadApp::CWordPadApp() : m_optionsText(0), m_optionsRTF(1),	m_optionsIP(2), m_optionsNull(0)
+CWordPadApp::CWordPadApp() : OptionsText(0), OptionsRTF(1),	OptionsIP(2), OptionsNull(0)
 {
 	_tsetlocale(LC_ALL, _T(""));
-	m_nDefFont = DEFAULT_GUI_FONT; // : ANSI_VAR_FONT;
-	m_dcScreen.Attach(::GetDC(NULL));
-	m_bLargeIcons = m_dcScreen.GetDeviceCaps(LOGPIXELSX) >= 120;
+	DefFont = DEFAULT_GUI_FONT; // : ANSI_VAR_FONT;
+	DcScreen.Attach(::GetDC(NULL));
+	m_bLargeIcons = DcScreen.GetDeviceCaps(LOGPIXELSX) >= 120;
 }
 
 CWordPadApp::~CWordPadApp()
 {
-	if (m_dcScreen.m_hDC != NULL)
-		::ReleaseDC(NULL, m_dcScreen.Detach());
+	if (DcScreen.m_hDC != NULL)
+		::ReleaseDC(NULL, DcScreen.Detach());
 }
 
 // The one and only CWordPadApp object
@@ -149,6 +149,8 @@ static CSingleDocTemplate DocTemplate(
 // This identifier was generated to be statistically unique for your app.
 // You may change it if you prefer to choose a specific identifier.
 static const CLSID BASED_CODE clsid = { 0x73FDDC80L, 0xAEA9, 0x101A, { 0x98, 0xA7, 0x00, 0xAA, 0x00, 0x37, 0x49, 0x59} };
+
+CWordPadCommandLineInfo cmdInfo;
 
 // CWordPadApp initialization
 BOOL CWordPadApp::InitInstance()
@@ -248,9 +250,9 @@ BOOL CWordPadApp::InitInstance()
 	}
 
 	// make sure the main window is showing
-	m_bPromptForType = FALSE;
+	//m_bPromptForType = FALSE;
 	OnFileNew();
-	m_bPromptForType = TRUE;
+	//m_bPromptForType = TRUE;
 
 	m_nCmdShow = -1;
 	if (m_pMainWnd == NULL) // i.e. OnFileNew failed
@@ -338,14 +340,14 @@ CDocOptions& CWordPadApp::GetDocOptions(DocType nDocType)
 	switch (nDocType)
 	{
 		case DocType::RD_RTF:
-			return m_optionsRTF;
+			return OptionsRTF;
 		case DocType::RD_TEXT:
-			return m_optionsText;
+			return OptionsText;
 		case DocType::RD_EMBEDDED:
-			return m_optionsIP;
+			return OptionsIP;
 	}
 	ASSERT(FALSE);
-	return m_optionsNull;
+	return OptionsNull;
 }
 
 CDockState& CWordPadApp::GetDockState(DocType nDocType, BOOL bPrimary)
@@ -361,9 +363,9 @@ void CWordPadApp::SaveOptions()
 	res = WriteProfileInt(szSection, szMaximized, m_bMaximized);
 	res = WriteProfileBinary(szSection, szFrameRect, (BYTE*)&m_rectInitialFrame, sizeof(CRect));
 	res = WriteProfileBinary(szSection, szPageMargin, (BYTE*)&m_rectPageMargin, sizeof(CRect));
-	m_optionsText.SaveOptions(szTextSection);
-	m_optionsRTF.SaveOptions(szRTFSection);
-	m_optionsIP.SaveOptions(szIPSection);
+	OptionsText.SaveOptions(szTextSection);
+	OptionsRTF.SaveOptions(szRTFSection);
+	OptionsIP.SaveOptions(szIPSection);
 }
 
 void CWordPadApp::LoadOptions()
@@ -374,7 +376,7 @@ void CWordPadApp::LoadOptions()
 	HFONT hFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
 	if (hFont == NULL)
 		hFont = (HFONT)GetStockObject(ANSI_VAR_FONT);
-	VERIFY(GetObject(hFont, sizeof(LOGFONT), &m_lf));
+	VERIFY(GetObject(hFont, sizeof(LOGFONT), &LogFont));
 
 	m_bWordSel = GetProfileInt(szSection, szWordSel, TRUE);
 	TCHAR buf[2] = { 0 };
@@ -420,9 +422,9 @@ void CWordPadApp::LoadOptions()
 		m_rectPageMargin.SetRect(1800, 1440, 1800, 1440);
 	}
 
-	m_optionsText.LoadOptions(szTextSection);
-	m_optionsRTF.LoadOptions(szRTFSection);
-	m_optionsIP.LoadOptions(szIPSection);
+	OptionsText.LoadOptions(szTextSection);
+	OptionsRTF.LoadOptions(szRTFSection);
+	OptionsIP.LoadOptions(szIPSection);
 }
 
 void CWordPadApp::LoadAbbrevStrings()
