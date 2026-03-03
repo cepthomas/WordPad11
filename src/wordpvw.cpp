@@ -539,7 +539,10 @@ void CWordPadView::CalcWindowRect(LPRECT lpClientRect, UINT nAdjustType)
 {
 	CRichEditView::CalcWindowRect(lpClientRect, nAdjustType);
 
-	if (theApp.m_bWin4 && nAdjustType != 0 && (GetStyle() & WS_VSCROLL))
+	//if (theApp.m_bWin4 && nAdjustType != 0 && (GetStyle() & WS_VSCROLL))
+	//	lpClientRect->right--;
+
+	if (nAdjustType != 0 && (GetStyle() & WS_VSCROLL))
 		lpClientRect->right--;
 
 	// if the ruler is visible then slide the view up under the ruler to avoid
