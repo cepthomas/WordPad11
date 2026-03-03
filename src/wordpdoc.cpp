@@ -24,10 +24,6 @@
 static char BASED_CODE THIS_FILE[] = __FILE__;
 #endif
 
-void ScanForConverters()
-{
-	int i = 999;
-}
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadDoc
@@ -69,7 +65,6 @@ BOOL CWordPadDoc::OnNewDocument()
 	//correct type already set in theApp.m_nNewDocType;
 	DocType nDocType = (IsEmbedded()) ? DocType::RD_EMBEDDED : theApp.m_nNewDocType;
 
-	//GetView()->SetDefaultFont(IsTextType(nDocType));
 	GetView()->SetDefaultFont(nDocType == DocType::RD_TEXT);
 	SetDocType(nDocType);
 
@@ -151,8 +146,6 @@ BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 			}
 		}
 
-		ScanForConverters();
-
 		//if (!doctypes[m_nNewDocType].bRead)
 		//{
 		//	CString str;
@@ -181,10 +174,8 @@ void CWordPadDoc::Serialize(CArchive& ar)
 	pFilter->EnableBusyDialog(TRUE);
 }
 
-BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace)
+BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace) // TODO if type to save is txt and doc has rtf content, do something - below GetView()->IsFormatText()
 {
-	// TODO if type to save is txt and doc has rtf content, do something - below GetView()->IsFormatText()
-	
 	// Save the document data to a file
 	// pszPathName = path name where to save document file
 	// if pszPathName is NULL then the user will be prompted (SaveAs)
@@ -202,8 +193,6 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace)
 	//  notempty    FALSE   other   warn (save as, cancel)
 
 	BOOL bModified = IsModified();
-
-	ScanForConverters();
 
 	BOOL bSaveAs = FALSE;
 
@@ -373,7 +362,6 @@ void CWordPadDoc::SetDocType(DocType nNewDocType, BOOL bNoOptionChange)
 		return;
 	}
 
-	//m_bRTF = !IsTextType(nNewDocType);
 	m_bRTF = nNewDocType != DocType::RD_TEXT;
 
 	if (bNoOptionChange)

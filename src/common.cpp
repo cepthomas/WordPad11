@@ -1,12 +1,6 @@
 #include "pch.h"
 
 
-// TODO ddxm.*
-// TODO remove all extern -> better api
-// TODO remove IsTextType
-// TODO inline CWordPadApp* GetWordPadApp() {return (CWordPadApp*)AfxGetApp();} and AfxGetApp()->CreatePrinterDC(dc);
-
-
 void GetMultipartResource(int nID, CArray<CString>& res)
 {
 	res.RemoveAll();

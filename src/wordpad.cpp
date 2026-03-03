@@ -54,15 +54,6 @@ CUnit CWordPadApp::m_units[7] =
 	CUnit(1440, 180,        720,    1440,       90,         IDS_INCH4_ABBREV,   FALSE)//inches
 };
 
-#ifdef _REGISTER_APP
-static UINT DoRegistry(LPVOID lpv)
-{
-	ENSURE(lpv != NULL);
-	((CWordPadApp*)lpv)->UpdateRegistry();
-	return 0;
-}
-#endif
-
 // Option names.
 const TCHAR szTextSection[] = _T("Text");
 const TCHAR szRTFSection[] = _T("RTF");
@@ -75,7 +66,16 @@ const TCHAR szFrameRect[] = _T("FrameRect");
 const TCHAR szMaximized[] = _T("Maximized");
 const TCHAR szSumInfo[] = _T("\005SummaryInformation");
 
-// TODO put these somewhere
+#ifdef _REGISTER_APP
+static UINT DoRegistry(LPVOID lpv)
+{
+	ENSURE(lpv != NULL);
+	((CWordPadApp*)lpv)->UpdateRegistry();
+	return 0;
+}
+#endif
+
+// Utilities.
 CString FormatForFileDialog(int nID)
 {
 	CArray<CString> parts;
@@ -103,6 +103,7 @@ BEGIN_MESSAGE_MAP(CWordPadApp, CWinApp)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
+
 
 void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast)
 {

@@ -345,7 +345,6 @@ LONG_PTR CMainFrame::OnBarState(UINT_PTR wParam, LONG_PTR lParam)
 	}
 	else
 	{
-		//if (IsTextType(lParam))
 		if (dt == DocType::RD_TEXT)
 		{
 			// in text mode hide the ruler and format bar so that it is the default

@@ -35,7 +35,7 @@ public:
 	CWordPadApp();
 	~CWordPadApp();
 
-// Attributes TODO so.much.public.... and other headers
+// Attributes
 	CWordPadCommandLineInfo cmdInfo;
 	CDC m_dcScreen;
 	LOGFONT m_lf;
@@ -55,8 +55,6 @@ public:
 	CDocOptions m_optionsNull;
 	CList<HWND, HWND> m_listPrinterNotify;
 
-
-	//TODO ?? infrastructure stuff + MainFrame handlers
 	static int m_nOpenMsg;
 	static int m_nPrinterChangedMsg;
 
@@ -124,5 +122,6 @@ private:
 
 /////////////////////////////////////////////////////////////////////////////
 
+// This is not the right way to do this!
 extern CWordPadApp theApp;
 //inline CWordPadApp* GetWordPadApp() { return (CWordPadApp*)AfxGetApp(); }

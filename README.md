@@ -23,4 +23,4 @@ Main aspects and changes from the original:
     - Reorganize convoluted includes.
     - Remove string and resource clutter.
     - Simplify doc type management.
-    - General code cleanup. Too many cooks in this broth.
+    - General code cleanup. Too many cooks in this broth. Still a lot of entangled objects.
