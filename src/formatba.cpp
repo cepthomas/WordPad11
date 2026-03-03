@@ -69,11 +69,11 @@ static CSize GetBaseUnits(CFont* pFont)
 {
 	ENSURE(pFont != NULL);
 	ASSERT(pFont->GetSafeHandle() != NULL);
-	pFont = theApp.m_dcScreen.SelectObject(pFont);
+	pFont = theApp.DcScreen.SelectObject(pFont);
 	TEXTMETRIC tm;
-	VERIFY(theApp.m_dcScreen.GetTextMetrics(&tm));
+	VERIFY(theApp.DcScreen.GetTextMetrics(&tm));
 
-	theApp.m_dcScreen.SelectObject(pFont);
+	theApp.DcScreen.SelectObject(pFont);
 //  return CSize(tm.tmAveCharWidth, tm.tmHeight+tm.tmDescent);
 	return CSize(tm.tmAveCharWidth, tm.tmHeight);
 }
@@ -81,7 +81,7 @@ static CSize GetBaseUnits(CFont* pFont)
 CFormatBar::CFormatBar()
 {
 	CFont fnt;
-	fnt.Attach(GetStockObject(theApp.m_nDefFont));
+	fnt.Attach(GetStockObject(theApp.DefFont));
 	m_szBaseUnits = GetBaseUnits(&fnt);
 	CLocalComboBox::m_nFontHeight = m_szBaseUnits.cy;
 }
@@ -146,7 +146,7 @@ void CFormatBar::OnFontSizeDropDown()
 	if (bPrinterFont)
 		m_comboFontSize.EnumFontSizes(m_dcPrinter, lpszName);
 	else
-		m_comboFontSize.EnumFontSizes(theApp.m_dcScreen, lpszName);
+		m_comboFontSize.EnumFontSizes(theApp.DcScreen, lpszName);
 	m_comboFontSize.SetTwipSize(nSize);
 }
 
@@ -341,31 +341,35 @@ void CFontComboBox::EnumFontFamiliesEx(CDC& dc, BYTE nCharSet)
 
 	if (dc.m_hDC != NULL)
 	{
-		if (theApp.m_bWin4)
-		{
-			::EnumFontFamiliesEx(dc.m_hDC, &lf,
-				(FONTENUMPROC) EnumFamPrinterCallBackEx, (LPARAM) this, NULL);
-		}
-		else
-		{
-			::EnumFontFamilies(dc.m_hDC, NULL,
-				(FONTENUMPROC) EnumFamPrinterCallBack, (LPARAM) this);
-		}
+		::EnumFontFamiliesEx(dc.m_hDC, &lf, (FONTENUMPROC) EnumFamPrinterCallBackEx, (LPARAM) this, NULL);
+
+		// if (theApp.m_bWin4)
+		// {
+		// 	::EnumFontFamiliesEx(dc.m_hDC, &lf,
+		// 		(FONTENUMPROC) EnumFamPrinterCallBackEx, (LPARAM) this, NULL);
+		// }
+		// else
+		// {
+		// 	::EnumFontFamilies(dc.m_hDC, NULL,
+		// 		(FONTENUMPROC) EnumFamPrinterCallBack, (LPARAM) this);
+		// }
 	}
 	else
 	{
-		HDC hDC = theApp.m_dcScreen.m_hDC;
+		HDC hDC = theApp.DcScreen.m_hDC;
 		ASSERT(hDC != NULL);
-		if (theApp.m_bWin4)
-		{
-			::EnumFontFamiliesEx(hDC, &lf,
-				(FONTENUMPROC) EnumFamScreenCallBackEx, (LPARAM) this, NULL);
-		}
-		else
-		{
-			::EnumFontFamilies(hDC, NULL,
-				(FONTENUMPROC) EnumFamScreenCallBack, (LPARAM) this);
-		}
+		::EnumFontFamiliesEx(hDC, &lf, (FONTENUMPROC) EnumFamScreenCallBackEx, (LPARAM) this, NULL);
+
+		// if (theApp.m_bWin4)
+		// {
+		// 	::EnumFontFamiliesEx(hDC, &lf,
+		// 		(FONTENUMPROC) EnumFamScreenCallBackEx, (LPARAM) this, NULL);
+		// }
+		// else
+		// {
+		// 	::EnumFontFamilies(hDC, NULL,
+		// 		(FONTENUMPROC) EnumFamScreenCallBack, (LPARAM) this);
+		// }
 	}
 	// now walk through the fonts and remove (charset) from fonts with only one
 
@@ -742,7 +746,7 @@ int CLocalComboBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CComboBox::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	SendMessage(WM_SETFONT, (WPARAM)GetStockObject(theApp.m_nDefFont));
+	SendMessage(WM_SETFONT, (WPARAM)GetStockObject(theApp.DefFont));
 	return 0;
 }
 
