@@ -315,7 +315,7 @@ CRulerBar::CRulerBar(BOOL b3DExt) :
 	m_nScroll = 0;
 
 	LOGFONT lf;
-	memcpy_s(&lf, sizeof(LOGFONT), &theApp.m_lf, sizeof(LOGFONT));
+	memcpy_s(&lf, sizeof(LOGFONT), &theApp.LogFont, sizeof(LOGFONT));
 	lf.lfHeight = -8;
 	lf.lfWidth = 0;
 	VERIFY(fnt.CreateFontIndirect(&lf));
@@ -326,17 +326,18 @@ CRulerBar::CRulerBar(BOOL b3DExt) :
 	m_rightmargin.SetVertPos(9);
 
 	m_cxLeftBorder = 0;
-	if (!theApp.m_bWin4)
-		m_bDraw3DExt = FALSE;
-	else
-		m_bDraw3DExt = b3DExt;
+	//if (!theApp.m_bWin4)
+	//	m_bDraw3DExt = FALSE;
+	//else
+	//	m_bDraw3DExt = b3DExt;
+	m_bDraw3DExt = b3DExt;
 
 	m_cyTopBorder = 4;
 	m_cyBottomBorder = 6;
 
 	m_pSelItem = NULL;
 
-	m_logx = theApp.m_dcScreen.GetDeviceCaps(LOGPIXELSX);
+	m_logx = theApp.DcScreen.GetDeviceCaps(LOGPIXELSX);
 
 	CreateGDIObjects();
 }
@@ -409,10 +410,10 @@ void CRulerBar::OnUpdateCmdUI(CFrameWnd* /*pTarget*/, BOOL /*bDisableIfNoHndler*
 CSize CRulerBar::GetBaseUnits()
 {
 	ASSERT(fnt.GetSafeHandle() != NULL);
-	CFont* pFont = theApp.m_dcScreen.SelectObject(&fnt);
+	CFont* pFont = theApp.DcScreen.SelectObject(&fnt);
 	TEXTMETRIC tm;
-	VERIFY(theApp.m_dcScreen.GetTextMetrics(&tm) == TRUE);
-	theApp.m_dcScreen.SelectObject(pFont);
+	VERIFY(theApp.DcScreen.GetTextMetrics(&tm) == TRUE);
+	theApp.DcScreen.SelectObject(pFont);
 //  return CSize(tm.tmAveCharWidth, tm.tmHeight+tm.tmDescent);
 	return CSize(tm.tmAveCharWidth, tm.tmHeight);
 }
