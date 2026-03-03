@@ -65,7 +65,7 @@ CButtonDialog::CButtonDialog(LPCTSTR lpszText, LPCTSTR lpszCaption, LPCTSTR lpsz
 	m_hDlgTmp = NULL;
 
 	LOGFONT lf;
-	memcpy_s(&lf, sizeof(LOGFONT), &theApp.m_lf, sizeof(LOGFONT));
+	memcpy_s(&lf, sizeof(LOGFONT), &theApp.LogFont, sizeof(LOGFONT));
 	lf.lfHeight = -FONT_SIZE;
 	lf.lfWidth = 0;
 	lf.lfWeight = FW_NORMAL;
@@ -155,10 +155,8 @@ void CButtonDialog::AddButtons(LPCTSTR lpszButton)
 void CButtonDialog::FillInHeader(LPDLGTEMPLATE lpDlgTmp)
 {
 	USES_CONVERSION;
-	lpDlgTmp->style = DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE |
-		WS_CAPTION | WS_SYSMENU;
-	if (theApp.m_bWin4)
-		lpDlgTmp->style |= DS_CONTEXTHELP;
+	lpDlgTmp->style = DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU;
+	//if (theApp.m_bWin4) lpDlgTmp->style |= DS_CONTEXTHELP;
 	lpDlgTmp->dwExtendedStyle = 0;
 	lpDlgTmp->cdit = 0;
 	lpDlgTmp->x = 0;
@@ -180,7 +178,7 @@ void CButtonDialog::FillInHeader(LPDLGTEMPLATE lpDlgTmp)
 	pWord++;
 	lpStr = (LPWSTR) pWord;
 
-	wcscpy_s(lpStr, sizeof(DLGTEMPLATE),CT2W(theApp.m_lf.lfFaceName));
+	wcscpy_s(lpStr, sizeof(DLGTEMPLATE),CT2W(theApp.LogFont.lfFaceName));
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -210,7 +208,7 @@ INT_PTR CButtonDialog::DoModal()
 	// One null byte for menu name and one for class name = 2
 	// Caption text plus NULL = m_strCaption.GetLength()+1
 	int nSize = sizeof(DLGTEMPLATE);
-	nSize += (2 + m_strCaption.GetLength()+1+lstrlen(theApp.m_lf.lfFaceName)+1)*2 +sizeof(WORD);
+	nSize += (2 + m_strCaption.GetLength()+1+lstrlen(theApp.LogFont.lfFaceName)+1)*2 +sizeof(WORD);
 	m_hDlgTmp = GlobalAlloc(GPTR, nSize);
 	if (m_hDlgTmp == NULL)
 		return IDCANCEL;
