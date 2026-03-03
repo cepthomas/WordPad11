@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "resource.h"
+#include "pch.h"
 #include "options.h"
 
 #define WPM_BARSTATE WM_USER
@@ -24,8 +24,8 @@ const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 class CWordPadCommandLineInfo : public CCommandLineInfo
 {
 public:
-	CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
-	BOOL m_bForceTextMode;
+	// CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
+	// BOOL m_bForceTextMode;
 	virtual void ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast);
 };
 
@@ -35,32 +35,31 @@ public:
 	CWordPadApp();
 	~CWordPadApp();
 
-// Attributes
-	CWordPadCommandLineInfo cmdInfo;
-	CDC m_dcScreen;
-	LOGFONT m_lf;
-	int m_nDefFont;
+// Attributes that shouldn't be.
+	CDC DcScreen;
+	LOGFONT LogFont;
+	int DefFont;
+
+	CDocOptions OptionsText;
+	CDocOptions OptionsRTF;
+	CDocOptions OptionsIP;
+	CDocOptions OptionsNull;
+
+	// ??????????
 	CRect m_rectPageMargin;
 	CRect m_rectInitialFrame;
 	BOOL m_bMaximized;
-	BOOL m_bPromptForType;
-	BOOL m_bWin4;
 	BOOL m_bLargeIcons;
 	BOOL m_bWordSel;
-	int m_nFilterIndex;
-	DocType m_nNewDocType;
-	CDocOptions m_optionsText;
-	CDocOptions m_optionsRTF;
-	CDocOptions m_optionsIP;
-	CDocOptions m_optionsNull;
-	CList<HWND, HWND> m_listPrinterNotify;
+//	DocType m_nNewDocType;
 
+	// Mystery stuff.
+	CList<HWND, HWND> m_listPrinterNotify;
 	static int m_nOpenMsg;
 	static int m_nPrinterChangedMsg;
 
+// Attributes
 	BOOL IsDocOpen(LPCTSTR lpszFileName);
-
-// Get
 	int GetUnits() { return m_nUnits; }
 	int GetTPU() { return GetTPU(m_nUnits); }
 	int GetTPU(int n) { return m_units[n].m_nTPU; }
@@ -70,7 +69,6 @@ public:
 	CDockState& GetDockState(DocType nDocType, BOOL bPrimary = TRUE);
 	CDocOptions& GetDocOptions(DocType nDocType);
 
-// Set
 	void SetUnits(int n) { ASSERT(n >= 0 && n < m_nPrimaryNumUnits); m_nUnits = n; }
 
 // Operations
