@@ -24,8 +24,8 @@ const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 class CWordPadCommandLineInfo : public CCommandLineInfo
 {
 public:
-	// CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
-	// BOOL m_bForceTextMode;
+	 CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
+	 BOOL m_bForceTextMode;
 	virtual void ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast);
 };
 
@@ -34,6 +34,8 @@ class CWordPadApp : public CWinApp
 public:
 	CWordPadApp();
 	~CWordPadApp();
+
+	CWordPadCommandLineInfo cmdInfo;
 
 // Attributes that shouldn't be.
 	CDC DcScreen;
@@ -51,7 +53,7 @@ public:
 	BOOL m_bMaximized;
 	BOOL m_bLargeIcons;
 	BOOL m_bWordSel;
-//	DocType m_nNewDocType;
+	DocType m_nNewDocType;
 
 	// Mystery stuff.
 	CList<HWND, HWND> m_listPrinterNotify;

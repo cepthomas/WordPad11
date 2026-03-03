@@ -111,7 +111,7 @@ void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL 
 	{
 		if (lstrcmpA(pszParam, "t") == 0)
 		{
-			//m_bForceTextMode = TRUE;
+			m_bForceTextMode = TRUE;
 			return;
 		}
 	}
@@ -150,7 +150,6 @@ static CSingleDocTemplate DocTemplate(
 // You may change it if you prefer to choose a specific identifier.
 static const CLSID BASED_CODE clsid = { 0x73FDDC80L, 0xAEA9, 0x101A, { 0x98, 0xA7, 0x00, 0xAA, 0x00, 0x37, 0x49, 0x59} };
 
-CWordPadCommandLineInfo cmdInfo;
 
 // CWordPadApp initialization
 BOOL CWordPadApp::InitInstance()
