@@ -143,9 +143,6 @@
     <ClInclude Include="pageset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="penwin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -136,7 +136,6 @@
     <ClInclude Include="optionsh.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="pageset.h" />
-    <ClInclude Include="penwin.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ruler.h" />
     <ClInclude Include="srvritem.h" />
