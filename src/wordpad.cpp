@@ -85,13 +85,6 @@ CString FormatForFileDialog(int nID)
 	return str;
 }
 
-CString GetFileExt(int nID)
-{
-	CArray<CString> parts;
-	GetMultipartResource(nID, parts);
-	return parts.GetAt(1);
-}
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp
@@ -105,18 +98,18 @@ BEGIN_MESSAGE_MAP(CWordPadApp, CWinApp)
 END_MESSAGE_MAP()
 
 
-void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast)
-{
-	if (bFlag)
-	{
-		if (lstrcmpA(pszParam, "t") == 0)
-		{
-			m_bForceTextMode = TRUE;
-			return;
-		}
-	}
-	CCommandLineInfo::ParseParam(pszParam, bFlag, bLast);
-}
+// void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast)
+// {
+// 	if (bFlag)
+// 	{
+// 		if (lstrcmpA(pszParam, "t") == 0)
+// 		{
+// 			m_bForceTextMode = TRUE;
+// 			return;
+// 		}
+// 	}
+// 	CCommandLineInfo::ParseParam(pszParam, bFlag, bLast);
+// }
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp construction
@@ -296,6 +289,7 @@ BOOL CWordPadApp::IsDocOpen(LPCTSTR lpszFileName)
 	if (atom == NULL)
 		return FALSE;
 
+	// Iterate all windows looking for any WordPad.
 	EnumWindows(EnumWindowsProc, (LPARAM)&atom);
 
 	if (atom == NULL)
@@ -484,8 +478,8 @@ void CWordPadApp::PrintTwips(TCHAR* buf, int nSize, int nValue, int nDec)
 	int i;
 	for (i = 0; i <= nDec; i++)
 	{
-		pVal[i] = lval/div; //integer number
-		lval -= pVal[i]*div;
+		pVal[i] = lval / div; //integer number
+		lval -= pVal[i] * div;
 		lval *= 10;
 	}
 	i--;
@@ -532,26 +526,26 @@ int CWordPadApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
-void CWordPadApp::OnFileOpen()
+void CWordPadApp::OnFileOpen()//TODO
 {
 	CString newName;
-	DocType nType = DocType::RD_RTF; //RD_DEFAULT;
+	DocType nType = DocType::RD_RTF;
 
-	if (PromptForFileName(newName));// , AFX_IDS_OPENFILE, OFN_HIDEREADONLY | OFN_FILEMUSTEXIST, TRUE, & nType))
+	if (PromptForFileName(newName))
 	{
 		OpenDocumentFile(newName);
 	}
 }
 
-void CWordPadApp::OnFileNew()
+void CWordPadApp::OnFileNew()//TODO
 {
 	// Assume default for now.
-	m_nNewDocType = DocType::RD_RTF; // RD_DEFAULT;
+	m_nNewDocType = DocType::RD_RTF;
 	DocTemplate.OpenDocumentFile(NULL);
 }
 
-// Prompt for file name - used for open and save as. TODO put somewhere else?
-BOOL CWordPadApp::PromptForFileName(CString& fileName)
+// Prompt for file name - used for open and save as.
+BOOL CWordPadApp::PromptForFileName(CString& fileName)// TODO put somewhere else?
 {
 	BOOL ret = FALSE;
 

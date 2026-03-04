@@ -21,13 +21,13 @@ const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp:
 
-class CWordPadCommandLineInfo : public CCommandLineInfo
-{
-public:
-	 CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
-	 BOOL m_bForceTextMode;
-	virtual void ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast);
-};
+// class CWordPadCommandLineInfo : public CCommandLineInfo
+// {
+// public:
+// 	CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
+// 	BOOL m_bForceTextMode;
+// 	virtual void ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast);
+// };
 
 class CWordPadApp : public CWinApp
 {
@@ -35,27 +35,24 @@ public:
 	CWordPadApp();
 	~CWordPadApp();
 
-	CWordPadCommandLineInfo cmdInfo;
+	// CWordPadCommandLineInfo cmdInfo;
+	CCommandLineInfo cmdInfo;
 
-// Attributes that shouldn't be.
+// Attributes (that should have accessors)
 	CDC DcScreen;
 	LOGFONT LogFont;
 	int DefFont;
-
 	CDocOptions OptionsText;
 	CDocOptions OptionsRTF;
 	CDocOptions OptionsIP;
 	CDocOptions OptionsNull;
 
-	// ??????????
 	CRect m_rectPageMargin;
 	CRect m_rectInitialFrame;
 	BOOL m_bMaximized;
 	BOOL m_bLargeIcons;
 	BOOL m_bWordSel;
 	DocType m_nNewDocType;
-
-	// Mystery stuff.
 	CList<HWND, HWND> m_listPrinterNotify;
 	static int m_nOpenMsg;
 	static int m_nPrinterChangedMsg;
@@ -63,6 +60,7 @@ public:
 // Attributes
 	BOOL IsDocOpen(LPCTSTR lpszFileName);
 	int GetUnits() { return m_nUnits; }
+	void SetUnits(int n) { ASSERT(n >= 0 && n < m_nPrimaryNumUnits); m_nUnits = n; }
 	int GetTPU() { return GetTPU(m_nUnits); }
 	int GetTPU(int n) { return m_units[n].m_nTPU; }
 	LPCTSTR GetAbbrev() { return m_units[m_nUnits].m_strAbbrev; }
@@ -71,7 +69,6 @@ public:
 	CDockState& GetDockState(DocType nDocType, BOOL bPrimary = TRUE);
 	CDocOptions& GetDocOptions(DocType nDocType);
 
-	void SetUnits(int n) { ASSERT(n >= 0 && n < m_nPrimaryNumUnits); m_nUnits = n; }
 
 // Operations
 #ifdef _REGISTER_APP
@@ -116,12 +113,9 @@ private:
 	static const int m_nPrimaryNumUnits;
 	static const int m_nNumUnits;
 	static CUnit m_units[7];
-
-	//CList<CString> GetDocTypeInfo(int nID);
 };
 
 /////////////////////////////////////////////////////////////////////////////
 
-// This is not the right way to do this!
 extern CWordPadApp theApp;
 //inline CWordPadApp* GetWordPadApp() { return (CWordPadApp*)AfxGetApp(); }

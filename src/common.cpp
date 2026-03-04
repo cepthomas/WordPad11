@@ -13,6 +13,13 @@ void GetMultipartResource(int nID, CArray<CString>& res)
 		res.Add(strSub);
 }
 
+CString GetFileExt(int nID)
+{
+	CArray<CString> parts;
+	GetMultipartResource(nID, parts);
+	return parts.GetAt(1);
+}
+
 DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 {
 	DocType ret = DocType::RD_INVALID;
@@ -25,7 +32,7 @@ DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 		{
 			CString ext = CString(pszPathName).Right(4);
 
-			if (lstrcmpi(ext, _T(".rtf")) == 0) // TODO get from resources
+			if (lstrcmpi(ext, GetFileExt(IDS_RTF_DOC)) == 0)
 			{
 				ret = DocType::RD_RTF;
 			}

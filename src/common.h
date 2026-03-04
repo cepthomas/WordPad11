@@ -15,7 +15,6 @@ enum class DocType
     RD_RTF,
     RD_TEXT,
     RD_EMBEDDED,
-    //RD_DEFAULT = RD_RTF,
     RD_INVALID = -1  // bad file/name/etc
 };
 
@@ -28,13 +27,13 @@ public:
 struct CCharFormat : public CHARFORMAT2
 {
     CCharFormat() { cbSize = sizeof(CHARFORMAT2); }
-    BOOL operator == (CCharFormat& cf);
+    BOOL operator==(CCharFormat& cf);
 };
 
 struct CParaFormat : public PARAFORMAT2
 {
     CParaFormat() {cbSize = sizeof(_paraformat);}
-    BOOL operator == (PARAFORMAT2& pf);
+    BOOL operator==(PARAFORMAT2& pf);
 };
 
 struct CHARHDR : public tagNMHDR
@@ -46,5 +45,5 @@ struct CHARHDR : public tagNMHDR
 ///// Utility functions. /////
 
 void GetMultipartResource(int nID, CArray<CString>& res);
-
+CString GetFileExt(int nID);
 DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);

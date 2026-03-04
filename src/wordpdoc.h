@@ -72,7 +72,6 @@ protected:
 	//{{AFX_MSG(CWordPadDoc)
 	afx_msg void OnViewOptions();
 	afx_msg void OnUpdateOleVerbPopup(CCmdUI* pCmdUI);
-	//afx_msg void OnFileSendMail();
 	afx_msg void OnUpdateIfEmbedded(CCmdUI* pCmdUI);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()

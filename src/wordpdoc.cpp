@@ -33,7 +33,6 @@ BEGIN_MESSAGE_MAP(CWordPadDoc, CRichEditDoc)
 	//{{AFX_MSG_MAP(CWordPadDoc)
 	ON_COMMAND(ID_VIEW_OPTIONS, OnViewOptions)
 	ON_UPDATE_COMMAND_UI(ID_OLE_VERB_POPUP, OnUpdateOleVerbPopup)
-	ON_COMMAND(ID_FILE_SEND_MAIL, OnFileSendMail)
 	ON_UPDATE_COMMAND_UI(ID_FILE_NEW, OnUpdateIfEmbedded)
 	ON_UPDATE_COMMAND_UI(ID_FILE_OPEN, OnUpdateIfEmbedded)
 	ON_UPDATE_COMMAND_UI(ID_FILE_SAVE, OnUpdateIfEmbedded)
@@ -41,7 +40,6 @@ BEGIN_MESSAGE_MAP(CWordPadDoc, CRichEditDoc)
 	ON_UPDATE_COMMAND_UI(ID_FILE_PRINT_DIRECT, OnUpdateIfEmbedded)
 	ON_UPDATE_COMMAND_UI(ID_FILE_PRINT_PREVIEW, OnUpdateIfEmbedded)
 	//}}AFX_MSG_MAP
-	ON_UPDATE_COMMAND_UI(ID_FILE_SEND_MAIL, OnUpdateFileSendMail)
 	ON_COMMAND(ID_OLE_EDIT_LINKS, CRichEditDoc::OnEditLinks)
 	ON_UPDATE_COMMAND_UI(ID_OLE_VERB_FIRST, CRichEditDoc::OnUpdateObjectVerbMenu)
 	ON_UPDATE_COMMAND_UI(ID_OLE_EDIT_CONVERT, CRichEditDoc::OnUpdateObjectVerbMenu)
@@ -57,7 +55,7 @@ CWordPadDoc::CWordPadDoc()
 	m_nNewDocType = DocType::RD_INVALID;
 }
 
-BOOL CWordPadDoc::OnNewDocument()
+BOOL CWordPadDoc::OnNewDocument()//TODO
 {
 	if (!CRichEditDoc::OnNewDocument())
 		return FALSE;
@@ -122,7 +120,7 @@ void CWordPadDoc::ReportSaveLoadException(LPCTSTR lpszPathName, CException* e, B
 	return;
 }
 
-BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
+BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)//TODO
 {
 	if (m_lpRootStg != NULL) // we are embedded
 	{
@@ -131,11 +129,11 @@ BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	}
 	else
 	{
-		if (theApp.cmdInfo.m_bForceTextMode)
-		{
-			m_nNewDocType = DocType::RD_TEXT;
-		}
-		else
+		//if (theApp.cmdInfo.m_bForceTextMode)
+		//{
+		//	m_nNewDocType = DocType::RD_TEXT;
+		//}
+		//else
 		{
 			CFileException fe;
 			m_nNewDocType = GetDocTypeFromName(lpszPathName, fe);
@@ -256,7 +254,7 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace) // TODO if type to 
 		}
 
 		DocType nDocType = m_nDocType;
-		if (!theApp.PromptForFileName(newName));
+		if (!theApp.PromptForFileName(newName))
 		{
 			SetDocType(nOrigDocType, TRUE);
 			return FALSE; // don't even try to save
@@ -353,7 +351,7 @@ CLSID CWordPadDoc::GetClassID()
 	return (m_pFactory == NULL) ? CLSID_NULL : m_pFactory->GetClassID();
 }
 
-void CWordPadDoc::SetDocType(DocType nNewDocType, BOOL bNoOptionChange)
+void CWordPadDoc::SetDocType(DocType nNewDocType, BOOL bNoOptionChange)//TODO
 {
 	//ASSERT(nNewDocType != -1);
 	if (nNewDocType == m_nDocType)
@@ -413,12 +411,6 @@ CFile* CWordPadDoc::GetFile(LPCTSTR pszPathName, UINT nOpenFlags, CFileException
 		0 : // can't estimate this
 		(DWORD)pFile->GetLength();
 
-	//was:
-	//if (nOpenFlags & (CFile::modeWrite | CFile::modeReadWrite))
-	//	pFile->m_dwLength = 0; // can't estimate this
-	//else
-	//	pFile->m_dwLength = (DWORD)pFile->GetLength();
-
 	return pFile;
 }
 
@@ -462,7 +454,7 @@ void CWordPadDoc::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadDoc commands
 
-DocType CWordPadDoc::MapType(DocType nType)
+DocType CWordPadDoc::MapType(DocType nType)//TODO
 {
 	if (!IsInPlaceActive() && nType == DocType::RD_EMBEDDED)
 		nType = DocType::RD_RTF;
@@ -473,17 +465,17 @@ DocType CWordPadDoc::MapType(DocType nType)
 void CWordPadDoc::OnViewOptions()
 {
 	DocType nType = MapType(m_nDocType);
-	int nFirstPage = 3;
+	int nFirstPage = 1;
 	if (nType == DocType::RD_TEXT)
 		nFirstPage = 1;
 	else if (nType == DocType::RD_RTF)
 		nFirstPage = 2;
 	else if (nType == DocType::RD_EMBEDDED)
-		nFirstPage = 5;
+		nFirstPage = 3;
 
 	SaveState(nType);
 
-	COptionSheet sheet(IDS_OPTIONS, NULL, nFirstPage);
+	COptionSheet sheet(IDS_OPTIONS, NULL, nFirstPage);//TODO which page???
 
 	if (sheet.DoModal() == IDOK)
 	{
@@ -562,20 +554,6 @@ void CWordPadDoc::PreCloseFrame(CFrameWnd* pFrameArg)
 	CRichEditDoc::PreCloseFrame(pFrameArg);
 	SaveState(m_nDocType);
 }
-
-//void CWordPadDoc::OnFileSendMail()
-//{
-//	if (m_strTitle.Find('.') == -1)
-//	{
-//		// add the extension because the default extension will be wrong
-//		CString strOldTitle = m_strTitle;
-//		m_strTitle += GetExtFromType(m_nDocType);
-//		CRichEditDoc::OnFileSendMail();
-//		m_strTitle = strOldTitle;
-//	}
-//	else
-//		CRichEditDoc::OnFileSendMail();
-//}
 
 void CWordPadDoc::OnUpdateIfEmbedded(CCmdUI* pCmdUI)
 {
