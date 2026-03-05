@@ -28,13 +28,6 @@ protected: // create from serialization only
 // Attributes
 	CLSID GetClassID();
 	
-private:
-	DocType m_nDocType;
-	DocType m_nNewDocType;
-	void SetDocType(DocType nDocType, BOOL bNoOptionChange = FALSE);
-	CWordPadView* GetView();
-	LPCTSTR GetSection();
-
 // Operations
 public:
 	void SaveState(DocType nType);
@@ -67,6 +60,15 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
+
+private:
+	// Current doc type.
+	DocType m_nDocType;
+	DocType m_nNewDocType;
+	void SetDocType(DocType nDocType, BOOL bNoOptionChange = FALSE);
+	CWordPadView* GetView();
+	LPCTSTR GetSection();
+
 
 // Generated message map functions
 protected:

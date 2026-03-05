@@ -14,16 +14,6 @@ void SplitStringResource(int nID, CArray<CString>& res)
 		res.Add(strSub);
 		i++;
 	}
-
-
-	//CString sInput("one+two+three");
-	//CString sToken("");
-	//int i = 0; // substring index to extract
-	//while (AfxExtractSubString(sToken, sInput, i, '+'))
-	//{
-	//	res.Add(sToken);
-	//	i++;
-	//}
 }
 
 CString GetFileExt(int nID)
@@ -37,17 +27,13 @@ DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe)
 {
 	DocType ret = DocType::RD_INVALID;
 
-	CFileStatus status;
-	if (CFile::GetStatus(pszPathName, status))
-	{
-		CString sfn = CString(pszPathName);
-		
-		CString extRtf = CString(".") + GetFileExt(IDS_RTF_DOC);
-		CString extText = CString(".") + GetFileExt(IDS_TEXT_DOC);
+	CString sfn = CString(pszPathName);
 
-		if (sfn.Find(extRtf) > 0) { ret = DocType::RD_RTF; }
-		if (sfn.Find(extText) > 0) { ret = DocType::RD_TEXT; }
-	}
+	CString extRtf = CString(".") + GetFileExt(IDS_RTF_DOC);
+	CString extText = CString(".") + GetFileExt(IDS_TEXT_DOC);
+
+	if (sfn.Find(extRtf) > 0) { ret = DocType::RD_RTF; }
+	if (sfn.Find(extText) > 0) { ret = DocType::RD_TEXT; }
 
 	return ret;
 }

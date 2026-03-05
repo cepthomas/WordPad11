@@ -88,19 +88,6 @@ BEGIN_MESSAGE_MAP(CWordPadApp, CWinApp)
 END_MESSAGE_MAP()
 
 
-// void CWordPadCommandLineInfo::ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast)
-// {
-// 	if (bFlag)
-// 	{
-// 		if (lstrcmpA(pszParam, "t") == 0)
-// 		{
-// 			m_bForceTextMode = TRUE;
-// 			return;
-// 		}
-// 	}
-// 	CCommandLineInfo::ParseParam(pszParam, bFlag, bLast);
-// }
-
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp construction
 

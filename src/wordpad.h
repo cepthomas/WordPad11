@@ -21,21 +21,12 @@ const TCHAR WORDPAD_CLASS[] = _T("WordPadClass");
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp:
 
-// class CWordPadCommandLineInfo : public CCommandLineInfo
-// {
-// public:
-// 	CWordPadCommandLineInfo() { m_bForceTextMode = FALSE; }
-// 	BOOL m_bForceTextMode;
-// 	virtual void ParseParam(const char* pszParam, BOOL bFlag, BOOL bLast);
-// };
-
 class CWordPadApp : public CWinApp
 {
 public:
 	CWordPadApp();
 	~CWordPadApp();
 
-	// CWordPadCommandLineInfo cmdInfo;
 	CCommandLineInfo cmdInfo;
 
 // Attributes (should have accessors)

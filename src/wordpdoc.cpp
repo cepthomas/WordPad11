@@ -63,7 +63,7 @@ BOOL CWordPadDoc::OnNewDocument()
 	// Default type is always rtf.
 	DocType nDocType = (IsEmbedded()) ? DocType::RD_EMBEDDED : DocType::RD_RTF;
 
-	GetView()->SetDefaultFont(nDocType == DocType::RD_TEXT); // TODO should be set by SetDocType()???
+	//GetView()->SetDefaultFont(nDocType == DocType::RD_TEXT); // moved to SetDocType()
 	SetDocType(nDocType);
 
 	return TRUE;
@@ -122,26 +122,14 @@ void CWordPadDoc::ReportSaveLoadException(LPCTSTR lpszPathName, CException* e, B
 
 BOOL CWordPadDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
-	if (m_lpRootStg != NULL) // we are embedded
+	CFileException fe;
+	m_nNewDocType = GetDocTypeFromName(lpszPathName, fe);
+	if (m_nNewDocType == DocType::RD_INVALID)
 	{
-		// we really want to use the converter on this storage
-		m_nNewDocType = DocType::RD_EMBEDDED;
-	}
-	else
-	{
-		CFileException fe;
-		m_nNewDocType = GetDocTypeFromName(lpszPathName, fe);
-		if (m_nNewDocType == DocType::RD_INVALID)
-		{
-			// Assume/try text.
-			m_nNewDocType = DocType::RD_TEXT;
-			//ReportSaveLoadException(lpszPathName, &fe, FALSE, AFX_IDP_FAILED_TO_OPEN_DOC);
-			//	AfxMessageBox(str, MB_OK|MB_ICONINFORMATION);
-			//return FALSE;
-		}
+		// Assume/try text.
+		m_nNewDocType = DocType::RD_TEXT;
 	}
 
-	//SetDocType(nNewDocType);
 	if (!CRichEditDoc::OnOpenDocument(lpszPathName))
 		return FALSE;
 
@@ -159,97 +147,34 @@ void CWordPadDoc::Serialize(CArchive& ar)
 	pFilter->EnableBusyDialog(TRUE);
 }
 
-BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace) // TODO if type to save is txt and doc has rtf content, do something - below GetView()->IsFormatText()
+BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace)
 {
 	// Save the document data to a file
 	// pszPathName = path name where to save document file
 	// if pszPathName is empty/NULL then the user will be prompted (SaveAs)
-	// note: pszPathName can be different than 'm_strPathName'
-	// if 'bReplace' is TRUE will change file name if successful (SaveAs)
-	// if 'bReplace' is FALSE will not change path name (SaveCopyAs)
+
 	CString newName = pszPathName;
 	DocType nOrigDocType = m_nDocType;  //saved in case of SaveCopyAs or failure
-
-	//  newName     bWrite  type    result
-	//  empty       TRUE    -       SaveAs dialog
-	//  empty       FALSE   -       SaveAs dialog
-	//  notempty    TRUE    -       nothing
-	//  notempty    FALSE   W6      warn (change to wordpad, save as, cancel)
-	//  notempty    FALSE   other   warn (save as, cancel)
-
 	BOOL bModified = IsModified();
-
-	BOOL bSaveAs = FALSE;
-
-	if (newName.IsEmpty())
-	{
-		bSaveAs = TRUE;
-	}
-	//else if (!doctypes[m_nDocType].bWrite)
-	//{
-	//	if (AfxMessageBox(IDS_SAVE_UNSUPPORTED, MB_YESNO | MB_ICONEXCLAMATION) != IDYES)
-	//	{
-	//		return FALSE;
-	//	}
-	//	else
-	//	{
-	//		bSaveAs = TRUE;
-	//	}
-	//}
-
-	//if (m_lpRootStg == NULL && m_nDocType == DocType::RD_TEXT && !GetView()->IsFormatText())
-	//{
-	//	// formatting changed in plain old text file
-	//	CString str;
-	//	AfxFormatString1(str, IDS_SAVE_FORMAT_TEXT, GetTitle());
-	//	INT_PTR nRes = CButtonDialog::DisplayMessageBox(str,
-	//		MAKEINTRESOURCE(AFX_IDS_APP_TITLE),
-	//		MAKEINTRESOURCE(IDS_TF_BUTTONS), MB_ICONEXCLAMATION, 0, 3);
-	//	if (nRes == 3)
-	//	{
-	//		return FALSE;
-	//	}
-
-	//	DocType nDocType = (nRes == 0) ? DocType::RD_DEFAULT: (nRes == 1) ? DocType::RD_RTF : DocType::RD_TEXT;
-
-	//	if (m_nDocType == DocType::RD_TEXT && nDocType != DocType::RD_TEXT)
-	//	{
-	//		SetDocType(nDocType, TRUE);
-	//	}
-
-	//	if (nDocType != DocType::RD_TEXT)
-	//	{
-	//		bSaveAs = TRUE;
-	//	}
-	//}
+	BOOL bSaveAs = newName.IsEmpty();
 
 	GetView()->GetParentFrame()->RecalcLayout();
 
 	if (bSaveAs)
 	{
+		// Default to current name.
 		newName = m_strPathName;
 
-		if (bReplace && newName.IsEmpty())
+		if (!PromptForFileName(newName)) // cancel
 		{
-			newName = m_strTitle;
-			int iBad = newName.FindOneOf(_T(" #%;/\\"));    // dubious filename
-			if (iBad != -1)
-				newName.ReleaseBuffer(iBad);
-
-			//// append the default suffix if there is one
-			//newName += GetExtFromType(m_nDocType);
-		}
-
-		DocType nDocType = m_nDocType;
-		if (!PromptForFileName(newName))
-		{
-			SetDocType(nOrigDocType, TRUE);
 			return FALSE; // don't even try to save
 		}
+
+		CFileException fe;
+		DocType nDocType = GetDocTypeFromName(newName, fe);
 		SetDocType(nDocType, TRUE);
 	}
 
-	BeginWaitCursor();
 	if (!OnSaveDocument(newName))
 	{
 		if (pszPathName == NULL)
@@ -259,25 +184,12 @@ BOOL CWordPadDoc::DoSave(LPCTSTR pszPathName, BOOL bReplace) // TODO if type to 
 		}
 		// restore orginal document type
 		SetDocType(nOrigDocType, TRUE);
-		EndWaitCursor();
 		return FALSE;
 	}
 
-	EndWaitCursor();
-	if (bReplace)
-	{
-		DocType nType = m_nDocType;
-		SetDocType(nOrigDocType, TRUE);
-		SetDocType(nType);
-		// Reset the title and change the document name
-		SetPathName(newName, TRUE);
-		ASSERT(m_strPathName == newName);
-	}
-	else // SaveCopyAs
-	{
-		SetDocType(nOrigDocType, TRUE);
-		SetModifiedFlag(bModified);
-	}
+	// Reset the title and change the document name
+	SetPathName(newName, TRUE);
+
 	return TRUE;
 }
 
@@ -338,7 +250,7 @@ CLSID CWordPadDoc::GetClassID()
 	return (m_pFactory == NULL) ? CLSID_NULL : m_pFactory->GetClassID();
 }
 
-void CWordPadDoc::SetDocType(DocType nNewDocType, BOOL bNoOptionChange)//TODO
+void CWordPadDoc::SetDocType(DocType nNewDocType, BOOL bNoOptionChange)
 {
 	//ASSERT(nNewDocType != -1);
 	if (nNewDocType == m_nDocType)
@@ -347,6 +259,7 @@ void CWordPadDoc::SetDocType(DocType nNewDocType, BOOL bNoOptionChange)//TODO
 	}
 
 	m_bRTF = nNewDocType != DocType::RD_TEXT;
+	GetView()->SetDefaultFont(nNewDocType == DocType::RD_TEXT); // move to SetDocType()???
 
 	if (bNoOptionChange)
 	{
@@ -441,7 +354,7 @@ void CWordPadDoc::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadDoc commands
 
-DocType CWordPadDoc::MapType(DocType nType)//TODO
+DocType CWordPadDoc::MapType(DocType nType)
 {
 	if (!IsInPlaceActive() && nType == DocType::RD_EMBEDDED)
 		nType = DocType::RD_RTF;
@@ -452,7 +365,8 @@ DocType CWordPadDoc::MapType(DocType nType)//TODO
 void CWordPadDoc::OnViewOptions()
 {
 	DocType nType = MapType(m_nDocType);
-	int nFirstPage = 1;
+	int nFirstPage = 0;
+
 	if (nType == DocType::RD_TEXT)
 		nFirstPage = 1;
 	else if (nType == DocType::RD_RTF)
@@ -462,7 +376,7 @@ void CWordPadDoc::OnViewOptions()
 
 	SaveState(nType);
 
-	COptionSheet sheet(IDS_OPTIONS, NULL, nFirstPage);//TODO which page???
+	COptionSheet sheet(IDS_OPTIONS, NULL, nFirstPage);
 
 	if (sheet.DoModal() == IDOK)
 	{

@@ -48,5 +48,5 @@ struct CHARHDR : public tagNMHDR
 void SplitStringResource(int nID, CArray<CString>& res);
 CString GetFileExt(int nID);
 DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
-// Prompt for file name - open if fileName is empty, else save as.
+// Prompt for file name - open if fileName is empty, else save as. Returns success.
 BOOL PromptForFileName(CString& fileName);
