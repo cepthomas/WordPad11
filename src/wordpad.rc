@@ -725,9 +725,9 @@ END
 STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "WordPad\n\nWordPad\n\n\nWordPad.Document\nWordPad.Document"
-    IDS_TEXT_DOC            "Text File\n*.txt"
-    IDS_RTF_DOC             "RTF File\n*.rtf"
-    IDS_ALL_DOC             "All Files\n*.*"
+    IDS_TEXT_DOC            "Text File\ntxt"
+    IDS_RTF_DOC             "RTF File\nrtf"
+    IDS_ALL_DOC             "All Files\n*"
     IDS_FILE_EXISTS         "%1 already exists.\nDo you want to replace it?"
     IDS_CLIP_TEXT           "Unformatted Text\ntext without any formatting"
 END

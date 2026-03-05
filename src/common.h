@@ -44,6 +44,9 @@ struct CHARHDR : public tagNMHDR
 
 ///// Utility functions. /////
 
-void GetMultipartResource(int nID, CArray<CString>& res);
+// Split a resource string by \n.
+void SplitStringResource(int nID, CArray<CString>& res);
 CString GetFileExt(int nID);
 DocType GetDocTypeFromName(LPCTSTR pszPathName, CFileException& fe);
+// Prompt for file name - open if fileName is empty, else save as.
+BOOL PromptForFileName(CString& fileName);

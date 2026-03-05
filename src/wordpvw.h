@@ -47,7 +47,7 @@ public:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CWordPadView)
-	protected:
+protected:
 	virtual void CalcWindowRect(LPRECT lpClientRect, UINT nAdjustType = adjustBorder);
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual void OnPrint(CDC* pDC, CPrintInfo* pInfo);

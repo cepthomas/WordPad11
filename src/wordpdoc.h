@@ -26,12 +26,13 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CWordPadDoc)
 
 // Attributes
-public:
+	CLSID GetClassID();
+	
+private:
 	DocType m_nDocType;
 	DocType m_nNewDocType;
 	void SetDocType(DocType nDocType, BOOL bNoOptionChange = FALSE);
 	CWordPadView* GetView();
-	CLSID GetClassID();
 	LPCTSTR GetSection();
 
 // Operations

@@ -75,16 +75,6 @@ static UINT DoRegistry(LPVOID lpv)
 }
 #endif
 
-// Utilities.
-CString FormatForFileDialog(int nID)
-{
-	CArray<CString> parts;
-	GetMultipartResource(nID, parts);
-	CString str;
-	str.Format(_T("%s (%s)|%s|"), parts.GetAt(0), parts.GetAt(1), parts.GetAt(1));
-	return str;
-}
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CWordPadApp
@@ -526,63 +516,19 @@ int CWordPadApp::ExitInstance()
 	return CWinApp::ExitInstance();
 }
 
-void CWordPadApp::OnFileOpen()//TODO
+void CWordPadApp::OnFileOpen()
 {
-	CString newName;
-	DocType nType = DocType::RD_RTF;
-
+	CString newName("");
 	if (PromptForFileName(newName))
 	{
 		OpenDocumentFile(newName);
 	}
 }
 
-void CWordPadApp::OnFileNew()//TODO
+void CWordPadApp::OnFileNew()
 {
-	// Assume default for now.
-	m_nNewDocType = DocType::RD_RTF;
+	// Assume empty default for now.
 	DocTemplate.OpenDocumentFile(NULL);
-}
-
-// Prompt for file name - used for open and save as.
-BOOL CWordPadApp::PromptForFileName(CString& fileName)// TODO put somewhere else?
-{
-	BOOL ret = FALSE;
-
-	if (fileName.GetLength() == 0)
-	{
-		CString title;
-		title.LoadString(AFX_IDS_OPENFILE);
-		CString filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC) + FormatForFileDialog(IDS_ALL_DOC);
-		CFileDialog dlg(TRUE, GetFileExt(IDS_RTF_DOC), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
-		dlg.m_ofn.lpstrTitle = title;
-
-		// Display the dialog box
-		if (dlg.DoModal() == IDOK)
-		{
-			// Get the full path of the selected file
-			fileName = dlg.GetPathName();
-			ret = TRUE;
-		}
-	}
-	else // save as
-	{
-		CString title;
-		title.LoadString(AFX_IDS_SAVEFILE);
-		CString filter = FormatForFileDialog(IDS_RTF_DOC) + FormatForFileDialog(IDS_TEXT_DOC);
-		CFileDialog dlg(FALSE, GetFileExt(IDS_RTF_DOC), fileName, OFN_PATHMUSTEXIST | OFN_HIDEREADONLY, filter, NULL);
-		dlg.m_ofn.lpstrTitle = title;
-
-		// Display the dialog box
-		if (dlg.DoModal() == IDOK)
-		{
-			// Get the full path of the selected file
-			fileName = dlg.GetPathName();
-			ret = TRUE;
-		}
-	}
-
-	return ret;
 }
 
 BOOL CWordPadApp::OnDDECommand(LPTSTR lpszCommand)

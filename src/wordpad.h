@@ -38,7 +38,7 @@ public:
 	// CWordPadCommandLineInfo cmdInfo;
 	CCommandLineInfo cmdInfo;
 
-// Attributes (that should have accessors)
+// Attributes (should have accessors)
 	CDC DcScreen;
 	LOGFONT LogFont;
 	int DefFont;
@@ -52,7 +52,6 @@ public:
 	BOOL m_bMaximized;
 	BOOL m_bLargeIcons;
 	BOOL m_bWordSel;
-	DocType m_nNewDocType;
 	CList<HWND, HWND> m_listPrinterNotify;
 	static int m_nOpenMsg;
 	static int m_nPrinterChangedMsg;
@@ -78,7 +77,6 @@ public:
 
 	static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam);
 	void NotifyPrinterChanged(BOOL bUpdatePrinterSelection = FALSE);
-	BOOL PromptForFileName(CString& fileName);
 	BOOL ParseMeasurement(TCHAR* buf, int& lVal);
 	void PrintTwips(TCHAR* buf, int nSize, int nValue, int nDecimal);
 	void SaveOptions();
@@ -98,8 +96,9 @@ public:
 	//}}AFX_VIRTUAL
 
 // Implementation
-	COleTemplateServer m_server;
+private:
 	// Server object for document creation
+	COleTemplateServer m_server;
 
 	//{{AFX_MSG(CWordPadApp)
 	afx_msg void OnAppAbout();
@@ -108,7 +107,6 @@ public:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
-private:
 	int m_nUnits;
 	static const int m_nPrimaryNumUnits;
 	static const int m_nNumUnits;

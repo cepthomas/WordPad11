@@ -141,7 +141,8 @@ END_MESSAGE_MAP()
 
 CWordPadView::CWordPadView()
 {
-	m_bSyncCharFormat = m_bSyncParaFormat = TRUE;
+	m_bSyncCharFormat = TRUE;
+	m_bSyncParaFormat = TRUE;
 	m_uTimerID = 0;
 	m_bDelayUpdateItems = FALSE;
 	m_bOnBar = FALSE;
@@ -248,23 +249,26 @@ void CWordPadView::DeleteContents()
 	ASSERT_VALID(this);
 	ASSERT(m_hWnd != NULL);
 	CRichEditView::DeleteContents();
-	SetDefaultFont(GetDocument()->m_nNewDocType == DocType::RD_TEXT);
+	//SetDefaultFont(GetDocument()->m_nNewDocType == DocType::RD_TEXT);
+	SetDefaultFont(FALSE); // RD_RTF
 }
 
 void CWordPadView::SetDefaultFont(BOOL bText)
 {
 	ASSERT_VALID(this);
 	ASSERT(m_hWnd != NULL);
-	m_bSyncCharFormat = m_bSyncParaFormat = TRUE;
+	m_bSyncCharFormat = TRUE;
+	m_bSyncParaFormat = TRUE;
 	CHARFORMAT* pCharFormat = bText ? &m_defTextCharFormat : &m_defCharFormat;
+
 	// set the default character format -- the FALSE makes it the default
-	GetRichEditCtrl().SetSel(0,-1);
+	GetRichEditCtrl().SetSel(0, -1);
 	GetRichEditCtrl().SetDefaultCharFormat(*pCharFormat);
 	GetRichEditCtrl().SetSelectionCharFormat(*pCharFormat);
 
 	GetRichEditCtrl().SetParaFormat(m_defParaFormat);
 
-	GetRichEditCtrl().SetSel(0,0);
+	GetRichEditCtrl().SetSel(0, 0);
 	GetRichEditCtrl().EmptyUndoBuffer();
 	GetRichEditCtrl().SetModify(FALSE);
 	ASSERT_VALID(this);
@@ -588,8 +592,7 @@ HRESULT CWordPadView::GetClipboardData(CHARRANGE* lpchrg, DWORD /*reco*/, LPDATA
 {
 	CHARRANGE& cr = *lpchrg;
 
-	if ((cr.cpMax - cr.cpMin == 1) &&
-		GetRichEditCtrl().GetSelectionType() == SEL_OBJECT)
+	if ((cr.cpMax - cr.cpMin == 1) && GetRichEditCtrl().GetSelectionType() == SEL_OBJECT)
 	{
 		return E_NOTIMPL;
 	}
@@ -625,9 +628,7 @@ HRESULT CWordPadView::GetClipboardData(CHARRANGE* lpchrg, DWORD /*reco*/, LPDATA
 	return S_OK;
 }
 
-HRESULT CWordPadView::QueryAcceptData(LPDATAOBJECT lpdataobj,
-	CLIPFORMAT* lpcfFormat, DWORD reco, BOOL bReally,
-	HGLOBAL hMetaPict)
+HRESULT CWordPadView::QueryAcceptData(LPDATAOBJECT lpdataobj, CLIPFORMAT* lpcfFormat, DWORD reco, BOOL bReally, HGLOBAL hMetaPict)
 {
 	if (bReally && *lpcfFormat == 0 && (m_nPasteType == 0))
 	{
@@ -642,8 +643,7 @@ HRESULT CWordPadView::QueryAcceptData(LPDATAOBJECT lpdataobj,
 			}
 		}
 	}
-	return CRichEditView::QueryAcceptData(lpdataobj, lpcfFormat, reco, bReally,
-		hMetaPict);
+	return CRichEditView::QueryAcceptData(lpdataobj, lpcfFormat, reco, bReally, hMetaPict);
 }
 
 BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
@@ -660,8 +660,7 @@ BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
 		return FALSE;
 	ENSURE(lpLockBytes != NULL);
 
-	HRESULT hr = ::StgCreateDocfileOnILockBytes(lpLockBytes,
-		STGM_SHARE_EXCLUSIVE|STGM_CREATE|STGM_READWRITE, 0, &stgMedium.pstg);
+	HRESULT hr = ::StgCreateDocfileOnILockBytes(lpLockBytes, STGM_SHARE_EXCLUSIVE|STGM_CREATE|STGM_READWRITE, 0, &stgMedium.pstg);
 	lpLockBytes->Release(); //storage addref'd
 	if (FAILED(hr))
 		return FALSE;
@@ -679,10 +678,8 @@ BOOL CWordPadView::PasteNative(LPDATAOBJECT lpdataobj)
 		CFileException fe;
 		if (file.OpenStream(stgMedium.pstg, _T("Contents"), CFile::modeReadWrite|CFile::shareExclusive, &fe))
 		{
-
 			// load it with CArchive (loads from Contents stream)
-			CArchive loadArchive(&file, CArchive::load |
-				CArchive::bNoFlushOnDelete);
+			CArchive loadArchive(&file, CArchive::load | CArchive::bNoFlushOnDelete);
 			Stream(loadArchive, TRUE); //stream in selection
 			bRes = TRUE; // don't let richedit do anything
 		}
@@ -722,7 +719,9 @@ int CWordPadView::OnMouseActivate(CWnd* pWnd, UINT nHitTest, UINT message)
 		return MA_ACTIVATEANDEAT;
 	}
 	else
+	{
 		return CRichEditView::OnMouseActivate(pWnd, nHitTest, message);
+	}
 }
 
 LONG_PTR CWordPadView::OnPrinterChangedMsg(UINT_PTR, LONG_PTR)
@@ -759,7 +758,7 @@ void CWordPadView::OnPaletteChanged(CWnd* pFocusWnd)
 
 static BOOL FindQueryPalette(HWND hWndParent)
 {
-	//Fix to send the WM_QUERYNEWPALETTE to a window that is interested
+	// Fix to send the WM_QUERYNEWPALETTE to a window that is interested
 	HWND hWnd = NULL;
 	for (hWnd = ::GetWindow(hWndParent, GW_CHILD); hWnd != NULL; hWnd = ::GetWindow(hWnd, GW_HWNDNEXT))
 	{
